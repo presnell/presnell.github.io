@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts | Academic</title>
+    <title>Posts | Brett Presnell</title>
     <link>https://presnell.github.io/post/</link>
       <atom:link href="https://presnell.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
@@ -11,6 +11,22 @@
       <title>Posts</title>
       <link>https://presnell.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>Org Mode Tips and Tricks</title>
+      <link>https://presnell.github.io/post/orgmode/</link>
+      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/post/orgmode/</guid>
+      <description>
+&lt;h1 id=&#34;headline-1&#34;&gt;
+Stacking Tables
+&lt;/h1&gt;
+&lt;p&gt;
+The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
+Charpentier.
+&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
