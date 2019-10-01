@@ -13,47 +13,43 @@
     </image>
     
     <item>
-      <title>Changes</title>
-      <link>https://presnell.github.io/post/changes/</link>
-      <pubDate>Sun, 25 Aug 2019 20:53:56 -0400</pubDate>
-      <guid>https://presnell.github.io/post/changes/</guid>
-      <description>
-&lt;h1 id=&#34;headline-1&#34;&gt;
-What Is This About?
-&lt;/h1&gt;
-&lt;p&gt;
-The IT folks want to shut down our department&amp;#39;s Apache server, so I&amp;#39;m
-in the process of moving my web presence, such as it is, elsewhere,
-with elsewhere being github, at least for now.  I probably won&amp;#39;t move
-much of the old stuff over, since it&amp;#39;s, well, old, but if there was
-something on my old web page that was useful to you, send me an email
-and I&amp;#39;ll see what I can to to make it available again.
-&lt;/p&gt;
-&lt;h1 id=&#34;headline-2&#34;&gt;
-Course Web Pages
-&lt;/h1&gt;
-&lt;p&gt;
-Tonight I decided to hide the web pages for courses I&amp;#39;m currently
-teaching under the &amp;#34;Teaching&amp;#34; menu up above, so if you&amp;#39;re in my
-probability class, you know what to do.
-&lt;/p&gt;
-</description>
+      <title></title>
+      <link></link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid></guid>
+      <description></description>
     </item>
     
     <item>
-      <title>Org Mode Tips and Tricks</title>
-      <link>https://presnell.github.io/post/orgmode/</link>
-      <pubDate>Sun, 25 Aug 2019 20:53:19 -0400</pubDate>
-      <guid>https://presnell.github.io/post/orgmode/</guid>
-      <description>
-&lt;h1 id=&#34;headline-1&#34;&gt;
-Stacking Tables
-&lt;/h1&gt;
-&lt;p&gt;
-The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
-Charpentier.
-&lt;/p&gt;
-</description>
+      <title>Posts</title>
+      <link>https://presnell.github.io/post/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Publications</title>
+      <link>https://presnell.github.io/publication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/publication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Recent &amp; Upcoming Talks</title>
+      <link>https://presnell.github.io/talk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/talk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>https://presnell.github.io/teaching/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/teaching/</guid>
+      <description></description>
     </item>
     
   </channel>
