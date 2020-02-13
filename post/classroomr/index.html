@@ -28,10 +28,10 @@
   
     
   
-  <meta name="description" content="In case you can&#39;t find something, maybe this will help.">
+  <meta name="description" content="How to avoid reinstalling packages everytime you teach with R.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/changes/">
+  <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/classroomr/">
 
   
 
@@ -96,7 +96,7 @@
   <link rel="icon" type="image/png" href="/img/icon-32.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://presnell.github.io/post/changes/">
+  <link rel="canonical" href="https://presnell.github.io/post/classroomr/">
 
   
   
@@ -109,15 +109,15 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Brett Presnell">
-  <meta property="og:url" content="https://presnell.github.io/post/changes/">
-  <meta property="og:title" content="Changes | Brett Presnell">
-  <meta property="og:description" content="In case you can&#39;t find something, maybe this will help."><meta property="og:image" content="https://presnell.github.io/img/icon-192.png">
+  <meta property="og:url" content="https://presnell.github.io/post/classroomr/">
+  <meta property="og:title" content="Setting R&#39;s Library Path on UF Classroom PCs | Brett Presnell">
+  <meta property="og:description" content="How to avoid reinstalling packages everytime you teach with R."><meta property="og:image" content="https://presnell.github.io/img/icon-192.png">
   <meta property="twitter:image" content="https://presnell.github.io/img/icon-192.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2019-08-25T20:53:56-04:00">
     
-    <meta property="article:modified_time" content="2019-08-29T15:44:25-04:00">
+    <meta property="article:modified_time" content="2020-02-12T21:10:10-05:00">
   
 
   
@@ -129,7 +129,7 @@
 
 
 
-  <title>Changes | Brett Presnell</title>
+  <title>Setting R&#39;s Library Path on UF Classroom PCs | Brett Presnell</title>
 
 </head>
 
@@ -346,10 +346,10 @@
   
   
 <div class="article-container pt-3">
-  <h1 itemprop="name">Changes</h1>
+  <h1 itemprop="name">Setting R&#39;s Library Path on UF Classroom PCs</h1>
 
   
-  <p class="page-subtitle">Keeping track of updates to this site</p>
+  <p class="page-subtitle">And Maybe on Your Office PC Too</p>
   
 
   
@@ -358,7 +358,7 @@
 
 
 <meta content="2019-08-25 20:53:56 -0400 EDT" itemprop="datePublished">
-<meta content="2019-08-29 15:44:25 -0400 EDT" itemprop="dateModified">
+<meta content="2020-02-12 21:10:10 -0500 EST" itemprop="dateModified">
 
 <div class="article-metadata">
 
@@ -385,7 +385,7 @@
           Last updated on
       
     
-    <time>Aug 29, 2019</time>
+    <time>Feb 12, 2020</time>
   </span>
   
 
@@ -394,7 +394,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    4 min read
   </span>
   
 
@@ -440,21 +440,135 @@
 What Is This About?
 </h2>
 <p>
-The IT folks want to shut down our department&#39;s Apache server, so I&#39;m
-in the process of moving my web presence, such as it is, elsewhere,
-with elsewhere being github, at least for now.  I probably won&#39;t move
-much of the old stuff over, since it&#39;s, well, old, but if there was
-something on my old web page that was useful to you, send me an email
-and I&#39;ll see what I can to to make it available again.
+After a very long hiatus from needing to run R in the classrooms, I am
+back at it.  The classroom (Windows 10) PCs at UF are refreshed every
+night and all local files created by users are wiped.  By default, R
+packages installed by users are placed in <code class="verbatim">C:/Program
+Files/R/R-3.5.2/library</code>,<sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup> and like everything else that users
+create, they are wiped every night. Thus, if you accept the default
+behavior, you have to resintall any packages you need every time you
+need them.<sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup> This has been the source of some frustration for me
+and at least one of my faculty colleagues, so I decided to do
+something about it.  This post describes my current (partial) solution,
+which I think should also be useful for folks running R or RStudio on
+a desktop PC in their office (in my department at UF anyway).  It&#39;s
+nothing fancy, and if someone has a better solution I would be happy
+to hear about it.
 </p>
 <h2 id="headline-2">
-Course Web Pages
+My Solution
 </h2>
 <p>
-Tonight I decided to hide the web pages for courses I&#39;m currently
-teaching under the &#34;Teaching&#34; menu up above, so if you&#39;re in my
-probability class, you know what to do.
+When I login to a classroom machine, my home directory from the
+departmental (virtual) file server is mounted as the <code class="verbatim">H:</code> drive in
+Windows.  So, to sidestep the problem of repeatedly installing
+packages, I initially created the folder <code class="verbatim">R/win-library/3.5</code><sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup> in my
+home directory on the file server, and in the classroom, I just ran
+the R command <code class="verbatim">.libPaths(&#34;H:/R/win-library/3.5&#34;)</code> immediately after
+starting R (or RStudio).  With this, any libraries I install are saved
+on the departmental file server and they are found again the next time
+I teach (once I have run that command).
 </p>
+<p>
+Of course this is still pretty annoying and I wanted to arrange things
+so that it would be done automatically by an <code class="verbatim">.Rprofile</code> startup file.
+This works if the file is placed in <code class="verbatim">C:/Users/myusername/Documents</code>,
+which the R command <code class="verbatim">path.expand(&#39;~&#39;)</code> returns as be the default user
+home on our classroom Windows PCs, but of course that file would also
+get wiped every night, so placing the file there doesn&#39;t help.<sup class="footnote-reference"><a id="footnote-reference-4" href="#footnote-4">4</a></sup>
+</p>
+<p>
+Nevertheless, to accomodate differing/changing versions of R and to
+automate the process as much as possible, I decided to create a
+<code class="verbatim">.Rprofile</code> that checks if I am running Windows and if so, sets my R
+library path to <code class="verbatim">.libPaths(&#34;H:/R/win-library/X.Y&#34;)</code>.  The <code class="verbatim">X.Y</code> is
+replaced by whatever &#34;major.minor&#34; version of R is running (currently
+3.5) and the directory is created if it doesn&#39;t already exist.
+Because this is done only if I am running Windows, it has no effect on
+my usual, completely satisfactory R environment in Linux.
+</p>
+<p>
+So here are the contents of my <code class="verbatim">.Rprofile</code> file.  If you already have
+a non-empty <code class="verbatim">.Rprofile</code>, you could add this to it, and of course you
+could also create different versions for different classes and put
+them in the appropriate places if that tickles your fancy.
+</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sysname&#34;</span>])) {
+    my.lib.path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">R&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">win-library&#34;</span>,
+                             <span style="color:#a6e22e">paste</span>(R.version<span style="color:#f92672">$</span>major,
+                                   <span style="color:#a6e22e">sub</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\\..*$&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, R.version<span style="color:#f92672">$</span>minor),
+                                   sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">.&#34;</span>))
+    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(my.lib.path)) <span style="color:#a6e22e">dir.create</span>(my.lib.path, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+    <span style="color:#a6e22e">.libPaths</span>(my.lib.path)
+    <span style="color:#a6e22e">rm</span>(my.lib.path)
+}</code></pre></div>
+</div>
+<p>
+In the
+classroom I still have to run
+</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:/.Rprofile&#34;</span>)</code></pre></div>
+</div>
+<p>
+but I guess I can live with that.
+</p>
+<h2 id="headline-3">
+Footnotes
+</h2>
+<div class="footnotes">
+<hr class="footnotes-separatator">
+<div class="footnote-definitions">
+<div class="footnote-definition">
+<sup id="footnote-1"><a href="#footnote-reference-1">1</a></sup>
+<div class="footnote-body">
+<p>
+Coming from the UNIX/Linux world this already seems a bit
+crazy.  Am I running R as root here?  BTW, you should mentally replace
+&#34;3.5.2&#34; with whatever version of R is currently installed on the PC,
+and Windows/DOS users may be more comfortable replacing the &#34;/&#34; path
+separator by &#34;\&#34;.
+</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-2"><a href="#footnote-reference-2">2</a></sup>
+<div class="footnote-body">
+<p>
+The classroom IT folks suggest using a USB thumbdrive as a
+workaround.  I wonder if the classroom PCs 
+</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-3"><a href="#footnote-reference-3">3</a></sup>
+<div class="footnote-body">
+<p>
+From what I saw on the classroom PCs, it appears that
+<code class="verbatim">win-library</code> is the R default name for the user&#39;s R libraries in
+Windows, so I decided to stick with that. (On Linux it&#39;s something
+like <code class="verbatim">x86_64-pc-linux-gnu-library</code>.)
+</p>
+</div>
+</div>
+<div class="footnote-definition">
+<sup id="footnote-4"><a href="#footnote-reference-4">4</a></sup>
+<div class="footnote-body">
+<p>
+At least in the Department of Statistics, if you run R on a
+Windows PC in your office, then your home directory on the
+departmental file server is again mounted as the <code class="verbatim">H:</code> drive.  So, if
+you place a copy of the <code class="verbatim">.Rprofile</code> file in whatever directory is
+returned by the R command <code class="verbatim">path.expand(&#39;~&#39;)</code>, it should work there as
+well and you can share the same installed libraries in the classroom
+and in your office (assuming the R major.minor versions are the same
+on the two PCs).
+</p>
+</div>
+</div>
+</div>
+</div>
 
     </div>
 

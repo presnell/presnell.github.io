@@ -18,9 +18,9 @@
       <pubDate>Sun, 25 Aug 2019 20:53:56 -0400</pubDate>
       <guid>https://presnell.github.io/post/changes/</guid>
       <description>
-&lt;h1 id=&#34;headline-1&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
 What Is This About?
-&lt;/h1&gt;
+&lt;/h2&gt;
 &lt;p&gt;
 The IT folks want to shut down our department&amp;#39;s Apache server, so I&amp;#39;m
 in the process of moving my web presence, such as it is, elsewhere,
@@ -29,9 +29,9 @@ much of the old stuff over, since it&amp;#39;s, well, old, but if there was
 something on my old web page that was useful to you, send me an email
 and I&amp;#39;ll see what I can to to make it available again.
 &lt;/p&gt;
-&lt;h1 id=&#34;headline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
 Course Web Pages
-&lt;/h1&gt;
+&lt;/h2&gt;
 &lt;p&gt;
 Tonight I decided to hide the web pages for courses I&amp;#39;m currently
 teaching under the &amp;#34;Teaching&amp;#34; menu up above, so if you&amp;#39;re in my
@@ -41,21 +41,163 @@ probability class, you know what to do.
     </item>
     
     <item>
+      <title>Setting R&#39;s Library Path on UF Classroom PCs</title>
+      <link>https://presnell.github.io/post/classroomr/</link>
+      <pubDate>Sun, 25 Aug 2019 20:53:56 -0400</pubDate>
+      <guid>https://presnell.github.io/post/classroomr/</guid>
+      <description>
+&lt;h2 id=&#34;headline-1&#34;&gt;
+What Is This About?
+&lt;/h2&gt;
+&lt;p&gt;
+After a very long hiatus from needing to run R in the classrooms, I am
+back at it.  The classroom (Windows 10) PCs at UF are refreshed every
+night and all local files created by users are wiped.  By default, R
+packages installed by users are placed in &lt;code class=&#34;verbatim&#34;&gt;C:/Program
+Files/R/R-3.5.2/library&lt;/code&gt;,&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-1&#34; href=&#34;#footnote-1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; and like everything else that users
+create, they are wiped every night. Thus, if you accept the default
+behavior, you have to resintall any packages you need every time you
+need them.&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-2&#34; href=&#34;#footnote-2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; This has been the source of some frustration for me
+and at least one of my faculty colleagues, so I decided to do
+something about it.  This post describes my current (partial) solution,
+which I think should also be useful for folks running R or RStudio on
+a desktop PC in their office (in my department at UF anyway).  It&amp;#39;s
+nothing fancy, and if someone has a better solution I would be happy
+to hear about it.
+&lt;/p&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
+My Solution
+&lt;/h2&gt;
+&lt;p&gt;
+When I login to a classroom machine, my home directory from the
+departmental (virtual) file server is mounted as the &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive in
+Windows.  So, to sidestep the problem of repeatedly installing
+packages, I initially created the folder &lt;code class=&#34;verbatim&#34;&gt;R/win-library/3.5&lt;/code&gt;&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-3&#34; href=&#34;#footnote-3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; in my
+home directory on the file server, and in the classroom, I just ran
+the R command &lt;code class=&#34;verbatim&#34;&gt;.libPaths(&amp;#34;H:/R/win-library/3.5&amp;#34;)&lt;/code&gt; immediately after
+starting R (or RStudio).  With this, any libraries I install are saved
+on the departmental file server and they are found again the next time
+I teach (once I have run that command).
+&lt;/p&gt;
+&lt;p&gt;
+Of course this is still pretty annoying and I wanted to arrange things
+so that it would be done automatically by an &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; startup file.
+This works if the file is placed in &lt;code class=&#34;verbatim&#34;&gt;C:/Users/myusername/Documents&lt;/code&gt;,
+which the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt; returns as be the default user
+home on our classroom Windows PCs, but of course that file would also
+get wiped every night, so placing the file there doesn&amp;#39;t help.&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-4&#34; href=&#34;#footnote-4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;
+&lt;/p&gt;
+&lt;p&gt;
+Nevertheless, to accomodate differing/changing versions of R and to
+automate the process as much as possible, I decided to create a
+&lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; that checks if I am running Windows and if so, sets my R
+library path to &lt;code class=&#34;verbatim&#34;&gt;.libPaths(&amp;#34;H:/R/win-library/X.Y&amp;#34;)&lt;/code&gt;.  The &lt;code class=&#34;verbatim&#34;&gt;X.Y&lt;/code&gt; is
+replaced by whatever &amp;#34;major.minor&amp;#34; version of R is running (currently
+3.5) and the directory is created if it doesn&amp;#39;t already exist.
+Because this is done only if I am running Windows, it has no effect on
+my usual, completely satisfactory R environment in Linux.
+&lt;/p&gt;
+&lt;p&gt;
+So here are the contents of my &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file.  If you already have
+a non-empty &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt;, you could add this to it, and of course you
+could also create different versions for different classes and put
+them in the appropriate places if that tickles your fancy.
+&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;sysname&amp;#34;&lt;/span&gt;])) {
+    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;win-library&amp;#34;&lt;/span&gt;,
+                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
+                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
+                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.&amp;#34;&lt;/span&gt;))
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+In the
+classroom I still have to run
+&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+but I guess I can live with that.
+&lt;/p&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
+Footnotes
+&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;hr class=&#34;footnotes-separatator&#34;&gt;
+&lt;div class=&#34;footnote-definitions&#34;&gt;
+&lt;div class=&#34;footnote-definition&#34;&gt;
+&lt;sup id=&#34;footnote-1&#34;&gt;&lt;a href=&#34;#footnote-reference-1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
+&lt;div class=&#34;footnote-body&#34;&gt;
+&lt;p&gt;
+Coming from the UNIX/Linux world this already seems a bit
+crazy.  Am I running R as root here?  BTW, you should mentally replace
+&amp;#34;3.5.2&amp;#34; with whatever version of R is currently installed on the PC,
+and Windows/DOS users may be more comfortable replacing the &amp;#34;/&amp;#34; path
+separator by &amp;#34;\&amp;#34;.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnote-definition&#34;&gt;
+&lt;sup id=&#34;footnote-2&#34;&gt;&lt;a href=&#34;#footnote-reference-2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
+&lt;div class=&#34;footnote-body&#34;&gt;
+&lt;p&gt;
+The classroom IT folks suggest using a USB thumbdrive as a
+workaround.  I wonder if the classroom PCs 
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnote-definition&#34;&gt;
+&lt;sup id=&#34;footnote-3&#34;&gt;&lt;a href=&#34;#footnote-reference-3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;
+&lt;div class=&#34;footnote-body&#34;&gt;
+&lt;p&gt;
+From what I saw on the classroom PCs, it appears that
+&lt;code class=&#34;verbatim&#34;&gt;win-library&lt;/code&gt; is the R default name for the user&amp;#39;s R libraries in
+Windows, so I decided to stick with that. (On Linux it&amp;#39;s something
+like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&gt;.)
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnote-definition&#34;&gt;
+&lt;sup id=&#34;footnote-4&#34;&gt;&lt;a href=&#34;#footnote-reference-4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;
+&lt;div class=&#34;footnote-body&#34;&gt;
+&lt;p&gt;
+At least in the Department of Statistics, if you run R on a
+Windows PC in your office, then your home directory on the
+departmental file server is again mounted as the &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.  So, if
+you place a copy of the &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file in whatever directory is
+returned by the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt;, it should work there as
+well and you can share the same installed libraries in the classroom
+and in your office (assuming the R major.minor versions are the same
+on the two PCs).
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Org Mode Tips and Tricks</title>
       <link>https://presnell.github.io/post/orgmode/</link>
       <pubDate>Sun, 25 Aug 2019 20:53:19 -0400</pubDate>
       <guid>https://presnell.github.io/post/orgmode/</guid>
       <description>
-&lt;h1 id=&#34;headline-1&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
 Stacking Tables
-&lt;/h1&gt;
+&lt;/h2&gt;
 &lt;p&gt;
 The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
 Charpentier.
 &lt;/p&gt;
-&lt;h1 id=&#34;headline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
 Org Mode Interface to Canvas
-&lt;/h1&gt;
+&lt;/h2&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.
 &lt;/p&gt;
