@@ -90,6 +90,23 @@ Now, whenever you start R in the classroom, run the command
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
+&lt;p&gt;
+This first checks that you are running R in Windows. If so, it then
+checks for the existence of the directory &lt;code class=&#34;verbatim&#34;&gt;H:/R/win-library/X.Y&lt;/code&gt;,
+where &lt;code class=&#34;verbatim&#34;&gt;X&lt;/code&gt; is the major version number and &lt;code class=&#34;verbatim&#34;&gt;Y&lt;/code&gt; is the minor version of
+the current R process, and it creates this directory if it doesn&amp;#39;t
+already exist.  It then adds this directory to the front of R&amp;#39;s
+library path so that (1) R will look for packages there before trying
+the system packages, and (2) R will install any new packages into this
+directory rather than the system directory.
+&lt;/p&gt;
+&lt;p&gt;
+If anything about that is not ok with you, then you will need to
+modify &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; to suit your specific needs.  If you already have a
+directory of installed R packages, you can either move/rename it to
+match this scheme, or you can modify the script to match, assuming
+that your directory is on your &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.
+&lt;/p&gt;
 &lt;h3 id=&#34;headline-3&#34;&gt;
 If You Run R in Windows in Your Office 
 &lt;/h3&gt;
@@ -138,11 +155,11 @@ Because this is done only if I am running Windows, it has no effect on
 my usual, completely satisfactory R environment in Linux.
 &lt;/p&gt;
 &lt;p&gt;
-The contents of my current &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file are given above.  If you
-already have a non-empty &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt;, you could add this to it, and of
-course you could also create different versions for different classes
-and put them in the appropriate places if that tickles your fancy.
-In the classroom I still have to run
+The contents of my current &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file are given in the previous
+section.  If you already have a non-empty &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt;, you could add
+this to it, and of course you could also create different versions for
+different classes and put them in the appropriate places if that
+tickles your fancy.  In the classroom I still have to run
 &lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
