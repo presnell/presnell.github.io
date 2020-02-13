@@ -69,9 +69,10 @@ it.
 My Solution
 &lt;/h2&gt;
 &lt;p&gt;
-Create a &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file in your home directory on the departmental
-file server (thats &lt;code class=&#34;verbatim&#34;&gt;~/.Rprofile&lt;/code&gt; in linux and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows)
-with the following contents:
+Download &lt;a href=&#34;files/.Rprofile&#34;&gt;this file&lt;/a&gt; and save it under the name &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; in your home
+directory on the departmental file server (so &lt;code class=&#34;verbatim&#34;&gt;~/.Rprofile&lt;/code&gt; in linux
+and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows), or use a text editor to create the
+file yourself with with the following contents:
 &lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;sysname&amp;#34;&lt;/span&gt;])) {
@@ -91,7 +92,7 @@ Now, whenever you start R in the classroom, run the command
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
-This first checks that you are running R in Windows. If so, it then
+This first checks that you are running R in Windows. If so, then it
 checks for the existence of the directory &lt;code class=&#34;verbatim&#34;&gt;H:/R/win-library/X.Y&lt;/code&gt;,
 where &lt;code class=&#34;verbatim&#34;&gt;X&lt;/code&gt; is the major version number and &lt;code class=&#34;verbatim&#34;&gt;Y&lt;/code&gt; is the minor version of
 the current R process, and it creates this directory if it doesn&amp;#39;t

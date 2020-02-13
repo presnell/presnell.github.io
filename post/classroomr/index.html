@@ -117,7 +117,7 @@
     
       <meta property="article:published_time" content="2019-08-25T20:53:56-04:00">
     
-    <meta property="article:modified_time" content="2020-02-12T22:06:05-05:00">
+    <meta property="article:modified_time" content="2020-02-13T12:25:56-05:00">
   
 
   
@@ -358,7 +358,7 @@
 
 
 <meta content="2019-08-25 20:53:56 -0400 EDT" itemprop="datePublished">
-<meta content="2020-02-12 22:06:05 -0500 EST" itemprop="dateModified">
+<meta content="2020-02-13 12:25:56 -0500 EST" itemprop="dateModified">
 
 <div class="article-metadata">
 
@@ -385,7 +385,7 @@
           Last updated on
       
     
-    <time>Feb 12, 2020</time>
+    <time>Feb 13, 2020</time>
   </span>
   
 
@@ -459,9 +459,10 @@ it.
 My Solution
 </h2>
 <p>
-Create a <code class="verbatim">.Rprofile</code> file in your home directory on the departmental
-file server (thats <code class="verbatim">~/.Rprofile</code> in linux and <code class="verbatim">H:/.Rprofile</code> in Windows)
-with the following contents:
+Download <a href="files/.Rprofile">this file</a> and save it under the name <code class="verbatim">.Rprofile</code> in your home
+directory on the departmental file server (so <code class="verbatim">~/.Rprofile</code> in linux
+and <code class="verbatim">H:/.Rprofile</code> in Windows), or use a text editor to create the
+file yourself with with the following contents:
 </p>
 <div class="src src-r">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sysname&#34;</span>])) {
@@ -481,7 +482,7 @@ Now, whenever you start R in the classroom, run the command
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:/.Rprofile&#34;</span>)</code></pre></div>
 </div>
 <p>
-This first checks that you are running R in Windows. If so, it then
+This first checks that you are running R in Windows. If so, then it
 checks for the existence of the directory <code class="verbatim">H:/R/win-library/X.Y</code>,
 where <code class="verbatim">X</code> is the major version number and <code class="verbatim">Y</code> is the minor version of
 the current R process, and it creates this directory if it doesn&#39;t
