@@ -58,16 +58,56 @@ Files/R/R-3.5.2/library&lt;/code&gt;,&lt;sup class=&#34;footnote-reference&#34;&
 create, they are wiped every night. Thus, if you accept the default
 behavior, you have to resintall any packages you need every time you
 need them.&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-2&#34; href=&#34;#footnote-2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; This has been the source of some frustration for me
-and at least one of my faculty colleagues, so I decided to do
-something about it.  This post describes my current (partial) solution,
-which I think should also be useful for folks running R or RStudio on
-a desktop PC in their office (in my department at UF anyway).  It&amp;#39;s
-nothing fancy, and if someone has a better solution I would be happy
-to hear about it.
+and at least one of my colleagues, so I decided to do something about
+it.  This post describes my current (partial) solution, which I think
+should also be useful for folks running R or RStudio on a desktop PC
+in their office (in my department at UF anyway).  It&amp;#39;s nothing fancy,
+and if someone has a better solution I would be happy to hear about
+it.
 &lt;/p&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
 My Solution
 &lt;/h2&gt;
+&lt;p&gt;
+Create a &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file in your home directory on the departmental
+file server (thats &lt;code class=&#34;verbatim&#34;&gt;~/.Rprofile&lt;/code&gt; in linux and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows)
+with the following contents:
+&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;sysname&amp;#34;&lt;/span&gt;])) {
+    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;win-library&amp;#34;&lt;/span&gt;,
+                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
+                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
+                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.&amp;#34;&lt;/span&gt;))
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Now, whenever you start R in the classroom, run the command
+&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;headline-3&#34;&gt;
+If You Run R in Windows in Your Office 
+&lt;/h3&gt;
+&lt;p&gt;
+If you place a copy of this &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file in whatever directory is
+returned by the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt; (probably
+&lt;code class=&#34;verbatim&#34;&gt;C:/Users/&amp;lt;yourusername&amp;gt;/Documents&lt;/code&gt;), then R will run it automatically
+upon startup (on your office PC) and any libraries you install in your
+office will be saved to your &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.  Also, as long as your office
+PC and the classroom PCs are running the same version of R, they will
+share the same set of user-installed R packages.
+&lt;/p&gt;
+&lt;h2 id=&#34;headline-4&#34;&gt;
+Further Background and Explanation
+&lt;/h2&gt;
+&lt;p&gt;
+You can skip this if you like …
+&lt;/p&gt;
 &lt;p&gt;
 When I login to a classroom machine, my home directory from the
 departmental (virtual) file server is mounted as the &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive in
@@ -85,7 +125,7 @@ so that it would be done automatically by an &lt;code class=&#34;verbatim&#34;&g
 This works if the file is placed in &lt;code class=&#34;verbatim&#34;&gt;C:/Users/myusername/Documents&lt;/code&gt;,
 which the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt; returns as be the default user
 home on our classroom Windows PCs, but of course that file would also
-get wiped every night, so placing the file there doesn&amp;#39;t help.&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-4&#34; href=&#34;#footnote-4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;
+get wiped every night, so placing the file there doesn&amp;#39;t help.
 &lt;/p&gt;
 &lt;p&gt;
 Nevertheless, to accomodate differing/changing versions of R and to
@@ -98,85 +138,41 @@ Because this is done only if I am running Windows, it has no effect on
 my usual, completely satisfactory R environment in Linux.
 &lt;/p&gt;
 &lt;p&gt;
-So here are the contents of my &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file.  If you already have
-a non-empty &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt;, you could add this to it, and of course you
-could also create different versions for different classes and put
-them in the appropriate places if that tickles your fancy.
-&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;sysname&amp;#34;&lt;/span&gt;])) {
-    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;win-library&amp;#34;&lt;/span&gt;,
-                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
-                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
-                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.&amp;#34;&lt;/span&gt;))
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;
-In the
-classroom I still have to run
+The contents of my current &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file are given above.  If you
+already have a non-empty &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt;, you could add this to it, and of
+course you could also create different versions for different classes
+and put them in the appropriate places if that tickles your fancy.
+In the classroom I still have to run
 &lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
-but I guess I can live with that.
+after starting R, but I guess I&amp;#39;m going to have to live with that.
 &lt;/p&gt;
-&lt;h2 id=&#34;headline-3&#34;&gt;
+&lt;h2 id=&#34;headline-5&#34;&gt;
 Footnotes
 &lt;/h2&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-&lt;hr class=&#34;footnotes-separatator&#34;&gt;
-&lt;div class=&#34;footnote-definitions&#34;&gt;
-&lt;div class=&#34;footnote-definition&#34;&gt;
-&lt;sup id=&#34;footnote-1&#34;&gt;&lt;a href=&#34;#footnote-reference-1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
-&lt;div class=&#34;footnote-body&#34;&gt;
 &lt;p&gt;
-Coming from the UNIX/Linux world this already seems a bit
-crazy.  Am I running R as root here?  BTW, you should mentally replace
-&amp;#34;3.5.2&amp;#34; with whatever version of R is currently installed on the PC,
-and Windows/DOS users may be more comfortable replacing the &amp;#34;/&amp;#34; path
-separator by &amp;#34;\&amp;#34;.
+&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-1&#34; href=&#34;#footnote-1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;Coming from the UNIX/Linux world this already seems a bit
+crazy.  Why am I running R as root here?  BTW, you should mentally
+replace &amp;#34;3.5.2&amp;#34; with whatever version of R is currently installed on
+the PC, and Windows/DOS users may be more comfortable replacing the
+&amp;#34;/&amp;#34; path separator by &amp;#34;\&amp;#34;.
 &lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;footnote-definition&#34;&gt;
-&lt;sup id=&#34;footnote-2&#34;&gt;&lt;a href=&#34;#footnote-reference-2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
-&lt;div class=&#34;footnote-body&#34;&gt;
 &lt;p&gt;
-The classroom IT folks suggest using a USB thumbdrive as a
-workaround.  I wonder if the classroom PCs 
+&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-2&#34; href=&#34;#footnote-2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;The classroom IT folks suggest using a USB thumbdrive as a
+workaround.  &lt;code class=&#34;verbatim&#34;&gt;insert sad face here&lt;/code&gt;
 &lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;footnote-definition&#34;&gt;
-&lt;sup id=&#34;footnote-3&#34;&gt;&lt;a href=&#34;#footnote-reference-3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;
-&lt;div class=&#34;footnote-body&#34;&gt;
 &lt;p&gt;
-From what I saw on the classroom PCs, it appears that
+&lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-3&#34; href=&#34;#footnote-3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;From what I saw on the classroom PCs, it appears that
 &lt;code class=&#34;verbatim&#34;&gt;win-library&lt;/code&gt; is the R default name for the user&amp;#39;s R libraries in
 Windows, so I decided to stick with that. (On Linux it&amp;#39;s something
 like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&gt;.)
 &lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;footnote-definition&#34;&gt;
-&lt;sup id=&#34;footnote-4&#34;&gt;&lt;a href=&#34;#footnote-reference-4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;
-&lt;div class=&#34;footnote-body&#34;&gt;
-&lt;p&gt;
-At least in the Department of Statistics, if you run R on a
-Windows PC in your office, then your home directory on the
-departmental file server is again mounted as the &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.  So, if
-you place a copy of the &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file in whatever directory is
-returned by the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt;, it should work there as
-well and you can share the same installed libraries in the classroom
-and in your office (assuming the R major.minor versions are the same
-on the two PCs).
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;hr class=&#34;footnotes-separatator&#34;&gt;
+&lt;div class=&#34;footnote-definitions&#34;&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

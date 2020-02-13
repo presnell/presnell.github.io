@@ -448,16 +448,56 @@ Files/R/R-3.5.2/library</code>,<sup class="footnote-reference"><a id="footnote-r
 create, they are wiped every night. Thus, if you accept the default
 behavior, you have to resintall any packages you need every time you
 need them.<sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup> This has been the source of some frustration for me
-and at least one of my faculty colleagues, so I decided to do
-something about it.  This post describes my current (partial) solution,
-which I think should also be useful for folks running R or RStudio on
-a desktop PC in their office (in my department at UF anyway).  It&#39;s
-nothing fancy, and if someone has a better solution I would be happy
-to hear about it.
+and at least one of my colleagues, so I decided to do something about
+it.  This post describes my current (partial) solution, which I think
+should also be useful for folks running R or RStudio on a desktop PC
+in their office (in my department at UF anyway).  It&#39;s nothing fancy,
+and if someone has a better solution I would be happy to hear about
+it.
 </p>
 <h2 id="headline-2">
 My Solution
 </h2>
+<p>
+Create a <code class="verbatim">.Rprofile</code> file in your home directory on the departmental
+file server (thats <code class="verbatim">~/.Rprofile</code> in linux and <code class="verbatim">H:/.Rprofile</code> in Windows)
+with the following contents:
+</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sysname&#34;</span>])) {
+    my.lib.path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">R&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">win-library&#34;</span>,
+                             <span style="color:#a6e22e">paste</span>(R.version<span style="color:#f92672">$</span>major,
+                                   <span style="color:#a6e22e">sub</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\\..*$&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, R.version<span style="color:#f92672">$</span>minor),
+                                   sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">.&#34;</span>))
+    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(my.lib.path)) <span style="color:#a6e22e">dir.create</span>(my.lib.path, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+    <span style="color:#a6e22e">.libPaths</span>(my.lib.path)
+    <span style="color:#a6e22e">rm</span>(my.lib.path)
+}</code></pre></div>
+</div>
+<p>
+Now, whenever you start R in the classroom, run the command
+</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:/.Rprofile&#34;</span>)</code></pre></div>
+</div>
+<h3 id="headline-3">
+If You Run R in Windows in Your Office 
+</h3>
+<p>
+If you place a copy of this <code class="verbatim">.Rprofile</code> file in whatever directory is
+returned by the R command <code class="verbatim">path.expand(&#39;~&#39;)</code> (probably
+<code class="verbatim">C:/Users/&lt;yourusername&gt;/Documents</code>), then R will run it automatically
+upon startup (on your office PC) and any libraries you install in your
+office will be saved to your <code class="verbatim">H:</code> drive.  Also, as long as your office
+PC and the classroom PCs are running the same version of R, they will
+share the same set of user-installed R packages.
+</p>
+<h2 id="headline-4">
+Further Background and Explanation
+</h2>
+<p>
+You can skip this if you like …
+</p>
 <p>
 When I login to a classroom machine, my home directory from the
 departmental (virtual) file server is mounted as the <code class="verbatim">H:</code> drive in
@@ -475,7 +515,7 @@ so that it would be done automatically by an <code class="verbatim">.Rprofile</c
 This works if the file is placed in <code class="verbatim">C:/Users/myusername/Documents</code>,
 which the R command <code class="verbatim">path.expand(&#39;~&#39;)</code> returns as be the default user
 home on our classroom Windows PCs, but of course that file would also
-get wiped every night, so placing the file there doesn&#39;t help.<sup class="footnote-reference"><a id="footnote-reference-4" href="#footnote-4">4</a></sup>
+get wiped every night, so placing the file there doesn&#39;t help.
 </p>
 <p>
 Nevertheless, to accomodate differing/changing versions of R and to
@@ -488,85 +528,41 @@ Because this is done only if I am running Windows, it has no effect on
 my usual, completely satisfactory R environment in Linux.
 </p>
 <p>
-So here are the contents of my <code class="verbatim">.Rprofile</code> file.  If you already have
-a non-empty <code class="verbatim">.Rprofile</code>, you could add this to it, and of course you
-could also create different versions for different classes and put
-them in the appropriate places if that tickles your fancy.
-</p>
-<div class="src src-r">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sysname&#34;</span>])) {
-    my.lib.path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">R&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">win-library&#34;</span>,
-                             <span style="color:#a6e22e">paste</span>(R.version<span style="color:#f92672">$</span>major,
-                                   <span style="color:#a6e22e">sub</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\\..*$&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, R.version<span style="color:#f92672">$</span>minor),
-                                   sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">.&#34;</span>))
-    <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(my.lib.path)) <span style="color:#a6e22e">dir.create</span>(my.lib.path, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
-    <span style="color:#a6e22e">.libPaths</span>(my.lib.path)
-    <span style="color:#a6e22e">rm</span>(my.lib.path)
-}</code></pre></div>
-</div>
-<p>
-In the
-classroom I still have to run
+The contents of my current <code class="verbatim">.Rprofile</code> file are given above.  If you
+already have a non-empty <code class="verbatim">.Rprofile</code>, you could add this to it, and of
+course you could also create different versions for different classes
+and put them in the appropriate places if that tickles your fancy.
+In the classroom I still have to run
 </p>
 <div class="src src-r">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:/.Rprofile&#34;</span>)</code></pre></div>
 </div>
 <p>
-but I guess I can live with that.
+after starting R, but I guess I&#39;m going to have to live with that.
 </p>
-<h2 id="headline-3">
+<h2 id="headline-5">
 Footnotes
 </h2>
-<div class="footnotes">
-<hr class="footnotes-separatator">
-<div class="footnote-definitions">
-<div class="footnote-definition">
-<sup id="footnote-1"><a href="#footnote-reference-1">1</a></sup>
-<div class="footnote-body">
 <p>
-Coming from the UNIX/Linux world this already seems a bit
-crazy.  Am I running R as root here?  BTW, you should mentally replace
-&#34;3.5.2&#34; with whatever version of R is currently installed on the PC,
-and Windows/DOS users may be more comfortable replacing the &#34;/&#34; path
-separator by &#34;\&#34;.
+<sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup>Coming from the UNIX/Linux world this already seems a bit
+crazy.  Why am I running R as root here?  BTW, you should mentally
+replace &#34;3.5.2&#34; with whatever version of R is currently installed on
+the PC, and Windows/DOS users may be more comfortable replacing the
+&#34;/&#34; path separator by &#34;\&#34;.
 </p>
-</div>
-</div>
-<div class="footnote-definition">
-<sup id="footnote-2"><a href="#footnote-reference-2">2</a></sup>
-<div class="footnote-body">
 <p>
-The classroom IT folks suggest using a USB thumbdrive as a
-workaround.  I wonder if the classroom PCs 
+<sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup>The classroom IT folks suggest using a USB thumbdrive as a
+workaround.  <code class="verbatim">insert sad face here</code>
 </p>
-</div>
-</div>
-<div class="footnote-definition">
-<sup id="footnote-3"><a href="#footnote-reference-3">3</a></sup>
-<div class="footnote-body">
 <p>
-From what I saw on the classroom PCs, it appears that
+<sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup>From what I saw on the classroom PCs, it appears that
 <code class="verbatim">win-library</code> is the R default name for the user&#39;s R libraries in
 Windows, so I decided to stick with that. (On Linux it&#39;s something
 like <code class="verbatim">x86_64-pc-linux-gnu-library</code>.)
 </p>
-</div>
-</div>
-<div class="footnote-definition">
-<sup id="footnote-4"><a href="#footnote-reference-4">4</a></sup>
-<div class="footnote-body">
-<p>
-At least in the Department of Statistics, if you run R on a
-Windows PC in your office, then your home directory on the
-departmental file server is again mounted as the <code class="verbatim">H:</code> drive.  So, if
-you place a copy of the <code class="verbatim">.Rprofile</code> file in whatever directory is
-returned by the R command <code class="verbatim">path.expand(&#39;~&#39;)</code>, it should work there as
-well and you can share the same installed libraries in the classroom
-and in your office (assuming the R major.minor versions are the same
-on the two PCs).
-</p>
-</div>
-</div>
+<div class="footnotes">
+<hr class="footnotes-separatator">
+<div class="footnote-definitions">
 </div>
 </div>
 
