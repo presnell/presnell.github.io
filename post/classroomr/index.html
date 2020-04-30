@@ -82,7 +82,7 @@
   
   
   
-  <link rel="stylesheet" href="/css/academic.min.278b1f54b80222f4eeaf53cb606416ce.css">
+  <link rel="stylesheet" href="/css/academic.min.7c75abe867d1ac4b26fbe501f37ef260.css">
 
   
 
@@ -117,7 +117,7 @@
     
       <meta property="article:published_time" content="2019-08-25T20:53:56-04:00">
     
-    <meta property="article:modified_time" content="2020-02-13T12:25:56-05:00">
+    <meta property="article:modified_time" content="2020-02-13T12:48:45-05:00">
   
 
   
@@ -358,7 +358,7 @@
 
 
 <meta content="2019-08-25 20:53:56 -0400 EDT" itemprop="datePublished">
-<meta content="2020-02-13 12:25:56 -0500 EST" itemprop="dateModified">
+<meta content="2020-02-13 12:48:45 -0500 EST" itemprop="dateModified">
 
 <div class="article-metadata">
 
@@ -465,11 +465,11 @@ and <code class="verbatim">H:/.Rprofile</code> in Windows), or use a text editor
 file yourself with with the following contents:
 </p>
 <div class="src src-r">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">sysname&#34;</span>])) {
-    my.lib.path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">R&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">win-library&#34;</span>,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;sysname&#34;</span>])) {
+    my.lib.path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;H:&#34;</span>, <span style="color:#e6db74">&#34;R&#34;</span>, <span style="color:#e6db74">&#34;win-library&#34;</span>,
                              <span style="color:#a6e22e">paste</span>(R.version<span style="color:#f92672">$</span>major,
-                                   <span style="color:#a6e22e">sub</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\\..*$&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>, R.version<span style="color:#f92672">$</span>minor),
-                                   sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">.&#34;</span>))
+                                   <span style="color:#a6e22e">sub</span>(<span style="color:#e6db74">&#34;\\..*$&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, R.version<span style="color:#f92672">$</span>minor),
+                                   sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;.&#34;</span>))
     <span style="color:#a6e22e">if </span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">dir.exists</span>(my.lib.path)) <span style="color:#a6e22e">dir.create</span>(my.lib.path, recursive <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
     <span style="color:#a6e22e">.libPaths</span>(my.lib.path)
     <span style="color:#a6e22e">rm</span>(my.lib.path)
@@ -479,7 +479,7 @@ file yourself with with the following contents:
 Now, whenever you start R in the classroom, run the command
 </p>
 <div class="src src-r">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:/.Rprofile&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;H:/.Rprofile&#34;</span>)</code></pre></div>
 </div>
 <p>
 This first checks that you are running R in Windows. If so, then it
@@ -553,7 +553,7 @@ different classes and put them in the appropriate places if that
 tickles your fancy.  In the classroom I still have to run
 </p>
 <div class="src src-r">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">H:/.Rprofile&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;H:/.Rprofile&#34;</span>)</code></pre></div>
 </div>
 <p>
 after starting R, but I guess I&#39;m going to have to live with that.

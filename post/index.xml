@@ -75,11 +75,11 @@ and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows), 
 file yourself with with the following contents:
 &lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;sysname&amp;#34;&lt;/span&gt;])) {
-    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;win-library&amp;#34;&lt;/span&gt;,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sysname&amp;#34;&lt;/span&gt;])) {
+    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;win-library&amp;#34;&lt;/span&gt;,
                              &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
-                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
-                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.&amp;#34;&lt;/span&gt;))
+                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
+                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;))
     &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
     &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
     &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
@@ -89,7 +89,7 @@ file yourself with with the following contents:
 Now, whenever you start R in the classroom, run the command
 &lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 This first checks that you are running R in Windows. If so, then it
@@ -163,7 +163,7 @@ different classes and put them in the appropriate places if that
 tickles your fancy.  In the classroom I still have to run
 &lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 after starting R, but I guess I&amp;#39;m going to have to live with that.
