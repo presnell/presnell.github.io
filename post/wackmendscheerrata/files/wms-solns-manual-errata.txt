@@ -1,0 +1,93 @@
+ERRATA IN THE INSTRUCTORS SOLUTION MANUAL FOR
+MATHEMATICAL STATISTICS WITH APPLICATIONS (7TH EDITION)
+BY WACKERLY, MENDENHALL, AND SCHEAFFER
+
+This is just a list of a few errata that I happen to have noticed or
+that students have pointed out.  It is not intended to be a
+comprehensive list.
+
+2.5 (b): Completely wrong.  Should be something like
+
+     B \cup (A \cap \bar B) = (B \cup A) \cap (B \cup \bar B)
+                            = (B \cup A) \cap S
+                            = B \cup A
+                            = A
+
+2.42: Should be P^10_3 = 10!/7! = 10*9*8 = 720.
+
+2.44 (b): Change 3 to 3! and 45 to 90.
+
+     Also, the solution to 2.44 (a) is correct but expressed in a
+     weird way.  It would be better as
+
+         (8 choose 3) * (5 choose 5)
+
+
+2.45: Change the 7 to a 5. Answer should be (17 choose 2 5 10) = 408,408.
+
+2.59 (b): There are actually 10 different kinds of straights (starting
+          with any of A, 2, 3, ..., 10).
+
+
+2.65: Should be  5!(2/6)(1/6)^4 = 5/162
+
+
+2.114: The answers are listed as parts a,b,b,d (two b's and no c), and
+       there are a couple of misprints in the the answer to b.  It
+       should read
+
+      a. P(LL) = (.95)(.10) = 0.095     b. P(LT) = (.95)(.9) = 0.855
+      c. P(TL) = (.05)(.10) = 0.005     d. 1 ­ (.05)(.90) = 0.955
+
+
+3.48(a): For P(Y>=1), the solution should be
+
+         P(Y >= 1) = 1 - P(Y = 0)
+                   = 1-(5 choose 0)(.9)^0(.1)^5
+                   = 1 - (.1)^5
+                   = .99999
+
+
+3.113: There is a 3 that should be changed to 1:
+
+       (8 choose 1)(12 choose 5)     (8 choose 0)(12 choose 6)
+       -------------------------  +  ------------------------- = .187
+            (20 choose 6)                  (20 choose 6)
+
+4.57: The density of D is wrong here.  It is not equal to 1/4 on the
+      interval (.01, .05), but to 1/(.05 - .01) = 25.  Also, the choice of d
+      as the dummy variable of integration is unfortunate here, since it
+      leads to
+
+      (pi/6) integral_.01^.05  d^3 * 25  dd
+
+      and the dd is confusing.  Note that this is meant to be the same as
+
+      (pi/6) integral_.01^.05  y^3 * 25  dy
+
+      Anyway, the numerical answer for the mean volume (.0000065*pi)
+      is correct, but the answer for the variance of the volume is not
+      (it should be .00000000003525*pi^2, i.e., (3.525397 x 10^(-11))
+      * pi^2).
+
+
+4.74 (d): This part has been left unfinished.  Having found that the
+     lower quartile of test scores is 73.98, we are supposed to find
+     what proportion of test takers score 73.98 + 5 = 78.98 or more.
+     Using the normal table, the final answer is .4364 (because of
+     rounding, this is slightly different from the answer you would
+     get if if you did the whole exercise using a computer, .4369).
+
+4.92: In the calculation of E(Y^3) and E(Y^4), the 100's in the
+      integrals should be 10's, and the results should be
+
+      E(Y^3) = Gamma(4)*10^4 = 3! * 10^4 = 6000
+
+      and
+
+      E(Y^4) = Gamma(5)*10^5 = 4! * 10^5 = 240,000.
+
+5.9 (b): The integral is set up incorrectly, but the numerical answer
+         31/64 is correct.
+
+6.14:  Change P(Y_1 > u/Y_2) to 1 - P(Y_1 > u/Y_2).
