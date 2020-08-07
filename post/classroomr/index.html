@@ -436,9 +436,11 @@
 
     <div class="article-style" itemprop="articleBody">
       
+<div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 What Is This About?
 </h2>
+<div id="outline-text-headline-1" class="outline-text-2">
 <p>
 After a very long hiatus from needing to run R in the classrooms, I am
 back at it.  The classroom (Windows 10) PCs at UF are refreshed every
@@ -453,17 +455,19 @@ it.  This post describes my current (partial) solution, which I think
 should also be useful for folks running R or RStudio on a desktop PC
 in their office (in my department at UF anyway).  It&#39;s nothing fancy,
 and if someone has a better solution I would be happy to hear about
-it.
-</p>
+it.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
 <h2 id="headline-2">
 My Solution
 </h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
 Download <a href="files/.Rprofile">this file</a> and save it under the name <code class="verbatim">.Rprofile</code> in your home
 directory on the departmental file server (so <code class="verbatim">~/.Rprofile</code> in linux
 and <code class="verbatim">H:/.Rprofile</code> in Windows), or use a text editor to create the
-file yourself with with the following contents:
-</p>
+file yourself with with the following contents:</p>
 <div class="src src-r">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">if </span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;Windows&#34;</span>, <span style="color:#a6e22e">Sys.info</span>()[<span style="color:#e6db74">&#34;sysname&#34;</span>])) {
     my.lib.path <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">file.path</span>(<span style="color:#e6db74">&#34;H:&#34;</span>, <span style="color:#e6db74">&#34;R&#34;</span>, <span style="color:#e6db74">&#34;win-library&#34;</span>,
@@ -476,8 +480,7 @@ file yourself with with the following contents:
 }</code></pre></div>
 </div>
 <p>
-Now, whenever you start R in the classroom, run the command
-</p>
+Now, whenever you start R in the classroom, run the command</p>
 <div class="src src-r">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;H:/.Rprofile&#34;</span>)</code></pre></div>
 </div>
@@ -489,18 +492,18 @@ the current R process, and it creates this directory if it doesn&#39;t
 already exist.  It then adds this directory to the front of R&#39;s
 library path so that (1) R will look for packages there before trying
 the system packages, and (2) R will install any new packages into this
-directory rather than the system directory.
-</p>
+directory rather than the system directory.</p>
 <p>
 If anything about that is not ok with you, then you will need to
 modify <code class="verbatim">.Rprofile</code> to suit your specific needs.  If you already have a
 directory of installed R packages, you can either move/rename it to
 match this scheme, or you can modify the script to match, assuming
-that your directory is on your <code class="verbatim">H:</code> drive.
-</p>
+that your directory is on your <code class="verbatim">H:</code> drive.</p>
+<div id="outline-container-headline-3" class="outline-3">
 <h3 id="headline-3">
 If You Run R in Windows in Your Office 
 </h3>
+<div id="outline-text-headline-3" class="outline-text-3">
 <p>
 If you place a copy of this <code class="verbatim">.Rprofile</code> file in whatever directory is
 returned by the R command <code class="verbatim">path.expand(&#39;~&#39;)</code> (probably
@@ -508,14 +511,18 @@ returned by the R command <code class="verbatim">path.expand(&#39;~&#39;)</code>
 upon startup (on your office PC) and any libraries you install in your
 office will be saved to your <code class="verbatim">H:</code> drive.  Also, as long as your office
 PC and the classroom PCs are running the same version of R, they will
-share the same set of user-installed R packages.
-</p>
+share the same set of user-installed R packages.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
 <h2 id="headline-4">
 Further Background and Explanation
 </h2>
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
-You can skip this if you like …
-</p>
+You can skip this if you like …</p>
 <p>
 When I login to a classroom machine, my home directory from the
 departmental (virtual) file server is mounted as the <code class="verbatim">H:</code> drive in
@@ -525,16 +532,14 @@ home directory on the file server, and in the classroom, I just ran
 the R command <code class="verbatim">.libPaths(&#34;H:/R/win-library/3.5&#34;)</code> immediately after
 starting R (or RStudio).  With this, any libraries I install are saved
 on the departmental file server and they are found again the next time
-I teach (once I have run that command).
-</p>
+I teach (once I have run that command).</p>
 <p>
 Of course this is still pretty annoying and I wanted to arrange things
 so that it would be done automatically by an <code class="verbatim">.Rprofile</code> startup file.
 This works if the file is placed in <code class="verbatim">C:/Users/myusername/Documents</code>,
 which the R command <code class="verbatim">path.expand(&#39;~&#39;)</code> returns as be the default user
 home on our classroom Windows PCs, but of course that file would also
-get wiped every night, so placing the file there doesn&#39;t help.
-</p>
+get wiped every night, so placing the file there doesn&#39;t help.</p>
 <p>
 Nevertheless, to accomodate differing/changing versions of R and to
 automate the process as much as possible, I decided to create a
@@ -543,41 +548,40 @@ library path to <code class="verbatim">.libPaths(&#34;H:/R/win-library/X.Y&#34;)
 replaced by whatever &#34;major.minor&#34; version of R is running (currently
 3.5) and the directory is created if it doesn&#39;t already exist.
 Because this is done only if I am running Windows, it has no effect on
-my usual, completely satisfactory R environment in Linux.
-</p>
+my usual, completely satisfactory R environment in Linux.</p>
 <p>
 The contents of my current <code class="verbatim">.Rprofile</code> file are given in the previous
 section.  If you already have a non-empty <code class="verbatim">.Rprofile</code>, you could add
 this to it, and of course you could also create different versions for
 different classes and put them in the appropriate places if that
-tickles your fancy.  In the classroom I still have to run
-</p>
+tickles your fancy.  In the classroom I still have to run</p>
 <div class="src src-r">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">source</span>(<span style="color:#e6db74">&#34;H:/.Rprofile&#34;</span>)</code></pre></div>
 </div>
-<p>
-after starting R, but I guess I&#39;m going to have to live with that.
-</p>
+<p>after starting R, but I guess I&#39;m going to have to live with that.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
 <h2 id="headline-5">
 Footnotes
 </h2>
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
 <sup class="footnote-reference"><a id="footnote-reference-1" href="#footnote-1">1</a></sup>Coming from the UNIX/Linux world this already seems a bit
 crazy.  Why am I running R as root here?  BTW, you should mentally
 replace &#34;3.5.2&#34; with whatever version of R is currently installed on
 the PC, and Windows/DOS users may be more comfortable replacing the
-&#34;/&#34; path separator by &#34;\&#34;.
-</p>
+&#34;/&#34; path separator by &#34;\&#34;.</p>
 <p>
 <sup class="footnote-reference"><a id="footnote-reference-2" href="#footnote-2">2</a></sup>The classroom IT folks suggest using a USB thumbdrive as a
-workaround.  <code class="verbatim">insert sad face here</code>
-</p>
+workaround.  <code class="verbatim">insert sad face here</code></p>
 <p>
 <sup class="footnote-reference"><a id="footnote-reference-3" href="#footnote-3">3</a></sup>From what I saw on the classroom PCs, it appears that
 <code class="verbatim">win-library</code> is the R default name for the user&#39;s R libraries in
 Windows, so I decided to stick with that. (On Linux it&#39;s something
-like <code class="verbatim">x86_64-pc-linux-gnu-library</code>.)
-</p>
+like <code class="verbatim">x86_64-pc-linux-gnu-library</code>.)</p>
+</div>
+</div>
 <div class="footnotes">
 <hr class="footnotes-separatator">
 <div class="footnote-definitions">

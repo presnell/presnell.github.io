@@ -18,50 +18,56 @@
       <pubDate>Tue, 16 Jun 2020 23:37:37 -0400</pubDate>
       <guid>https://presnell.github.io/post/wackmendscheerrata/</guid>
       <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
 What Is This About?
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 This started as a list of errata that either I or my students had
 noticed in the exercises and the solutions manual for the 7th edition
-of Wackerly, Mendenhall, and Scheaffer&amp;#39;s math stat text.  I last
-taught out of this text in 2008, not because I have any problem with
-the text, but because in the intervening time I have not been assigned
-to teach our department&amp;#39;s undergrad sequence in which is often used.
-&lt;/p&gt;
+of Wackerly, Mendenhall, and Scheaffer&amp;#39;s math stat text.&lt;/p&gt;
 &lt;p&gt;
-The list was posted on my old web pages and since those pages came
-down I have surprised by the number of students and teachers who
-either wanted a copy of the list, or who had questions or comments
-about other exercises or solutions in the text.  So I decided to
-repost them here as a public service.  I hope that I have not
-introduced any errors in the process of converting them to org-mode.
-If you prefer the original text files you can grab them &lt;a href=&#34;files/wms-exercises-errata.txt&#34;&gt;here
-(exercises)&lt;/a&gt; and &lt;a href=&#34;files/wms-solns-manual-errata.txt&#34;&gt;here (solutions)&lt;/a&gt;.
-&lt;/p&gt;
+This list was posted as a plain ASCII text file on my old web pages
+and since I took those pages down I have been surprised by the number
+of students and teachers who either wanted a copy of the list, or who
+had questions or comments about other exercises or solutions in the
+text.  So I decided to repost them here as a public service.  I hope
+that I have not introduced any errors in the process of converting
+them to org-mode.  If you prefer the original text files you can grab
+them &lt;a href=&#34;files/wms-exercises-errata.txt&#34;&gt;here (exercises)&lt;/a&gt; and &lt;a href=&#34;files/wms-solns-manual-errata.txt&#34;&gt;here (solutions)&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;
-NB: I have not checked whether any of these have been corrected
-in a subsequent printing.
-&lt;/p&gt;
+NB: I last taught from this text in 2008, not because I have any
+problem with the text itself, but because in the intervening time I
+have not been assigned to teach my department&amp;#39;s undergrad math stat
+sequence.  I have not checked whether any of these errata have been
+corrected in later printings.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
 Some Errata Found in the Exercises
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 This is just a list of a few errata that I happen to have noticed.  It
-is not intended to be a comprehensive list.
-&lt;/p&gt;
+is not intended to be a comprehensive list.&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-3&#34;&gt;
 Exercise 2.79
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-&amp;#34;\(P(B) &amp;lt; 1\)&amp;#34; should be &amp;#34;\(P(B) &amp;gt; 0\)&amp;#34;.
-&lt;/p&gt;
+&amp;#34;\(P(B) &amp;lt; 1\)&amp;#34; should be &amp;#34;\(P(B) &amp;gt; 0\)&amp;#34;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-4&#34;&gt;
 Exercise 2.80
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-Change &amp;#34;\(P(B) &amp;gt; 0\)&amp;#34; to &amp;#34;\(P(B) &amp;lt; 1\)&amp;#34;.  
-&lt;/p&gt;
+Change &amp;#34;\(P(B) &amp;gt; 0\)&amp;#34; to &amp;#34;\(P(B) &amp;lt; 1\)&amp;#34;.  &lt;/p&gt;
 &lt;p&gt;
 Since \(A\) is a subset of \(B\), the assumption that \(P(A) &amp;gt; 0\)
 already implies that \(P(B) &amp;gt; 0\), so it is redundant to assume that
@@ -69,41 +75,39 @@ already implies that \(P(B) &amp;gt; 0\), so it is redundant to assume that
 \(B\) are necessarily independent, and the objective of the exercise
 is to show that \(A\) and \(B\) must be dependent except in the
 uninteresting case that one or the other of the events has probability
-zero or one.
-&lt;/p&gt;
+zero or one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-5&#34;&gt;
 Exercise 2.106
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 I would change this to ask &amp;#34;what is the smallest possible value for
 \(P(A)\)&amp;#34; or something similar.  &amp;#34;What is \(P(A)\)?&amp;#34; gives the
 impression that one should be able to divine the exact value of
-\(P(A)\) from the information given, which isn&amp;#39;t true.
-&lt;/p&gt;
+\(P(A)\) from the information given, which isn&amp;#39;t true.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-6&#34;&gt;
 Exercise 3.38
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This is the same as the triangular taste test example that I give
 in class, except that here it is not carefully worded.  The
-statement
-&lt;/p&gt;
+statement&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;
-Suppose that the two formulas are equally attractive.
-&lt;/p&gt;
+&lt;p&gt;Suppose that the two formulas are equally attractive.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;should be changed to&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Suppose that the two formulas are indistinguishable.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;
-should be changed to
-&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;
-Suppose that the two formulas are indistinguishable.
-&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;
-Why?
-&lt;/p&gt;
+Why?&lt;/p&gt;
 &lt;p&gt;
 If the two formulations are equally attractive on average but
 distinguishable, say by everyone, then on the average half of all
@@ -111,43 +115,53 @@ tasters would choose the glass containing formula B.  (The other half
 would choose one of the two glasses containing formula A.)  So, if the
 two formulas are &amp;#34;equally attractive&amp;#34; but distinguishable by everyone,
 then the distribution of \(Y\) would be binomial on \(n = 4\) trials with
-success probability \(p = 1/2\).
-&lt;/p&gt;
+success probability \(p = 1/2\).&lt;/p&gt;
 &lt;p&gt;
 If the two formulas are &amp;#34;equally attractive&amp;#34; and can be distinguished
 by some but not all tasters, then we would need more information to do
-the problem.
-&lt;/p&gt;
+the problem.&lt;/p&gt;
 &lt;p&gt;
 With the change I suggest above (&amp;#34;indistinguishable&amp;#34; rather than
 &amp;#34;equally attractive&amp;#34; formulas), each taster is effectively picking at
 random among the three glasses and \(Y\) is binomial on \(n = 4\)
 trials with success probability \(p = 1/3\). This is what was actually
-intended and is the solution given in the solutions manual.
-&lt;/p&gt;
+intended and is the solution given in the solutions manual.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-7&#34;&gt;
 Exercise 5.85 
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This exercise should probably be starred, since it refers to
-exercise 5.65, which is starred.
-&lt;/p&gt;
+exercise 5.65, which is starred.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-8&#34;&gt;
 Exercise 5.94
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The word &amp;#34;uncorrelated&amp;#34; should be deleted from this problem.  Nothing
-in the problem changes if \(Y_1\) and \(Y_2\) are correlated.
-&lt;/p&gt;
+in the problem changes if \(Y_1\) and \(Y_2\) are correlated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-9&#34;&gt;
 Some Errata Found in the Solutions Manual
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-10&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-10&#34;&gt;
 2.5 (b)
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-10&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-This is completely wrong.  It should be something like
-&lt;/p&gt;
+This is completely wrong.  It should be something like&lt;/p&gt;
 &lt;p&gt;
 \begin{align}
     B \cup (A \cap \bar B)
@@ -155,65 +169,83 @@ This is completely wrong.  It should be something like
     &amp;amp;= (B \cup A) \cap S \\
     &amp;amp;= B \cup A \\
     &amp;amp;= A
-\end{align}
-&lt;/p&gt;
+\end{align}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-11&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-11&#34;&gt;
 2.42
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-11&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-Should be \(P^{10}_3 = 10!/7! = 10 \times 9 \times 8 = 720\).
-&lt;/p&gt;
+Should be \(P^{10}_3 = 10!/7! = 10 \times 9 \times 8 = 720\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-12&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-12&#34;&gt;
 2.44 (b)
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-12&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-Change \(3\) to \(3!\) and \(45\) to \(90\).
-&lt;/p&gt;
+Change \(3\) to \(3!\) and \(45\) to \(90\).&lt;/p&gt;
 &lt;p&gt;
 Also, the solution to 2.44 (a) is correct but expressed in an odd
 way.  It would be better as
 \begin{equation}
 \binom{8}{3} \times \binom{5}{5}.
-\end{equation}
-&lt;/p&gt;
+\end{equation}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-13&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-13&#34;&gt;
 2.45
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-13&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-Change the 7 to a 5. Answer should be \(\binom{17}{2\ \ 5\ \ 10} = 408,408\).
-&lt;/p&gt;
+Change the 7 to a 5. Answer should be \(\binom{17}{2\ \ 5\ \ 10} = 408,408\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-14&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-14&#34;&gt;
 2.59 (b)
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-14&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 There are actually 10 different kinds of straights (starting with any
-of A, 2, 3, …, 10).
-&lt;/p&gt;
+of A, 2, 3, …, 10).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-15&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-15&#34;&gt;
 2.65
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-15&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-Should be  \(5!(2/6)(1/6)^4 = 5/162\).
-&lt;/p&gt;
+Should be  \(5!(2/6)(1/6)^4 = 5/162\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-16&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-16&#34;&gt;
 2.114
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-16&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The answers are listed as parts a,b,b,d (two b&amp;#39;s and no c), and there
-are a couple of misprints in the the answer to b.  It should read
-&lt;/p&gt;
+are a couple of misprints in the the answer to b.  It should read&lt;/p&gt;
 &lt;p&gt;
 \begin{align}
     &amp;amp; \text{a. } P(LL) = (.95)(.10) = 0.095 &amp;amp;&amp;amp; \text{b. } P(LT) = (.95)(.9) = 0.855 \\
     &amp;amp; \text{c. } P(TL) = (.05)(.10) = 0.005 &amp;amp;&amp;amp; \text{d. } 1 ­ (.05)(.90) = 0.955
-\end{align}
-&lt;/p&gt;
+\end{align}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-17&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-17&#34;&gt;
 3.48(a)
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-17&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-For \(P(Y&amp;gt;=1)\), the solution should be
-&lt;/p&gt;
+For \(P(Y&amp;gt;=1)\), the solution should be&lt;/p&gt;
 &lt;p&gt;
 \begin{align}
   P(Y &amp;gt;= 1)
@@ -221,61 +253,68 @@ For \(P(Y&amp;gt;=1)\), the solution should be
   &amp;amp;= 1- \binom{5}{0}(0.9)^0(0.1)^5 \\
   &amp;amp;= 1 - (0.1)^5 \\
   &amp;amp;= 0.99999 \\
-\end{align}
-&lt;/p&gt;
+\end{align}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-18&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-18&#34;&gt;
 3.113
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-18&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-There is a 3 that should be changed to 1:
-&lt;/p&gt;
+There is a 3 that should be changed to 1:&lt;/p&gt;
 &lt;p&gt;
 \begin{equation}
   \frac{\binom{8}{1}\binom{12}{5}}{\binom{20}{6}} + \frac{\binom{8}{0}\binom{12}{6}}{\binom{20}{6}} = 0.187.
-\end{equation}
-&lt;/p&gt;
+\end{equation}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-19&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-19&#34;&gt;
 4.57
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-19&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The density of \(D\) is wrong here.  It is not equal to \(1/4\) on the
 interval \((.01, .05)\), but to \(1/(.05 - .01) = 25\).  Also, the
 choice of \(d\) as the dummy variable of integration is unfortunate here,
-because it leads to
-&lt;/p&gt;
+because it leads to&lt;/p&gt;
 &lt;p&gt;
 \begin{equation}
   \frac{\pi}{6} \int_{.01}^{.05}  25\, d^3 \,dd
-\end{equation}
-&lt;/p&gt;
+\end{equation}&lt;/p&gt;
 &lt;p&gt;
-and the \(dd\) is confusing.  Note that this is meant to be the same as
-&lt;/p&gt;
+and the \(dd\) is confusing.  Note that this is meant to be the same as&lt;/p&gt;
 &lt;p&gt;
 \begin{equation}
   \frac{\pi}{6} \int_{.01}^{.05}  25\, y^3 \,dy.
-\end{equation}
-&lt;/p&gt;
+\end{equation}&lt;/p&gt;
 &lt;p&gt;
 Anyway, the numerical answer for the mean volume (\(.0000065\times\pi\))
 is correct, but the answer for the variance of the volume is not
 (it should be \(0.00000000003525\,\pi^2\), i.e., 
-\((3.525397 \times 10^{-11})\,\pi^2\).
-&lt;/p&gt;
+\((3.525397 \times 10^{-11})\,\pi^2\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-20&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-20&#34;&gt;
 4.74 (d)
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-20&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This part has been left unfinished.  Having found that the lower
 quartile of test scores is \(73.98\), we are supposed to find what
 proportion of test takers score \(73.98 + 5 = 78.98\) or more.  Using
 the normal table, the final answer is \(.4364\) (because of rounding,
 this is slightly different from the answer you would get if if you did
-the whole exercise using a computer, \(.4369\)).
-&lt;/p&gt;
+the whole exercise using a computer, \(.4369\)).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-21&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-21&#34;&gt;
 4.92
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-21&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 In the calculation of \(E(Y^3)\) and \(E(Y^4)\), the 100&amp;#39;s in the
 integrals should be 10&amp;#39;s, and the results should be
@@ -285,21 +324,30 @@ integrals should be 10&amp;#39;s, and the results should be
 and
 \begin{equation*}
   E(Y^4) = Γ(5)× 10^5 = 4! × 10^5 = 240,000.
-\end{equation*}
-&lt;/p&gt;
+\end{equation*}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-22&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-22&#34;&gt;
 5.9 (b)
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-22&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The integral is set up incorrectly, but the numerical answer \(31/64\)
-is correct.
-&lt;/p&gt;
+is correct.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-23&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-23&#34;&gt;
 6.14
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-23&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-Change \(P(Y_1 &amp;gt; u/Y_2)\) to \(1 - P(Y_1 &amp;gt; u/Y_2)\).
-&lt;/p&gt;
+Change \(P(Y_1 &amp;gt; u/Y_2)\) to \(1 - P(Y_1 &amp;gt; u/Y_2)\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -309,25 +357,31 @@ Change \(P(Y_1 &amp;gt; u/Y_2)\) to \(1 - P(Y_1 &amp;gt; u/Y_2)\).
       <pubDate>Sun, 25 Aug 2019 20:53:56 -0400</pubDate>
       <guid>https://presnell.github.io/post/changes/</guid>
       <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
 What Is This About?
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The IT folks want to shut down our department&amp;#39;s Apache server, so I&amp;#39;m
 in the process of moving my web presence, such as it is, elsewhere,
 with elsewhere being github, at least for now.  I probably won&amp;#39;t move
 much of the old stuff over, since it&amp;#39;s, well, old, but if there was
 something on my old web page that was useful to you, send me an email
-and I&amp;#39;ll see what I can to to make it available again.
-&lt;/p&gt;
+and I&amp;#39;ll see what I can to to make it available again.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
 Course Web Pages
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 Tonight I decided to hide the web pages for courses I&amp;#39;m currently
 teaching under the &amp;#34;Teaching&amp;#34; menu up above, so if you&amp;#39;re in my
-probability class, you know what to do.
-&lt;/p&gt;
+probability class, you know what to do.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -337,9 +391,11 @@ probability class, you know what to do.
       <pubDate>Sun, 25 Aug 2019 20:53:56 -0400</pubDate>
       <guid>https://presnell.github.io/post/classroomr/</guid>
       <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
 What Is This About?
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 After a very long hiatus from needing to run R in the classrooms, I am
 back at it.  The classroom (Windows 10) PCs at UF are refreshed every
@@ -354,17 +410,19 @@ it.  This post describes my current (partial) solution, which I think
 should also be useful for folks running R or RStudio on a desktop PC
 in their office (in my department at UF anyway).  It&amp;#39;s nothing fancy,
 and if someone has a better solution I would be happy to hear about
-it.
-&lt;/p&gt;
+it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
 My Solution
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 Download &lt;a href=&#34;files/.Rprofile&#34;&gt;this file&lt;/a&gt; and save it under the name &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; in your home
 directory on the departmental file server (so &lt;code class=&#34;verbatim&#34;&gt;~/.Rprofile&lt;/code&gt; in linux
 and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows), or use a text editor to create the
-file yourself with with the following contents:
-&lt;/p&gt;
+file yourself with with the following contents:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sysname&amp;#34;&lt;/span&gt;])) {
     my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;win-library&amp;#34;&lt;/span&gt;,
@@ -377,8 +435,7 @@ file yourself with with the following contents:
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
-Now, whenever you start R in the classroom, run the command
-&lt;/p&gt;
+Now, whenever you start R in the classroom, run the command&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -390,18 +447,18 @@ the current R process, and it creates this directory if it doesn&amp;#39;t
 already exist.  It then adds this directory to the front of R&amp;#39;s
 library path so that (1) R will look for packages there before trying
 the system packages, and (2) R will install any new packages into this
-directory rather than the system directory.
-&lt;/p&gt;
+directory rather than the system directory.&lt;/p&gt;
 &lt;p&gt;
 If anything about that is not ok with you, then you will need to
 modify &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; to suit your specific needs.  If you already have a
 directory of installed R packages, you can either move/rename it to
 match this scheme, or you can modify the script to match, assuming
-that your directory is on your &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.
-&lt;/p&gt;
+that your directory is on your &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-3&#34;&gt;
 If You Run R in Windows in Your Office 
 &lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 If you place a copy of this &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file in whatever directory is
 returned by the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt; (probably
@@ -409,14 +466,18 @@ returned by the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;
 upon startup (on your office PC) and any libraries you install in your
 office will be saved to your &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive.  Also, as long as your office
 PC and the classroom PCs are running the same version of R, they will
-share the same set of user-installed R packages.
-&lt;/p&gt;
+share the same set of user-installed R packages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-4&#34;&gt;
 Further Background and Explanation
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
-You can skip this if you like …
-&lt;/p&gt;
+You can skip this if you like …&lt;/p&gt;
 &lt;p&gt;
 When I login to a classroom machine, my home directory from the
 departmental (virtual) file server is mounted as the &lt;code class=&#34;verbatim&#34;&gt;H:&lt;/code&gt; drive in
@@ -426,16 +487,14 @@ home directory on the file server, and in the classroom, I just ran
 the R command &lt;code class=&#34;verbatim&#34;&gt;.libPaths(&amp;#34;H:/R/win-library/3.5&amp;#34;)&lt;/code&gt; immediately after
 starting R (or RStudio).  With this, any libraries I install are saved
 on the departmental file server and they are found again the next time
-I teach (once I have run that command).
-&lt;/p&gt;
+I teach (once I have run that command).&lt;/p&gt;
 &lt;p&gt;
 Of course this is still pretty annoying and I wanted to arrange things
 so that it would be done automatically by an &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; startup file.
 This works if the file is placed in &lt;code class=&#34;verbatim&#34;&gt;C:/Users/myusername/Documents&lt;/code&gt;,
 which the R command &lt;code class=&#34;verbatim&#34;&gt;path.expand(&amp;#39;~&amp;#39;)&lt;/code&gt; returns as be the default user
 home on our classroom Windows PCs, but of course that file would also
-get wiped every night, so placing the file there doesn&amp;#39;t help.
-&lt;/p&gt;
+get wiped every night, so placing the file there doesn&amp;#39;t help.&lt;/p&gt;
 &lt;p&gt;
 Nevertheless, to accomodate differing/changing versions of R and to
 automate the process as much as possible, I decided to create a
@@ -444,41 +503,40 @@ library path to &lt;code class=&#34;verbatim&#34;&gt;.libPaths(&amp;#34;H:/R/win
 replaced by whatever &amp;#34;major.minor&amp;#34; version of R is running (currently
 3.5) and the directory is created if it doesn&amp;#39;t already exist.
 Because this is done only if I am running Windows, it has no effect on
-my usual, completely satisfactory R environment in Linux.
-&lt;/p&gt;
+my usual, completely satisfactory R environment in Linux.&lt;/p&gt;
 &lt;p&gt;
 The contents of my current &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt; file are given in the previous
 section.  If you already have a non-empty &lt;code class=&#34;verbatim&#34;&gt;.Rprofile&lt;/code&gt;, you could add
 this to it, and of course you could also create different versions for
 different classes and put them in the appropriate places if that
-tickles your fancy.  In the classroom I still have to run
-&lt;/p&gt;
+tickles your fancy.  In the classroom I still have to run&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;
-after starting R, but I guess I&amp;#39;m going to have to live with that.
-&lt;/p&gt;
+&lt;p&gt;after starting R, but I guess I&amp;#39;m going to have to live with that.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-5&#34;&gt;
 Footnotes
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-1&#34; href=&#34;#footnote-1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;Coming from the UNIX/Linux world this already seems a bit
 crazy.  Why am I running R as root here?  BTW, you should mentally
 replace &amp;#34;3.5.2&amp;#34; with whatever version of R is currently installed on
 the PC, and Windows/DOS users may be more comfortable replacing the
-&amp;#34;/&amp;#34; path separator by &amp;#34;\&amp;#34;.
-&lt;/p&gt;
+&amp;#34;/&amp;#34; path separator by &amp;#34;\&amp;#34;.&lt;/p&gt;
 &lt;p&gt;
 &lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-2&#34; href=&#34;#footnote-2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;The classroom IT folks suggest using a USB thumbdrive as a
-workaround.  &lt;code class=&#34;verbatim&#34;&gt;insert sad face here&lt;/code&gt;
-&lt;/p&gt;
+workaround.  &lt;code class=&#34;verbatim&#34;&gt;insert sad face here&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;sup class=&#34;footnote-reference&#34;&gt;&lt;a id=&#34;footnote-reference-3&#34; href=&#34;#footnote-3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;From what I saw on the classroom PCs, it appears that
 &lt;code class=&#34;verbatim&#34;&gt;win-library&lt;/code&gt; is the R default name for the user&amp;#39;s R libraries in
 Windows, so I decided to stick with that. (On Linux it&amp;#39;s something
-like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&gt;.)
-&lt;/p&gt;
+like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&gt;.)&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&#34;footnotes&#34;&gt;
 &lt;hr class=&#34;footnotes-separatator&#34;&gt;
 &lt;div class=&#34;footnote-definitions&#34;&gt;
@@ -493,19 +551,25 @@ like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&g
       <pubDate>Sun, 25 Aug 2019 20:53:19 -0400</pubDate>
       <guid>https://presnell.github.io/post/orgmode/</guid>
       <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
 Stacking Tables
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
-Charpentier.
-&lt;/p&gt;
+Charpentier.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
 Org Mode Interface to Canvas
 &lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
-&lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.
-&lt;/p&gt;
+&lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
