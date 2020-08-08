@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts | Brett Presnell</title>
-    <link>https://presnell.github.io/post/</link>
-      <atom:link href="https://presnell.github.io/post/index.xml" rel="self" type="application/rss+xml" />
-    <description>Posts</description>
+    <title>Brett Presnell</title>
+    <link>https://presnell.github.io/author/brett-presnell/</link>
+      <atom:link href="https://presnell.github.io/author/brett-presnell/index.xml" rel="self" type="application/rss+xml" />
+    <description>Brett Presnell</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 16 Jun 2020 23:37:37 -0400</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
-      <title>Posts</title>
-      <link>https://presnell.github.io/post/</link>
+      <title>Brett Presnell</title>
+      <link>https://presnell.github.io/author/brett-presnell/</link>
     </image>
     
     <item>
