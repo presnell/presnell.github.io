@@ -5,12 +5,41 @@
     <link>https://presnell.github.io/</link>
       <atom:link href="https://presnell.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Brett Presnell</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 16 Jun 2020 23:37:37 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 09 Nov 2020 17:38:21 -0400</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Brett Presnell</title>
       <link>https://presnell.github.io/</link>
     </image>
+    
+    <item>
+      <title>U-Statistics and Imperfect Ranking in Ranked Set Sampling</title>
+      <link>https://presnell.github.io/post/rankedsetsampling/</link>
+      <pubDate>Mon, 09 Nov 2020 17:38:21 -0400</pubDate>
+      <guid>https://presnell.github.io/post/rankedsetsampling/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+Background
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Once upon a time I did a little work on ranked set sampling with my
+former colleague, Lora Bohn. This was eventually published in the
+Journal of Nonparametric Statistics.  The counterexamples required
+some calculations that didn&amp;#39;t seem interesting enough to include in
+the paper, but to save anyone else the trouble of reproducing them, we
+promised to make them were available upon request.  Someone recently
+asked for them for the first time in many years so I decided to
+make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; where they might be found by others.&lt;/p&gt;
+&lt;p&gt;
+My only comment is that these details and especially the comments
+therein will not make much sense if you don&amp;#39;t real the &lt;a href=&#34;https://amstat.tandfonline.com/doi/abs/10.1080/10485259908832756&#34;&gt;original,
+extremely enlightening paper&lt;/a&gt; (insert smiley here).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Mathematical Statistics With Applications (7th Edition) by Wackerly, Mendenhall, and Scheaffer</title>
@@ -577,35 +606,6 @@ like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&g
 &lt;div class=&#34;footnotes&#34;&gt;
 &lt;hr class=&#34;footnotes-separatator&#34;&gt;
 &lt;div class=&#34;footnote-definitions&#34;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>U-Statistics and Imperfect Ranking in Ranked Set Sampling</title>
-      <link>https://presnell.github.io/post/rankedsetsampling/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://presnell.github.io/post/rankedsetsampling/</guid>
-      <description>
-&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-1&#34;&gt;
-Background
-&lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
-&lt;p&gt;
-Once upon a time I did a little work on ranked set sampling with my
-former colleague, Lora Bohn. This was eventually published in the
-Journal of Nonparametric Statistics.  The counterexamples required
-some calculations that didn&amp;#39;t seem interesting enough to include in
-the paper, but to save anyone else the trouble of reproducing them, we
-promised to make them were available upon request.  Someone recently
-asked for them for the first time in many years so I decided to
-make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; where they might be found by others.&lt;/p&gt;
-&lt;p&gt;
-My only comment is that these details and especially the comments
-therein will not make much sense if you don&amp;#39;t real the &lt;a href=&#34;https://amstat.tandfonline.com/doi/abs/10.1080/10485259908832756&#34;&gt;original,
-extremely enlightening paper&lt;/a&gt; (insert smiley here).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

@@ -9,27 +9,32 @@
   
   <url>
     <loc>https://presnell.github.io/authors/</loc>
-    <lastmod>2020-08-08T11:19:40-04:00</lastmod>
+    <lastmod>2020-11-09T17:38:21-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://presnell.github.io/</loc>
-    <lastmod>2020-08-08T11:19:40-04:00</lastmod>
+    <lastmod>2020-11-09T17:38:21-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://presnell.github.io/author/brett-presnell/</loc>
-    <lastmod>2020-08-08T11:19:40-04:00</lastmod>
+    <lastmod>2020-11-09T17:38:21-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://presnell.github.io/post/</loc>
+    <lastmod>2020-11-09T17:38:21-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://presnell.github.io/post/rankedsetsampling/</loc>
+    <lastmod>2020-11-09T17:38:21-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://presnell.github.io/post/wackmendscheerrata/</loc>
     <lastmod>2020-06-16T23:37:37-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://presnell.github.io/post/</loc>
-    <lastmod>2020-08-08T11:19:40-04:00</lastmod>
   </url>
   
   <url>
@@ -73,10 +78,6 @@
   
   <url>
     <loc>https://presnell.github.io/tags/</loc>
-  </url>
-  
-  <url>
-    <loc>https://presnell.github.io/post/rankedsetsampling/</loc>
   </url>
   
 </urlset>
