@@ -231,7 +231,7 @@ Should be  \(5!(2/6)(1/6)^4 = 5/162\).&lt;/p&gt;
 &lt;div id=&#34;outline-text-headline-16&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The answers are listed as parts a,b,b,d (two b&amp;#39;s and no c), and there
-are a couple of misprints in the the answer to b.  It should read&lt;/p&gt;
+are a couple of misprints in the answer to b.  It should read&lt;/p&gt;
 &lt;p&gt;
 \begin{align}
     &amp;amp; \text{a. } P(LL) = (.95)(.10) = 0.095 &amp;amp;&amp;amp; \text{b. } P(LT) = (.95)(.9) = 0.855 \\
@@ -577,6 +577,35 @@ like &lt;code class=&#34;verbatim&#34;&gt;x86_64-pc-linux-gnu-library&lt;/code&g
 &lt;div class=&#34;footnotes&#34;&gt;
 &lt;hr class=&#34;footnotes-separatator&#34;&gt;
 &lt;div class=&#34;footnote-definitions&#34;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>U-Statistics and Imperfect Ranking in Ranked Set Sampling</title>
+      <link>https://presnell.github.io/post/rankedsetsampling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/post/rankedsetsampling/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+Background
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Once upon a time I did a little work on ranked set sampling with my
+former colleague, Lora Bohn. This was eventually published in the
+Journal of Nonparametric Statistics.  The counterexamples required
+some calculations that didn&amp;#39;t seem interesting enough to include in
+the paper, but to save anyone else the trouble of reproducing them, we
+promised to make them were available upon request.  Someone recently
+asked for them for the first time in many years so I decided to
+make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; where they might be found by others.&lt;/p&gt;
+&lt;p&gt;
+My only comment is that these details and especially the comments
+therein will not make much sense if you don&amp;#39;t real the &lt;a href=&#34;https://amstat.tandfonline.com/doi/abs/10.1080/10485259908832756&#34;&gt;original,
+extremely enlightening paper&lt;/a&gt; (insert smiley here).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
