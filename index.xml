@@ -5,7 +5,7 @@
     <link>https://presnell.github.io/</link>
       <atom:link href="https://presnell.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Brett Presnell</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 09 Nov 2020 17:38:21 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 09 Nov 2020 17:38:21 -0500</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Brett Presnell</title>
@@ -15,29 +15,23 @@
     <item>
       <title>U-Statistics and Imperfect Ranking in Ranked Set Sampling</title>
       <link>https://presnell.github.io/post/rankedsetsampling/</link>
-      <pubDate>Mon, 09 Nov 2020 17:38:21 -0400</pubDate>
+      <pubDate>Mon, 09 Nov 2020 17:38:21 -0500</pubDate>
       <guid>https://presnell.github.io/post/rankedsetsampling/</guid>
       <description>
-&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-1&#34;&gt;
-Background
-&lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 Once upon a time I did a little work on ranked set sampling with my
-former colleague, Lora Bohn. This was eventually published in the
-Journal of Nonparametric Statistics.  The counterexamples required
-some calculations that didn&amp;#39;t seem interesting enough to include in
-the paper, but to save anyone else the trouble of reproducing them, we
-promised to make them were available upon request.  Someone recently
-asked for them for the first time in many years so I decided to
-make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; where they might be found by others.&lt;/p&gt;
+former colleague Lora Bohn which was eventually published in the
+&lt;em&gt;Journal of Nonparametric Statistics&lt;/em&gt;.  The examples and
+counterexamples in the paper required some fairly routine calculations
+that were not included, but we promised to make them available upon
+request.  Someone recently asked for them for the first time in at
+least a few years, so I decided to make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; where they
+can be found by others.  Of course, if you find them useful I would be
+pleased to hear about it.&lt;/p&gt;
 &lt;p&gt;
-My only comment is that these details and especially the comments
-therein will not make much sense if you don&amp;#39;t real the &lt;a href=&#34;https://amstat.tandfonline.com/doi/abs/10.1080/10485259908832756&#34;&gt;original,
-extremely enlightening paper&lt;/a&gt; (insert smiley here).&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+My only other comment is that these details and especially the
+comments therein will not make much sense if you don&amp;#39;t real the
+&lt;a href=&#34;https://amstat.tandfonline.com/doi/abs/10.1080/10485259908832756&#34;&gt;original, extremely enlightening paper&lt;/a&gt;. 😄&lt;/p&gt;
 </description>
     </item>
     
@@ -552,12 +546,13 @@ What Is This About?
 &lt;/h2&gt;
 &lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
-The IT folks want to shut down our department&amp;#39;s Apache server, so I&amp;#39;m
-in the process of moving my web presence, such as it is, elsewhere,
-with elsewhere being github, at least for now.  I probably won&amp;#39;t move
-much of the old stuff over, since it&amp;#39;s, well, old, but if there was
-something on my old web page that was useful to you, send me an email
-and I&amp;#39;ll see what I can to to make it available again.&lt;/p&gt;
+The IT folks hope to shut down our department&amp;#39;s legacy Apache web
+server, so I&amp;#39;m in the process of moving my web presence, such as it
+is, elsewhere, with elsewhere being github, at least for now.  I
+probably won&amp;#39;t move much of the old stuff over, since it&amp;#39;s, well, old,
+but if there was something on my old web page that was useful to you,
+send me an email and I&amp;#39;ll see what I can to to make it available
+again.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
