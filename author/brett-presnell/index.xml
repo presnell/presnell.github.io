@@ -30,7 +30,7 @@ the text &lt;em&gt;An Introduction to Categorical Data Analysis&lt;/em&gt; (2nd 
 my colleague Alan Agresti, along with a few convenience functions.  My
 primary goal was to make it easy for my students to get started on the
 examples and exercises, so the help files for each dataset included
-fairly detailed R code, and in my mind this is really the the main
+fairly detailed R code and in my mind this is really the the main
 feature of the package.&lt;/p&gt;
 &lt;p&gt;
 Unfortunately, I haven&amp;#39;t taught the course over a decade, so I have
