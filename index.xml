@@ -30,16 +30,16 @@ the text &lt;em&gt;An Introduction to Categorical Data Analysis&lt;/em&gt; (2nd 
 my colleague Alan Agresti, along with a few convenience functions.  My
 primary goal was to make it easy for my students to get started on the
 examples and exercises, so the help files for each dataset included
-fairly detailed R code, and this is really the the main feature of the
-package (in my mind).&lt;/p&gt;
+fairly detailed R code, and in my mind this is really the the main
+feature of the package.&lt;/p&gt;
 &lt;p&gt;
 Unfortunately, I haven&amp;#39;t taught the course over a decade, so I have
-not been actively maintaining the icda package, and by now there is a
-newer edition of the text and probably several associated R packages.
+not been actively maintaining the package and by now there is a newer
+edition of the text and probably several other associated R packages.
 Nevertheless, I still occassionally get requests for the package and I
 put it on github a while back to make it more easily available.  So,
-if you landed on my web pages while looking for this package, you can
-install it in R with the following sequence of commands:&lt;/p&gt;
+if you landed on my web pages while looking for the &lt;code class=&#34;verbatim&#34;&gt;icda&lt;/code&gt; package,
+you can install it in R with the following sequence of commands:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;devtools&amp;#34;&lt;/span&gt;)
 &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(devtools)
