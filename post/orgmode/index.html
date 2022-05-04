@@ -676,7 +676,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    3 min read
   </span>
   
 
@@ -715,48 +715,382 @@
       
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
-How Properly Name Source Code Blocks and Their Results for Referencing
+Formatting Numerical Table Entries
 </h2>
 <div id="outline-text-headline-1" class="outline-text-2">
+<p>
+It can be pretty painful to format numerical tables from R in the way
+that I want for export.  Here is a slighty modified version of <a href="https://orgmode.org/manual/Results-of-Evaluation.html">an
+example from the org mode manual</a> that leaves integers untouched but
+prints reals with 1 digit past the decimal point.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">  (<span style="color:#a6e22e">mapcar</span> (lambda (row)
+	    (<span style="color:#a6e22e">mapcar</span> (lambda (cell)
+		      (if (<span style="color:#a6e22e">floatp</span> cell)
+			  (<span style="color:#a6e22e">format</span> fmt cell)
+			cell))
+		    row))
+	  tbl)</code></pre></div>
+</div>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  z <span style="color:#f92672">&lt;-</span> dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">tribble</span>(<span style="color:#f92672">~</span>i, <span style="color:#f92672">~</span>x, <span style="color:#ae81ff">6</span>, <span style="color:#f92672">-</span><span style="color:#66d9ef">pi</span>, <span style="color:#ae81ff">-4</span>, <span style="color:#a6e22e">exp</span>(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+  z</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th class="align-right">i</th>
+<th class="align-right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">6</td>
+<td class="align-right">-3.1</td>
+</tr>
+<tr>
+<td class="align-right">-4</td>
+<td class="align-right">2.7</td>
+</tr>
+<tr>
+<td class="align-right">1</td>
+<td class="align-right">2</td>
+</tr>
+</tbody>
+</table>
+<p>
+Note that I get a 2 in the table below rather than the 2.0 that I
+would prefer.  Using <code class="verbatim">print.data.frame()</code> does not solve the problem
+as I expected it might.  Apparently the problem is that something in
+the emacs/orgmode/elisp processing is intercepting the 2.000 and
+deciding that it&#39;s an integer.</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  z <span style="color:#f92672">&lt;-</span> dplyr<span style="color:#f92672">::</span><span style="color:#a6e22e">tribble</span>(<span style="color:#f92672">~</span>i, <span style="color:#f92672">~</span>x, <span style="color:#ae81ff">6</span>, <span style="color:#f92672">-</span><span style="color:#66d9ef">pi</span>, <span style="color:#ae81ff">-4</span>, <span style="color:#a6e22e">exp</span>(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+  <span style="color:#a6e22e">print.data.frame</span>(z)</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th class="align-right">i</th>
+<th class="align-right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">6</td>
+<td class="align-right">-3.1</td>
+</tr>
+<tr>
+<td class="align-right">-4</td>
+<td class="align-right">2.7</td>
+</tr>
+<tr>
+<td class="align-right">1</td>
+<td class="align-right">2</td>
+</tr>
+</tbody>
+</table>
+<p>
+It would be nice if I could operate on the columns, ignoring the
+header.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Replacing Table Headers
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+Sometimes I want to replace the variable names used as column header
+in R export with a custom, multi-row header.  Here&#39;s an example of how
+this might be done.  I haven&#39;t been careful about handling headers in
+the elisp code, so one may need to be careful about setting
+<code class="verbatim">:colnames</code> (and possibly <code class="verbatim">:hlines</code>) appropriately (note that
+<code class="verbatim">:colnames nil</code> is the default (and <code class="verbatim">:hlines no</code>).  I have tried to
+illustrate this below.</p>
+<p>
+Normally the tables would be something that had been computed in R,
+but for simplicity I&#39;m just reading the data straight from the org
+file.</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th class="align-right">b</th>
+<th class="align-right">c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red</td>
+<td class="align-right">148</td>
+<td class="align-right">77.08</td>
+</tr>
+<tr>
+<td>white</td>
+<td class="align-right">140</td>
+<td class="align-right">72.92</td>
+</tr>
+<tr>
+<td>blue</td>
+<td class="align-right">102</td>
+<td class="align-right">53.13</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td>red</td>
+<td class="align-right">148</td>
+<td class="align-right">77.08</td>
+</tr>
+<tr>
+<td>white</td>
+<td class="align-right">140</td>
+<td class="align-right">72.92</td>
+</tr>
+<tr>
+<td>blue</td>
+<td class="align-right">102</td>
+<td class="align-right">53.13</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td></td>
+<td>Number</td>
+<td>Percentage</td>
+</tr>
+<tr>
+<td></td>
+<td>of</td>
+<td>of</td>
+</tr>
+<tr>
+<td>Color</td>
+<td>Flags</td>
+<td>Flags</td>
+</tr>
+</tbody>
+</table>
+<p>
+Here&#39;s the (simple) elisp code.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">  (<span style="color:#a6e22e">append</span> new_header (<span style="color:#a6e22e">cons</span> <span style="color:#e6db74">&#39;hline</span> tab))</code></pre></div>
+</div>
+<p>
+Here&#39;s how to call it straight from elisp to work with an existing org table.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th class="align-right">Number</th>
+<th class="align-right">Percentage</th>
+</tr>
+<tr>
+<th></th>
+<th class="align-right">of</th>
+<th class="align-right">of</th>
+</tr>
+<tr>
+<th>Color</th>
+<th class="align-right">Flags</th>
+<th class="align-right">Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red</td>
+<td class="align-right">148</td>
+<td class="align-right">77.08</td>
+</tr>
+<tr>
+<td>white</td>
+<td class="align-right">140</td>
+<td class="align-right">72.92</td>
+</tr>
+<tr>
+<td>blue</td>
+<td class="align-right">102</td>
+<td class="align-right">53.13</td>
+</tr>
+</tbody>
+</table>
+<p>
+Here&#39;s calling it from R with a table having a header.</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  data</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th class="align-right">Number</th>
+<th class="align-right">Percentage</th>
+</tr>
+<tr>
+<th></th>
+<th class="align-right">of</th>
+<th class="align-right">of</th>
+</tr>
+<tr>
+<th>Color</th>
+<th class="align-right">Flags</th>
+<th class="align-right">Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red</td>
+<td class="align-right">148</td>
+<td class="align-right">77.08</td>
+</tr>
+<tr>
+<td>white</td>
+<td class="align-right">140</td>
+<td class="align-right">72.92</td>
+</tr>
+<tr>
+<td>blue</td>
+<td class="align-right">102</td>
+<td class="align-right">53.13</td>
+</tr>
+</tbody>
+</table>
+<p>
+Here&#39;s calling it from R with a headless table (probably pretty rare
+in practice).</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  data</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th class="align-right">Number</th>
+<th class="align-right">Percentage</th>
+</tr>
+<tr>
+<th></th>
+<th class="align-right">of</th>
+<th class="align-right">of</th>
+</tr>
+<tr>
+<th>Color</th>
+<th class="align-right">Flags</th>
+<th class="align-right">Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red</td>
+<td class="align-right">148</td>
+<td class="align-right">77.08</td>
+</tr>
+<tr>
+<td>white</td>
+<td class="align-right">140</td>
+<td class="align-right">72.92</td>
+</tr>
+<tr>
+<td>blue</td>
+<td class="align-right">102</td>
+<td class="align-right">53.13</td>
+</tr>
+</tbody>
+</table>
+<p>
+And here is how to combine this with the formatting provided by the
+<a href="round-tbl">round-tbl</a> function from elsewhere in this document: just compose the
+functions in the <code class="verbatim">:post</code> header argument.</p>
+<div class="src src-r">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  data</code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th class="align-right">Number</th>
+<th class="align-right">Percentage</th>
+</tr>
+<tr>
+<th></th>
+<th class="align-right">of</th>
+<th class="align-right">of</th>
+</tr>
+<tr>
+<th>Color</th>
+<th class="align-right">Flags</th>
+<th class="align-right">Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red</td>
+<td class="align-right">148</td>
+<td class="align-right">77.1</td>
+</tr>
+<tr>
+<td>white</td>
+<td class="align-right">140</td>
+<td class="align-right">72.9</td>
+</tr>
+<tr>
+<td>blue</td>
+<td class="align-right">102</td>
+<td class="align-right">53.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+How Properly Name Source Code Blocks and Their Results for Referencing
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
 <p>
 <a href="https://orgmode.org/list/878s5eax6c.fsf@nicolasgoaziou.fr/">This response by Nicolas Goaziou</a> is as clear an explanation as you&#39;ll
 ever see. </p>
 </div>
 </div>
-<div id="outline-container-headline-2" class="outline-2">
-<h2 id="headline-2">
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
 <code class="verbatim">:results drawer</code> and maybe <code class="verbatim">:wrap export org</code>
 </h2>
-<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
   These might be useful for code blocks that need to be evaluated as
   org text.  Check the org list from around 2020-11-11 for more.</p>
 </div>
 </div>
-<div id="outline-container-headline-3" class="outline-2">
-<h2 id="headline-3">
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
 Stacking Tables
 </h2>
-<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
 The org-mode equivalent of <code>rbind()</code> in R is revealed <a href="https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html">here</a> by Emmanuel
 Charpentier.</p>
 </div>
 </div>
-<div id="outline-container-headline-4" class="outline-2">
-<h2 id="headline-4">
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
 Org Mode Interface to Canvas
 </h2>
-<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-text-headline-6" class="outline-text-2">
 <p>
 <a href="https://github.com/titaniumbones/org-lms">This project</a> might be worth keeping an eye on if my use of Canvas expands.</p>
 </div>
 </div>
-<div id="outline-container-headline-5" class="outline-2">
-<h2 id="headline-5">
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
 Easy-Hugo
 </h2>
-<div id="outline-text-headline-5" class="outline-text-2">
+<div id="outline-text-headline-7" class="outline-text-2">
 <p>
 The <a href="https://github.com/masasam/emacs-easy-hugo">easy-hugo</a> package might be useful for maintaining my web site.</p>
 </div>

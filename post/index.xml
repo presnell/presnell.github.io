@@ -5,12 +5,50 @@
     <link>https://presnell.github.io/post/</link>
       <atom:link href="https://presnell.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 09 Nov 2020 17:38:21 -0500</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 04 May 2022 10:43:16 -0400</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>https://presnell.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>R Package icda</title>
+      <link>https://presnell.github.io/post/icda/</link>
+      <pubDate>Wed, 04 May 2022 10:43:16 -0400</pubDate>
+      <guid>https://presnell.github.io/post/icda/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+What Is This About?
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Years ago, while teaching our undergraduate categorical data analysis
+course, I created a small R package consisting mainly of datasets from
+the text &lt;em&gt;An Introduction to Categorical Data Analysis&lt;/em&gt; (2nd edn) by
+my colleague Alan Agresti, along with a few convenience functions.  My
+primary goal was to make it easy for my students to get started on the
+examples and exercises, so the help files for each dataset included
+fairly detailed R code, and this is really the the main feature of the
+package (in my mind).&lt;/p&gt;
+&lt;p&gt;
+Unfortunately, I haven&amp;#39;t taught the course over a decade, so I have
+not been actively maintaining the icda package, and by now there is a
+newer edition of the text and probably several associated R packages.
+Nevertheless, I still occassionally get requests for the package and I
+put it on github a while back to make it more easily available.  So,
+if you landed on my web pages while looking for this package, you can
+install it in R with the following sequence of commands:&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;devtools&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(devtools)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;presnell/icda&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>U-Statistics and Imperfect Ranking in Ranked Set Sampling</title>
@@ -577,48 +615,382 @@ probability class, you know what to do.&lt;/p&gt;
       <description>
 &lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
-How Properly Name Source Code Blocks and Their Results for Referencing
+Formatting Numerical Table Entries
 &lt;/h2&gt;
 &lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+It can be pretty painful to format numerical tables from R in the way
+that I want for export.  Here is a slighty modified version of &lt;a href=&#34;https://orgmode.org/manual/Results-of-Evaluation.html&#34;&gt;an
+example from the org mode manual&lt;/a&gt; that leaves integers untouched but
+prints reals with 1 digit past the decimal point.&lt;/p&gt;
+&lt;div class=&#34;src src-emacs-lisp&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;  (&lt;span style=&#34;color:#a6e22e&#34;&gt;mapcar&lt;/span&gt; (lambda (row)
+	    (&lt;span style=&#34;color:#a6e22e&#34;&gt;mapcar&lt;/span&gt; (lambda (cell)
+		      (if (&lt;span style=&#34;color:#a6e22e&#34;&gt;floatp&lt;/span&gt; cell)
+			  (&lt;span style=&#34;color:#a6e22e&#34;&gt;format&lt;/span&gt; fmt cell)
+			cell))
+		    row))
+	  tbl)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  z &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tribble&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;i, &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;x, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pi&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-4&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+  z&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&#34;align-right&#34;&gt;i&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;x&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;align-right&#34;&gt;6&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;-3.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;align-right&#34;&gt;-4&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;2.7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;align-right&#34;&gt;1&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+Note that I get a 2 in the table below rather than the 2.0 that I
+would prefer.  Using &lt;code class=&#34;verbatim&#34;&gt;print.data.frame()&lt;/code&gt; does not solve the problem
+as I expected it might.  Apparently the problem is that something in
+the emacs/orgmode/elisp processing is intercepting the 2.000 and
+deciding that it&amp;#39;s an integer.&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  z &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tribble&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;i, &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;x, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pi&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-4&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;print.data.frame&lt;/span&gt;(z)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&#34;align-right&#34;&gt;i&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;x&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&#34;align-right&#34;&gt;6&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;-3.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;align-right&#34;&gt;-4&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;2.7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;align-right&#34;&gt;1&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+It would be nice if I could operate on the columns, ignoring the
+header.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
+Replacing Table Headers
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Sometimes I want to replace the variable names used as column header
+in R export with a custom, multi-row header.  Here&amp;#39;s an example of how
+this might be done.  I haven&amp;#39;t been careful about handling headers in
+the elisp code, so one may need to be careful about setting
+&lt;code class=&#34;verbatim&#34;&gt;:colnames&lt;/code&gt; (and possibly &lt;code class=&#34;verbatim&#34;&gt;:hlines&lt;/code&gt;) appropriately (note that
+&lt;code class=&#34;verbatim&#34;&gt;:colnames nil&lt;/code&gt; is the default (and &lt;code class=&#34;verbatim&#34;&gt;:hlines no&lt;/code&gt;).  I have tried to
+illustrate this below.&lt;/p&gt;
+&lt;p&gt;
+Normally the tables would be something that had been computed in R,
+but for simplicity I&amp;#39;m just reading the data straight from the org
+file.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;a&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;b&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;c&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;white&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;white&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Number&lt;/td&gt;
+&lt;td&gt;Percentage&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;of&lt;/td&gt;
+&lt;td&gt;of&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Color&lt;/td&gt;
+&lt;td&gt;Flags&lt;/td&gt;
+&lt;td&gt;Flags&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+Here&amp;#39;s the (simple) elisp code.&lt;/p&gt;
+&lt;div class=&#34;src src-emacs-lisp&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;  (&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt; new_header (&lt;span style=&#34;color:#a6e22e&#34;&gt;cons&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;hline&lt;/span&gt; tab))&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Here&amp;#39;s how to call it straight from elisp to work with an existing org table.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;Color&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;white&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+Here&amp;#39;s calling it from R with a table having a header.&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;Color&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;white&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+Here&amp;#39;s calling it from R with a headless table (probably pretty rare
+in practice).&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;Color&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;white&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+And here is how to combine this with the formatting provided by the
+&lt;a href=&#34;round-tbl&#34;&gt;round-tbl&lt;/a&gt; function from elsewhere in this document: just compose the
+functions in the &lt;code class=&#34;verbatim&#34;&gt;:post&lt;/code&gt; header argument.&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;Color&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;77.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;white&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;72.9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
+&lt;td class=&#34;align-right&#34;&gt;53.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
+How Properly Name Source Code Blocks and Their Results for Referencing
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://orgmode.org/list/878s5eax6c.fsf@nicolasgoaziou.fr/&#34;&gt;This response by Nicolas Goaziou&lt;/a&gt; is as clear an explanation as you&amp;#39;ll
 ever see. &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-4&#34;&gt;
 &lt;code class=&#34;verbatim&#34;&gt;:results drawer&lt;/code&gt; and maybe &lt;code class=&#34;verbatim&#34;&gt;:wrap export org&lt;/code&gt;
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
   These might be useful for code blocks that need to be evaluated as
   org text.  Check the org list from around 2020-11-11 for more.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-3&#34;&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-5&#34;&gt;
 Stacking Tables
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
 Charpentier.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-4&#34;&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-6&#34;&gt;
 Org Mode Interface to Canvas
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-5&#34;&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-7&#34;&gt;
 Easy-Hugo
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The &lt;a href=&#34;https://github.com/masasam/emacs-easy-hugo&#34;&gt;easy-hugo&lt;/a&gt; package might be useful for maintaining my web site.&lt;/p&gt;
 &lt;/div&gt;
