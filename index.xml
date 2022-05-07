@@ -615,91 +615,111 @@ probability class, you know what to do.&lt;/p&gt;
       <description>
 &lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
-Formatting Numerical Table Entries
+Conditional Evaluation
 &lt;/h2&gt;
 &lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
-It can be pretty painful to format numerical tables from R in the way
-that I want for export.  Here is a slighty modified version of &lt;a href=&#34;https://orgmode.org/manual/Results-of-Evaluation.html&#34;&gt;an
-example from the org mode manual&lt;/a&gt; that leaves integers untouched but
-prints reals with 1 digit past the decimal point.&lt;/p&gt;
-&lt;div class=&#34;src src-emacs-lisp&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;  (&lt;span style=&#34;color:#a6e22e&#34;&gt;mapcar&lt;/span&gt; (lambda (row)
-	    (&lt;span style=&#34;color:#a6e22e&#34;&gt;mapcar&lt;/span&gt; (lambda (cell)
-		      (if (&lt;span style=&#34;color:#a6e22e&#34;&gt;floatp&lt;/span&gt; cell)
-			  (&lt;span style=&#34;color:#a6e22e&#34;&gt;format&lt;/span&gt; fmt cell)
-			cell))
-		    row))
-	  tbl)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  z &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tribble&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;i, &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;x, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pi&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-4&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-  z&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&#34;align-right&#34;&gt;i&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;x&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&#34;align-right&#34;&gt;6&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;-3.1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&#34;align-right&#34;&gt;-4&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;2.7&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&#34;align-right&#34;&gt;1&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+Org mode is very useful as a way of documenting and organizing code
+and data analysis using R.  Occassionally there are source blocks
+(like &amp;#34;code chunks&amp;#34; if you&amp;#39;re coming from the Rmarkdown world) that
+can take a while to execute.  Such computations can be cached if you
+set the &lt;code class=&#34;verbatim&#34;&gt;:cache&lt;/code&gt; header to &lt;code class=&#34;verbatim&#34;&gt;yes&lt;/code&gt; (see the org manual for more on
+this).  However, the &lt;code class=&#34;verbatim&#34;&gt;:cache&lt;/code&gt; header is ignored when exporting the
+document (there are good reasons for this), and there are other times
+when you may want to bypass this mechanism for more manual control.
+Another way to handle this is to save the results from R (e.g., using
+&lt;code class=&#34;verbatim&#34;&gt;saveRDS()&lt;/code&gt;) and then either recompute them or read them back into R
+(e.g., &lt;code class=&#34;verbatim&#34;&gt;readRDS()&lt;/code&gt;), as desired, and this can be done in a
+more-or-less automatic fashion by setting the &lt;code class=&#34;verbatim&#34;&gt;:eval&lt;/code&gt; header argument
+on the relevant source blocks conditionally.&lt;/p&gt;
 &lt;p&gt;
-Note that I get a 2 in the table below rather than the 2.0 that I
-would prefer.  Using &lt;code class=&#34;verbatim&#34;&gt;print.data.frame()&lt;/code&gt; does not solve the problem
-as I expected it might.  Apparently the problem is that something in
-the emacs/orgmode/elisp processing is intercepting the 2.000 and
-deciding that it&amp;#39;s an integer.&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  z &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; dplyr&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tribble&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;i, &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;x, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;pi&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;-4&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;), &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;print.data.frame&lt;/span&gt;(z)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&#34;align-right&#34;&gt;i&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;x&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&#34;align-right&#34;&gt;6&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;-3.1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&#34;align-right&#34;&gt;-4&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;2.7&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&#34;align-right&#34;&gt;1&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+It is especially convenient to have emacs query you for whether or not
+you want to recompute the results (versus reading in saved results).
+This can be accomplished by inserting the following near the top of
+the org file (before any of the relevant source blocks):&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+begin_src emacs-lisp
+  (setq use-saved-results (y-or-n-p &amp;#34;Use saved results?&amp;#34;))
+#+end_src
+&lt;/pre&gt;
 &lt;p&gt;
-It would be nice if I could operate on the columns, ignoring the
-header.&lt;/p&gt;
+Then for source blocks that should only be computed when you respond
+&amp;#34;n&amp;#34;, set the &lt;code class=&#34;verbatim&#34;&gt;:eval&lt;/code&gt; header argument as follows:&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+header :eval (if use-saved-results &amp;#34;no&amp;#34; &amp;#34;yes&amp;#34;)
+&lt;/pre&gt;
+&lt;p&gt;and for source blocks that should only be computed when you respond
+&amp;#34;y&amp;#34;:&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+header :eval (if use-saved-results &amp;#34;yes&amp;#34; &amp;#34;no&amp;#34;)
+&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
-Replacing Table Headers
+Formatting Numerical Table Entries
 &lt;/h2&gt;
 &lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+It can be rather painful to properly format numerical tables from R
+for export via org mode.  Here is a slightly modified version of &lt;a href=&#34;https://orgmode.org/manual/Results-of-Evaluation.html&#34;&gt;an
+example from the org mode manual&lt;/a&gt; that leaves integers untouched but
+prints floating point numbers with a specified format (almost).&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+NAME: round-tbl
+#+BEGIN_SRC emacs-lisp :var tbl=&amp;#34;&amp;#34; :var fmt=&amp;#34;%.1f&amp;#34;
+  (mapcar (lambda (row)
+	    (mapcar (lambda (cell)
+		      (if (floatp cell)
+			  (format fmt cell)
+			cell))
+		    row))
+	  tbl)
+#+end_src
+
+#+begin_src R :results replace :colnames yes :post round-tbl[:colnames yes](*this*)
+  z &amp;lt;- dplyr::tribble(~i, ~x, 6, -pi, -4, exp(1), 1, 2)
+  z
+#+end_src
+
+#+RESULTS:
+|  i |    x |
+|----+------|
+|  6 | -3.1 |
+| -4 |  2.7 |
+|  1 |    2 |
+&lt;/pre&gt;
+&lt;p&gt;
+Note that I get a 2 in the last cell, not the 2.0 that I was hoping
+for.  FWIW, wrapping &lt;code class=&#34;verbatim&#34;&gt;z&lt;/code&gt; in &lt;code class=&#34;verbatim&#34;&gt;print.data.frame()&lt;/code&gt; in the R code does
+not solve this problem.  The problem is that something in the
+emacs/orgmode/elisp processing is intercepting the 2.000 and deciding
+that it&amp;#39;s an integer.  Evidently I either need to figure that out or,
+alternatively, rewrite the elisp code to operate on the table in a
+column wise manner (ignoring the column header).&lt;/p&gt;
+&lt;p&gt;
+Note that it&amp;#39;s easy to change the format used, but of course it doesn&amp;#39;t
+do a thing about the &amp;#34;2&amp;#34;.&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+begin_src R :results replace :colnames yes :post round-tbl[:colnames yes](*this*, fmt=&amp;#34;%.3f&amp;#34;)
+  z &amp;lt;- dplyr::tribble(~i, ~x, 6, -pi, -4, exp(1), 1, 2)
+  z
+#+end_src
+
+#+RESULTS:
+|  i |      x |
+|----+--------|
+|  6 | -3.142 |
+| -4 |  2.718 |
+|  1 |      2 |
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
+Replacing Table Headers
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 Sometimes I want to replace the variable names used as column header
 in R export with a custom, multi-row header.  Here&amp;#39;s an example of how
@@ -709,288 +729,146 @@ the elisp code, so one may need to be careful about setting
 &lt;code class=&#34;verbatim&#34;&gt;:colnames nil&lt;/code&gt; is the default (and &lt;code class=&#34;verbatim&#34;&gt;:hlines no&lt;/code&gt;).  I have tried to
 illustrate this below.&lt;/p&gt;
 &lt;p&gt;
-Normally the tables would be something that had been computed in R,
-but for simplicity I&amp;#39;m just reading the data straight from the org
-file.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;a&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;b&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;c&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;red&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;white&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;blue&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;red&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;white&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;blue&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Number&lt;/td&gt;
-&lt;td&gt;Percentage&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;of&lt;/td&gt;
-&lt;td&gt;of&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Color&lt;/td&gt;
-&lt;td&gt;Flags&lt;/td&gt;
-&lt;td&gt;Flags&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+For me the tables would normally be something that had been computed
+in R, but for simplicity I&amp;#39;m just reading the data straight from the
+org file.&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+name: headed_table
+| a     |   b |     c |
+|-------+-----+-------|
+| red   | 148 | 77.08 |
+| white | 140 | 72.92 |
+| blue  | 102 | 53.13 |
+
+#+name: headless_table
+| red   | 148 | 77.08 |
+| white | 140 | 72.92 |
+| blue  | 102 | 53.13 |
+
+#+name: replacement_header
+|       | Number | Percentage |
+|       | of     | of         |
+| Color | Flags  | Flags      |
+&lt;/pre&gt;
 &lt;p&gt;
 Here&amp;#39;s the (simple) elisp code.&lt;/p&gt;
-&lt;div class=&#34;src src-emacs-lisp&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;  (&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt; new_header (&lt;span style=&#34;color:#a6e22e&#34;&gt;cons&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;hline&lt;/span&gt; tab))&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+name: replace-header
+#+BEGIN_SRC emacs-lisp :var tab=&amp;#34;&amp;#34; new_header=&amp;#34;&amp;#34;
+  (append new_header (cons &amp;#39;hline tab))
+#+END_SRC
+&lt;/pre&gt;
 &lt;p&gt;
 Here&amp;#39;s how to call it straight from elisp to work with an existing org table.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;Color&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;red&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;white&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;blue&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+call: replace-header(headed_table, replacement_header)
+
+#+RESULTS:
+|       | Number | Percentage |
+|       |     of |         of |
+| Color |  Flags |      Flags |
+|-------+--------+------------|
+| red   |    148 |      77.08 |
+| white |    140 |      72.92 |
+| blue  |    102 |      53.13 |
+&lt;/pre&gt;
 &lt;p&gt;
 Here&amp;#39;s calling it from R with a table having a header.&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;Color&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;red&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;white&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;blue&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+begin_src R :var data=headed_table :post replace-header(*this*, replacement_header)
+  data
+#+end_src
+
+#+RESULTS:
+|       | Number | Percentage |
+|       |     of |         of |
+| Color |  Flags |      Flags |
+|-------+--------+------------|
+| red   |    148 |      77.08 |
+| white |    140 |      72.92 |
+| blue  |    102 |      53.13 |
+&lt;/pre&gt;
 &lt;p&gt;
 Here&amp;#39;s calling it from R with a headless table (probably pretty rare
 in practice).&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;Color&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;red&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;77.08&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;white&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;72.92&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;blue&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;53.13&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+begin_src R :var data=headless_table :colnames no :post replace-header(*this*, replacement_header)
+  data
+#+end_src
+
+#+RESULTS:
+|       | Number | Percentage |
+|       |     of |         of |
+| Color |  Flags |      Flags |
+|-------+--------+------------|
+| red   |    148 |      77.08 |
+| white |    140 |      72.92 |
+| blue  |    102 |      53.13 |
+&lt;/pre&gt;
 &lt;p&gt;
 And here is how to combine this with the formatting provided by the
 &lt;a href=&#34;round-tbl&#34;&gt;round-tbl&lt;/a&gt; function from elsewhere in this document: just compose the
 functions in the &lt;code class=&#34;verbatim&#34;&gt;:post&lt;/code&gt; header argument.&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  data&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Number&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Percentage&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;of&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th&gt;Color&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;th class=&#34;align-right&#34;&gt;Flags&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;red&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;148&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;77.1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;white&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;140&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;72.9&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;blue&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;102&lt;/td&gt;
-&lt;td class=&#34;align-right&#34;&gt;53.1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;pre class=&#34;example&#34;&gt;
+#+begin_src R :var data=headed_table :post replace-header(round-tbl(*this*, &amp;#34;%.1f&amp;#34;), replacement_header)
+  data
+#+end_src
+
+#+RESULTS:
+|       | Number | Percentage |
+|       |     of |         of |
+| Color |  Flags |      Flags |
+|-------+--------+------------|
+| red   |    148 |       77.1 |
+| white |    140 |       72.9 |
+| blue  |    102 |       53.1 |
+&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-3&#34;&gt;
-How Properly Name Source Code Blocks and Their Results for Referencing
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-4&#34;&gt;
+Naming Source Code Blocks and Their Results for Referencing
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://orgmode.org/list/878s5eax6c.fsf@nicolasgoaziou.fr/&#34;&gt;This response by Nicolas Goaziou&lt;/a&gt; is as clear an explanation as you&amp;#39;ll
 ever see. &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-4&#34;&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-5&#34;&gt;
 &lt;code class=&#34;verbatim&#34;&gt;:results drawer&lt;/code&gt; and maybe &lt;code class=&#34;verbatim&#34;&gt;:wrap export org&lt;/code&gt;
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
   These might be useful for code blocks that need to be evaluated as
   org text.  Check the org list from around 2020-11-11 for more.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-5&#34;&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-6&#34;&gt;
 Stacking Tables
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
 Charpentier.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-6&#34;&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-7&#34;&gt;
 Org Mode Interface to Canvas
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-7&#34;&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-8&#34;&gt;
 Easy-Hugo
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The &lt;a href=&#34;https://github.com/masasam/emacs-easy-hugo&#34;&gt;easy-hugo&lt;/a&gt; package might be useful for maintaining my web site.&lt;/p&gt;
 &lt;/div&gt;
