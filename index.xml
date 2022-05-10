@@ -615,51 +615,9 @@ probability class, you know what to do.&lt;/p&gt;
       <description>
 &lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
-Conditional Evaluation
-&lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
-&lt;p&gt;
-Org mode is very useful as a way of documenting and organizing code
-and data analysis using R.  Occassionally there are source blocks
-(like &amp;#34;code chunks&amp;#34; if you&amp;#39;re coming from the Rmarkdown world) that
-can take a while to execute.  Such computations can be cached if you
-set the &lt;code class=&#34;verbatim&#34;&gt;:cache&lt;/code&gt; header to &lt;code class=&#34;verbatim&#34;&gt;yes&lt;/code&gt; (see the org manual for more on
-this).  However, the &lt;code class=&#34;verbatim&#34;&gt;:cache&lt;/code&gt; header is ignored when exporting the
-document (there are good reasons for this), and there are other times
-when you may want to bypass this mechanism for more manual control.
-Another way to handle this is to save the results from R (e.g., using
-&lt;code class=&#34;verbatim&#34;&gt;saveRDS()&lt;/code&gt;) and then either recompute them or read them back into R
-(e.g., &lt;code class=&#34;verbatim&#34;&gt;readRDS()&lt;/code&gt;), as desired, and this can be done in a
-more-or-less automatic fashion by setting the &lt;code class=&#34;verbatim&#34;&gt;:eval&lt;/code&gt; header argument
-on the relevant source blocks conditionally.&lt;/p&gt;
-&lt;p&gt;
-It is especially convenient to have emacs query you for whether or not
-you want to recompute the results (versus reading in saved results).
-This can be accomplished by inserting the following near the top of
-the org file (before any of the relevant source blocks):&lt;/p&gt;
-&lt;pre class=&#34;example&#34;&gt;
-#+begin_src emacs-lisp
-  (setq use-saved-results (y-or-n-p &amp;#34;Use saved results?&amp;#34;))
-#+end_src
-&lt;/pre&gt;
-&lt;p&gt;
-Then for source blocks that should only be computed when you respond
-&amp;#34;n&amp;#34;, set the &lt;code class=&#34;verbatim&#34;&gt;:eval&lt;/code&gt; header argument as follows:&lt;/p&gt;
-&lt;pre class=&#34;example&#34;&gt;
-#+header :eval (if use-saved-results &amp;#34;no&amp;#34; &amp;#34;yes&amp;#34;)
-&lt;/pre&gt;
-&lt;p&gt;and for source blocks that should only be computed when you respond
-&amp;#34;y&amp;#34;:&lt;/p&gt;
-&lt;pre class=&#34;example&#34;&gt;
-#+header :eval (if use-saved-results &amp;#34;yes&amp;#34; &amp;#34;no&amp;#34;)
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-2&#34;&gt;
 Formatting Numerical Table Entries
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 It can be rather painful to properly format numerical tables from R
 for export via org mode.  Here is a slightly modified version of &lt;a href=&#34;https://orgmode.org/manual/Results-of-Evaluation.html&#34;&gt;an
@@ -715,11 +673,11 @@ do a thing about the &amp;#34;2&amp;#34;.&lt;/p&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-3&#34;&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
 Replacing Table Headers
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 Sometimes I want to replace the variable names used as column header
 in R export with a custom, multi-row header.  Here&amp;#39;s an example of how
@@ -825,50 +783,50 @@ functions in the &lt;code class=&#34;verbatim&#34;&gt;:post&lt;/code&gt; header 
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-4&#34;&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
 Naming Source Code Blocks and Their Results for Referencing
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://orgmode.org/list/878s5eax6c.fsf@nicolasgoaziou.fr/&#34;&gt;This response by Nicolas Goaziou&lt;/a&gt; is as clear an explanation as you&amp;#39;ll
 ever see. &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-5&#34;&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-4&#34;&gt;
 &lt;code class=&#34;verbatim&#34;&gt;:results drawer&lt;/code&gt; and maybe &lt;code class=&#34;verbatim&#34;&gt;:wrap export org&lt;/code&gt;
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
   These might be useful for code blocks that need to be evaluated as
   org text.  Check the org list from around 2020-11-11 for more.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-6&#34;&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-5&#34;&gt;
 Stacking Tables
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
 Charpentier.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-7&#34;&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-6&#34;&gt;
 Org Mode Interface to Canvas
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-8&#34;&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-7&#34;&gt;
 Easy-Hugo
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The &lt;a href=&#34;https://github.com/masasam/emacs-easy-hugo&#34;&gt;easy-hugo&lt;/a&gt; package might be useful for maintaining my web site.&lt;/p&gt;
 &lt;/div&gt;
