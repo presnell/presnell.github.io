@@ -1,85 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://presnell.github.io/teaching/sta7466-7467/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/authors/</loc>
-    <lastmod>2022-05-06T23:44:26-04:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-09-08T11:28:53-04:00</lastmod>
+  </url><url>
     <loc>https://presnell.github.io/</loc>
-    <lastmod>2022-05-06T23:44:26-04:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-09-08T11:28:53-04:00</lastmod>
+  </url><url>
     <loc>https://presnell.github.io/author/brett-presnell/</loc>
-    <lastmod>2022-05-06T23:44:26-04:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-09-08T11:28:53-04:00</lastmod>
+  </url><url>
     <loc>https://presnell.github.io/post/</loc>
-    <lastmod>2022-05-06T23:44:26-04:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-09-08T11:28:53-04:00</lastmod>
+  </url><url>
+    <loc>https://presnell.github.io/post/r/</loc>
+    <lastmod>2022-08-13T08:12:56-04:00</lastmod>
+  </url><url>
     <loc>https://presnell.github.io/post/icda/</loc>
-    <lastmod>2022-05-04T11:03:47-04:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-06-10T16:58:10-04:00</lastmod>
+  </url><url>
     <loc>https://presnell.github.io/post/rankedsetsampling/</loc>
-    <lastmod>2020-11-10T06:39:46-05:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2022-09-08T11:28:53-04:00</lastmod>
+  </url><url>
     <loc>https://presnell.github.io/post/classroomr/</loc>
     <lastmod>2020-08-08T10:49:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/post/wackmendscheerrata/</loc>
     <lastmod>2020-06-16T23:37:37-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/post/changes/</loc>
     <lastmod>2019-08-25T20:53:56-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/post/orgmode/</loc>
     <lastmod>2022-05-06T23:44:26-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/teaching/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/publication_types/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/publication/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/talk/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://presnell.github.io/tags/</loc>
   </url>
-  
 </urlset>

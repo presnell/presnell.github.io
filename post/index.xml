@@ -5,12 +5,103 @@
     <link>https://presnell.github.io/post/</link>
       <atom:link href="https://presnell.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 04 May 2022 10:43:16 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 16 Jun 2022 10:40:03 -0500</lastBuildDate>
     <image>
-      <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
+      <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png</url>
       <title>Posts</title>
       <link>https://presnell.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>R Tips and Tricks</title>
+      <link>https://presnell.github.io/post/r/</link>
+      <pubDate>Thu, 16 Jun 2022 10:40:03 -0500</pubDate>
+      <guid>https://presnell.github.io/post/r/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+Data Manipulation
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Mainly I&amp;#39;m trying to record tidyverse ways of doing things.  Usually I
+know how to do them in base-R.&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-2&#34;&gt;
+Selecting All Columns of a Given Type
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+This can be useful when you have lots of columns and want to just look
+at a certain type.  Pipe it into `names()` to just get the names of
+the columns.&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;(swiss)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  swiss &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tibble&lt;/span&gt;(swiss)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  swiss &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;where&lt;/span&gt;(is.double))&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+A base-R version would be something like:&lt;/p&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;(swiss)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  swiss[, &lt;span style=&#34;color:#a6e22e&#34;&gt;sapply&lt;/span&gt;(swiss, is.double)]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
+Graphics
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-4&#34;&gt;
+Side-by-Side Histograms Before and After Log Transformation
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+Here&amp;#39;s a quick and easy way to visually compare histograms of a
+variable before and after a log transformation.  For easy repetition,
+you can string the last 4 lines together with `;` to create a
+one-liner, or better, turn them into a simple function.  (I&amp;#39;m not sure
+of the relative strengths and weaknesses of the cowplot and patchwork
+packages, so I&amp;#39;ve included examples with both. See &lt;a href=&#34;https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2&#34;&gt;this stackoverflow
+question&lt;/a&gt; for other approaches.)&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-4&#34;&gt;
+&lt;h4 id=&#34;headline-5&#34;&gt;
+Using the cowplot package:
+&lt;/h4&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-4&#34;&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(cowplot)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(hcvvt, &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_variable))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_histogram&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_x_log10&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grid&lt;/span&gt;(p1, p2)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-4&#34;&gt;
+&lt;h4 id=&#34;headline-6&#34;&gt;
+Using the patchwork package:
+&lt;/h4&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-4&#34;&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(patchwork)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(hcvvt, &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_variable))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_histogram&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_x_log10&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; p2&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>R Package icda</title>
@@ -41,10 +132,12 @@ put it on github a while back to make it more easily available.  So,
 if you landed on my web pages while looking for the &lt;code class=&#34;verbatim&#34;&gt;icda&lt;/code&gt; package,
 you can install it in R with the following sequence of commands:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;devtools&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(devtools)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;presnell/icda&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;devtools&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(devtools)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;presnell/icda&amp;#34;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
+&lt;p&gt;
+And here are &lt;a href=&#34;icda-notes.pdf&#34;&gt;my old class notes&lt;/a&gt; and the &lt;a href=&#34;files/icda-notes.R&#34;&gt;tangled R code&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
@@ -55,20 +148,23 @@ you can install it in R with the following sequence of commands:&lt;/p&gt;
       <link>https://presnell.github.io/post/rankedsetsampling/</link>
       <pubDate>Mon, 09 Nov 2020 17:38:21 -0500</pubDate>
       <guid>https://presnell.github.io/post/rankedsetsampling/</guid>
-      <description>
+      <description>&lt;nav&gt;
+&lt;ul&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
 &lt;p&gt;
 Once upon a time I did a little work on ranked set sampling with my
-former colleague Lora Bohn which was eventually published in the
+former colleague Lora Bohn, work which was eventually published in the
 &lt;em&gt;Journal of Nonparametric Statistics&lt;/em&gt;.  The examples and
 counterexamples in the paper required some fairly routine calculations
-that were not included, but we promised to make them available upon
+that we did not include, but we promised to make them available upon
 request.  Someone recently asked for them for the first time in at
-least a few years, so I decided to make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; where they
-can be found by others.  Of course, if you find them useful I would be
-pleased to hear about it.&lt;/p&gt;
+least a few years, so I decided to make them available &lt;a href=&#34;files/URSS-details.pdf&#34;&gt;here&lt;/a&gt; so that
+they can be found by others.  Of course, if you find them useful I
+would be pleased to hear about it.&lt;/p&gt;
 &lt;p&gt;
-My only other comment is that these details and especially the
-comments therein will not make much sense if you don&amp;#39;t real the
+My only other comment is that these details, and especially the
+comments therein, will not make much sense if you don&amp;#39;t read the
 &lt;a href=&#34;https://amstat.tandfonline.com/doi/abs/10.1080/10485259908832756&#34;&gt;original, extremely enlightening paper&lt;/a&gt;. 😄&lt;/p&gt;
 </description>
     </item>
@@ -112,20 +208,20 @@ directory on the departmental file server (so &lt;code class=&#34;verbatim&#34;&
 and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows), or use a text editor to create the
 file yourself with with the following contents:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sysname&amp;#34;&lt;/span&gt;])) {
-    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;win-library&amp;#34;&lt;/span&gt;,
-                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
-                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
-                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;))
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
-    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
-}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sysname&amp;#34;&lt;/span&gt;])) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;win-library&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 Now, whenever you start R in the classroom, run the command&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;src src-r eval=false&#34;&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r eval=false&#34; data-lang=&#34;r eval=false&#34;&gt;source(&amp;#34;H:/.Rprofile&amp;#34;)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;
 This first checks that you are running R in Windows. If so, then it
@@ -198,8 +294,8 @@ section.  If you already have a non-empty &lt;code class=&#34;verbatim&#34;&gt;.
 this to it, and of course you could also create different versions for
 different classes and put them in the appropriate places if that
 tickles your fancy.  In the classroom I still have to run&lt;/p&gt;
-&lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;src src-r eval=false&#34;&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r eval=false&#34; data-lang=&#34;r eval=false&#34;&gt;source(&amp;#34;H:/.Rprofile&amp;#34;)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;after starting R, but I guess I&amp;#39;m going to have to live with that.&lt;/p&gt;
 &lt;/div&gt;
@@ -615,14 +711,24 @@ probability class, you know what to do.&lt;/p&gt;
       <description>
 &lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-1&#34;&gt;
-Formatting Numerical Table Entries
+Adding Git Information
 &lt;/h2&gt;
 &lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://list.orgmode.org/875ymchv3o.fsf@ucl.ac.uk/&#34;&gt;This response from Eric Fraga&lt;/a&gt; might be useful.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
+Formatting Numerical Table Entries
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 It can be rather painful to properly format numerical tables from R
 for export via org mode.  Here is a slightly modified version of &lt;a href=&#34;https://orgmode.org/manual/Results-of-Evaluation.html&#34;&gt;an
 example from the org mode manual&lt;/a&gt; that leaves integers untouched but
-prints floating point numbers with a specified format (almost).&lt;/p&gt;
+prints floating point numbers with a specified format (almost).
+Alternatively, check out the &lt;code class=&#34;verbatim&#34;&gt;ascii&lt;/code&gt; package for R.&lt;/p&gt;
 &lt;pre class=&#34;example&#34;&gt;
 #+NAME: round-tbl
 #+BEGIN_SRC emacs-lisp :var tbl=&amp;#34;&amp;#34; :var fmt=&amp;#34;%.1f&amp;#34;
@@ -673,11 +779,11 @@ do a thing about the &amp;#34;2&amp;#34;.&lt;/p&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
 Replacing Table Headers
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 Sometimes I want to replace the variable names used as column header
 in R export with a custom, multi-row header.  Here&amp;#39;s an example of how
@@ -783,50 +889,50 @@ functions in the &lt;code class=&#34;verbatim&#34;&gt;:post&lt;/code&gt; header 
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-3&#34;&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-4&#34;&gt;
 Naming Source Code Blocks and Their Results for Referencing
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://orgmode.org/list/878s5eax6c.fsf@nicolasgoaziou.fr/&#34;&gt;This response by Nicolas Goaziou&lt;/a&gt; is as clear an explanation as you&amp;#39;ll
 ever see. &lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-4&#34;&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-5&#34;&gt;
 &lt;code class=&#34;verbatim&#34;&gt;:results drawer&lt;/code&gt; and maybe &lt;code class=&#34;verbatim&#34;&gt;:wrap export org&lt;/code&gt;
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
   These might be useful for code blocks that need to be evaluated as
   org text.  Check the org list from around 2020-11-11 for more.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-5&#34;&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-6&#34;&gt;
 Stacking Tables
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The org-mode equivalent of &lt;code&gt;rbind()&lt;/code&gt; in R is revealed &lt;a href=&#34;https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html&#34;&gt;here&lt;/a&gt; by Emmanuel
 Charpentier.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-6&#34;&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-7&#34;&gt;
 Org Mode Interface to Canvas
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://github.com/titaniumbones/org-lms&#34;&gt;This project&lt;/a&gt; might be worth keeping an eye on if my use of Canvas expands.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-7&#34;&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-8&#34;&gt;
 Easy-Hugo
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The &lt;a href=&#34;https://github.com/masasam/emacs-easy-hugo&#34;&gt;easy-hugo&lt;/a&gt; package might be useful for maintaining my web site.&lt;/p&gt;
 &lt;/div&gt;

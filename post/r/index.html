@@ -30,10 +30,10 @@
   
     
   
-  <meta name="description" content="Useful org mode snippets to remember">
+  <meta name="description" content="Useful R snippets to remember">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/orgmode/">
+  <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/r/">
 
   
 
@@ -252,7 +252,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_32x32_fill_lanczos_center_3.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_3.png">
 
-  <link rel="canonical" href="https://presnell.github.io/post/orgmode/">
+  <link rel="canonical" href="https://presnell.github.io/post/r/">
 
   
   
@@ -268,15 +268,15 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Brett Presnell">
-  <meta property="og:url" content="https://presnell.github.io/post/orgmode/">
-  <meta property="og:title" content="Org Mode Tips and Tricks | Brett Presnell">
-  <meta property="og:description" content="Useful org mode snippets to remember"><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png">
+  <meta property="og:url" content="https://presnell.github.io/post/r/">
+  <meta property="og:title" content="R Tips and Tricks | Brett Presnell">
+  <meta property="og:description" content="Useful R snippets to remember"><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png">
   <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2019-08-25T20:53:19-04:00">
+      <meta property="article:published_time" content="2022-06-16T10:40:03-05:00">
     
-    <meta property="article:modified_time" content="2022-05-06T23:44:26-04:00">
+    <meta property="article:modified_time" content="2022-08-13T08:12:56-04:00">
   
 
   
@@ -300,12 +300,12 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://presnell.github.io/post/orgmode/"
+    "@id": "https://presnell.github.io/post/r/"
   },
-  "headline": "Org Mode Tips and Tricks",
+  "headline": "R Tips and Tricks",
   
-  "datePublished": "2019-08-25T20:53:19-04:00",
-  "dateModified": "2022-05-06T23:44:26-04:00",
+  "datePublished": "2022-06-16T10:40:03-05:00",
+  "dateModified": "2022-08-13T08:12:56-04:00",
   
   "author": {
     "@type": "Person",
@@ -320,7 +320,7 @@
       "url": "https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "Useful org mode snippets to remember"
+  "description": "Useful R snippets to remember"
 }
 </script>
 
@@ -338,7 +338,7 @@
 
 
 
-  <title>Org Mode Tips and Tricks | Brett Presnell</title>
+  <title>R Tips and Tricks | Brett Presnell</title>
 
 </head>
 
@@ -634,10 +634,10 @@
   
   
 <div class="article-container pt-3">
-  <h1>Org Mode Tips and Tricks</h1>
+  <h1>R Tips and Tricks</h1>
 
   
-  <p class="page-subtitle">Useful org mode snippets to remember</p>
+  <p class="page-subtitle">Useful R snippets to remember</p>
   
 
   
@@ -667,7 +667,7 @@
           Last updated on
       
     
-    May 6, 2022
+    Aug 13, 2022
   </span>
   
 
@@ -676,7 +676,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    4 min read
+    1 min read
   </span>
   
 
@@ -715,230 +715,84 @@
       
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
-Adding Git Information
+Data Manipulation
 </h2>
 <div id="outline-text-headline-1" class="outline-text-2">
 <p>
-<a href="https://list.orgmode.org/875ymchv3o.fsf@ucl.ac.uk/">This response from Eric Fraga</a> might be useful.</p>
+Mainly I&#39;m trying to record tidyverse ways of doing things.  Usually I
+know how to do them in base-R.</p>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+Selecting All Columns of a Given Type
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>
+This can be useful when you have lots of columns and want to just look
+at a certain type.  Pipe it into `names()` to just get the names of
+the columns.</p>
+<div class="src src-r">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(swiss)
+</span></span><span style="display:flex;"><span>  swiss <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as_tibble</span>(swiss)
+</span></span><span style="display:flex;"><span>  swiss <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">where</span>(is.double))</span></span></code></pre></div>
+</div>
+<p>
+A base-R version would be something like:</p>
+<div class="src src-r">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(swiss)
+</span></span><span style="display:flex;"><span>  swiss[, <span style="color:#a6e22e">sapply</span>(swiss, is.double)]</span></span></code></pre></div>
 </div>
 </div>
-<div id="outline-container-headline-2" class="outline-2">
-<h2 id="headline-2">
-Formatting Numerical Table Entries
-</h2>
-<div id="outline-text-headline-2" class="outline-text-2">
-<p>
-It can be rather painful to properly format numerical tables from R
-for export via org mode.  Here is a slightly modified version of <a href="https://orgmode.org/manual/Results-of-Evaluation.html">an
-example from the org mode manual</a> that leaves integers untouched but
-prints floating point numbers with a specified format (almost).
-Alternatively, check out the <code class="verbatim">ascii</code> package for R.</p>
-<pre class="example">
-#+NAME: round-tbl
-#+BEGIN_SRC emacs-lisp :var tbl=&#34;&#34; :var fmt=&#34;%.1f&#34;
-  (mapcar (lambda (row)
-	    (mapcar (lambda (cell)
-		      (if (floatp cell)
-			  (format fmt cell)
-			cell))
-		    row))
-	  tbl)
-#+end_src
-
-#+begin_src R :results replace :colnames yes :post round-tbl[:colnames yes](*this*)
-  z &lt;- dplyr::tribble(~i, ~x, 6, -pi, -4, exp(1), 1, 2)
-  z
-#+end_src
-
-#+RESULTS:
-|  i |    x |
-|----+------|
-|  6 | -3.1 |
-| -4 |  2.7 |
-|  1 |    2 |
-</pre>
-<p>
-Note that I get a 2 in the last cell, not the 2.0 that I was hoping
-for.  FWIW, wrapping <code class="verbatim">z</code> in <code class="verbatim">print.data.frame()</code> in the R code does
-not solve this problem.  The problem is that something in the
-emacs/orgmode/elisp processing is intercepting the 2.000 and deciding
-that it&#39;s an integer.  Evidently I either need to figure that out or,
-alternatively, rewrite the elisp code to operate on the table in a
-column wise manner (ignoring the column header).</p>
-<p>
-Note that it&#39;s easy to change the format used, but of course it doesn&#39;t
-do a thing about the &#34;2&#34;.</p>
-<pre class="example">
-#+begin_src R :results replace :colnames yes :post round-tbl[:colnames yes](*this*, fmt=&#34;%.3f&#34;)
-  z &lt;- dplyr::tribble(~i, ~x, 6, -pi, -4, exp(1), 1, 2)
-  z
-#+end_src
-
-#+RESULTS:
-|  i |      x |
-|----+--------|
-|  6 | -3.142 |
-| -4 |  2.718 |
-|  1 |      2 |
-</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-headline-3" class="outline-2">
 <h2 id="headline-3">
-Replacing Table Headers
+Graphics
 </h2>
 <div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Side-by-Side Histograms Before and After Log Transformation
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
 <p>
-Sometimes I want to replace the variable names used as column header
-in R export with a custom, multi-row header.  Here&#39;s an example of how
-this might be done.  I haven&#39;t been careful about handling headers in
-the elisp code, so one may need to be careful about setting
-<code class="verbatim">:colnames</code> (and possibly <code class="verbatim">:hlines</code>) appropriately (note that
-<code class="verbatim">:colnames nil</code> is the default (and <code class="verbatim">:hlines no</code>).  I have tried to
-illustrate this below.</p>
-<p>
-For me the tables would normally be something that had been computed
-in R, but for simplicity I&#39;m just reading the data straight from the
-org file.</p>
-<pre class="example">
-#+name: headed_table
-| a     |   b |     c |
-|-------+-----+-------|
-| red   | 148 | 77.08 |
-| white | 140 | 72.92 |
-| blue  | 102 | 53.13 |
-
-#+name: headless_table
-| red   | 148 | 77.08 |
-| white | 140 | 72.92 |
-| blue  | 102 | 53.13 |
-
-#+name: replacement_header
-|       | Number | Percentage |
-|       | of     | of         |
-| Color | Flags  | Flags      |
-</pre>
-<p>
-Here&#39;s the (simple) elisp code.</p>
-<pre class="example">
-#+name: replace-header
-#+BEGIN_SRC emacs-lisp :var tab=&#34;&#34; new_header=&#34;&#34;
-  (append new_header (cons &#39;hline tab))
-#+END_SRC
-</pre>
-<p>
-Here&#39;s how to call it straight from elisp to work with an existing org table.</p>
-<pre class="example">
-#+call: replace-header(headed_table, replacement_header)
-
-#+RESULTS:
-|       | Number | Percentage |
-|       |     of |         of |
-| Color |  Flags |      Flags |
-|-------+--------+------------|
-| red   |    148 |      77.08 |
-| white |    140 |      72.92 |
-| blue  |    102 |      53.13 |
-</pre>
-<p>
-Here&#39;s calling it from R with a table having a header.</p>
-<pre class="example">
-#+begin_src R :var data=headed_table :post replace-header(*this*, replacement_header)
-  data
-#+end_src
-
-#+RESULTS:
-|       | Number | Percentage |
-|       |     of |         of |
-| Color |  Flags |      Flags |
-|-------+--------+------------|
-| red   |    148 |      77.08 |
-| white |    140 |      72.92 |
-| blue  |    102 |      53.13 |
-</pre>
-<p>
-Here&#39;s calling it from R with a headless table (probably pretty rare
-in practice).</p>
-<pre class="example">
-#+begin_src R :var data=headless_table :colnames no :post replace-header(*this*, replacement_header)
-  data
-#+end_src
-
-#+RESULTS:
-|       | Number | Percentage |
-|       |     of |         of |
-| Color |  Flags |      Flags |
-|-------+--------+------------|
-| red   |    148 |      77.08 |
-| white |    140 |      72.92 |
-| blue  |    102 |      53.13 |
-</pre>
-<p>
-And here is how to combine this with the formatting provided by the
-<a href="round-tbl">round-tbl</a> function from elsewhere in this document: just compose the
-functions in the <code class="verbatim">:post</code> header argument.</p>
-<pre class="example">
-#+begin_src R :var data=headed_table :post replace-header(round-tbl(*this*, &#34;%.1f&#34;), replacement_header)
-  data
-#+end_src
-
-#+RESULTS:
-|       | Number | Percentage |
-|       |     of |         of |
-| Color |  Flags |      Flags |
-|-------+--------+------------|
-| red   |    148 |       77.1 |
-| white |    140 |       72.9 |
-| blue  |    102 |       53.1 |
-</pre>
+Here&#39;s a quick and easy way to visually compare histograms of a
+variable before and after a log transformation.  For easy repetition,
+you can string the last 4 lines together with `;` to create a
+one-liner, or better, turn them into a simple function.  (I&#39;m not sure
+of the relative strengths and weaknesses of the cowplot and patchwork
+packages, so I&#39;ve included examples with both. See <a href="https://stackoverflow.com/questions/1249548/side-by-side-plots-with-ggplot2">this stackoverflow
+question</a> for other approaches.)</p>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+Using the cowplot package:
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<div class="src src-r">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(cowplot)
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(hcvvt, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> my_variable))
+</span></span><span style="display:flex;"><span>  p1 <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_histogram</span>()
+</span></span><span style="display:flex;"><span>  p2 <span style="color:#f92672">&lt;-</span> p1 <span style="color:#f92672">+</span> <span style="color:#a6e22e">scale_x_log10</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plot_grid</span>(p1, p2)</span></span></code></pre></div>
 </div>
 </div>
-<div id="outline-container-headline-4" class="outline-2">
-<h2 id="headline-4">
-Naming Source Code Blocks and Their Results for Referencing
-</h2>
-<div id="outline-text-headline-4" class="outline-text-2">
-<p>
-<a href="https://orgmode.org/list/878s5eax6c.fsf@nicolasgoaziou.fr/">This response by Nicolas Goaziou</a> is as clear an explanation as you&#39;ll
-ever see. </p>
+</div>
+<div id="outline-container-headline-6" class="outline-4">
+<h4 id="headline-6">
+Using the patchwork package:
+</h4>
+<div id="outline-text-headline-6" class="outline-text-4">
+<div class="src src-r">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(patchwork)
+</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(hcvvt, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> my_variable))
+</span></span><span style="display:flex;"><span>  p1 <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_histogram</span>()
+</span></span><span style="display:flex;"><span>  p2 <span style="color:#f92672">&lt;-</span> p1 <span style="color:#f92672">+</span> <span style="color:#a6e22e">scale_x_log10</span>()
+</span></span><span style="display:flex;"><span>  p1 <span style="color:#f92672">+</span> p2</span></span></code></pre></div>
 </div>
 </div>
-<div id="outline-container-headline-5" class="outline-2">
-<h2 id="headline-5">
-<code class="verbatim">:results drawer</code> and maybe <code class="verbatim">:wrap export org</code>
-</h2>
-<div id="outline-text-headline-5" class="outline-text-2">
-<p>
-  These might be useful for code blocks that need to be evaluated as
-  org text.  Check the org list from around 2020-11-11 for more.</p>
 </div>
 </div>
-<div id="outline-container-headline-6" class="outline-2">
-<h2 id="headline-6">
-Stacking Tables
-</h2>
-<div id="outline-text-headline-6" class="outline-text-2">
-<p>
-The org-mode equivalent of <code>rbind()</code> in R is revealed <a href="https://lists.gnu.org/archive/html/emacs-orgmode/2019-08/msg00261.html">here</a> by Emmanuel
-Charpentier.</p>
 </div>
-</div>
-<div id="outline-container-headline-7" class="outline-2">
-<h2 id="headline-7">
-Org Mode Interface to Canvas
-</h2>
-<div id="outline-text-headline-7" class="outline-text-2">
-<p>
-<a href="https://github.com/titaniumbones/org-lms">This project</a> might be worth keeping an eye on if my use of Canvas expands.</p>
-</div>
-</div>
-<div id="outline-container-headline-8" class="outline-2">
-<h2 id="headline-8">
-Easy-Hugo
-</h2>
-<div id="outline-text-headline-8" class="outline-text-2">
-<p>
-The <a href="https://github.com/masasam/emacs-easy-hugo">easy-hugo</a> package might be useful for maintaining my web site.</p>
 </div>
 </div>
 
