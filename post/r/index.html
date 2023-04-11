@@ -249,8 +249,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_32x32_fill_lanczos_center_3.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_3.png">
+  <link rel="icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_2.png">
 
   <link rel="canonical" href="https://presnell.github.io/post/r/">
 
@@ -270,8 +270,8 @@
   <meta property="og:site_name" content="Brett Presnell">
   <meta property="og:url" content="https://presnell.github.io/post/r/">
   <meta property="og:title" content="R Tips and Tricks | Brett Presnell">
-  <meta property="og:description" content="Useful R snippets to remember"><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png">
-  <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Useful R snippets to remember"><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2022-06-16T10:40:03-05:00">
@@ -317,7 +317,7 @@
     "name": "Brett Presnell",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_3.png"
+      "url": "https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_2.png"
     }
   },
   "description": "Useful R snippets to remember"
@@ -731,15 +731,15 @@ This can be useful when you have lots of columns and want to just look
 at a certain type.  Pipe it into `names()` to just get the names of
 the columns.</p>
 <div class="src src-r">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(swiss)
-</span></span><span style="display:flex;"><span>  swiss <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as_tibble</span>(swiss)
-</span></span><span style="display:flex;"><span>  swiss <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">where</span>(is.double))</span></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#a6e22e">data</span>(swiss)
+  swiss <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as_tibble</span>(swiss)
+  swiss <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">where</span>(is.double))</code></pre></div>
 </div>
 <p>
 A base-R version would be something like:</p>
 <div class="src src-r">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(swiss)
-</span></span><span style="display:flex;"><span>  swiss[, <span style="color:#a6e22e">sapply</span>(swiss, is.double)]</span></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#a6e22e">data</span>(swiss)
+  swiss[, <span style="color:#a6e22e">sapply</span>(swiss, is.double)]</code></pre></div>
 </div>
 </div>
 </div>
@@ -769,11 +769,11 @@ Using the cowplot package:
 </h4>
 <div id="outline-text-headline-5" class="outline-text-4">
 <div class="src src-r">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(cowplot)
-</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(hcvvt, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> my_variable))
-</span></span><span style="display:flex;"><span>  p1 <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_histogram</span>()
-</span></span><span style="display:flex;"><span>  p2 <span style="color:#f92672">&lt;-</span> p1 <span style="color:#f92672">+</span> <span style="color:#a6e22e">scale_x_log10</span>()
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plot_grid</span>(p1, p2)</span></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#a6e22e">library</span>(cowplot)
+  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(hcvvt, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> my_variable))
+  p1 <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_histogram</span>()
+  p2 <span style="color:#f92672">&lt;-</span> p1 <span style="color:#f92672">+</span> <span style="color:#a6e22e">scale_x_log10</span>()
+  <span style="color:#a6e22e">plot_grid</span>(p1, p2)</code></pre></div>
 </div>
 </div>
 </div>
@@ -783,11 +783,11 @@ Using the patchwork package:
 </h4>
 <div id="outline-text-headline-6" class="outline-text-4">
 <div class="src src-r">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(patchwork)
-</span></span><span style="display:flex;"><span>  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(hcvvt, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> my_variable))
-</span></span><span style="display:flex;"><span>  p1 <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_histogram</span>()
-</span></span><span style="display:flex;"><span>  p2 <span style="color:#f92672">&lt;-</span> p1 <span style="color:#f92672">+</span> <span style="color:#a6e22e">scale_x_log10</span>()
-</span></span><span style="display:flex;"><span>  p1 <span style="color:#f92672">+</span> p2</span></span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#a6e22e">library</span>(patchwork)
+  p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(hcvvt, <span style="color:#a6e22e">aes</span>(x <span style="color:#f92672">=</span> my_variable))
+  p1 <span style="color:#f92672">&lt;-</span> p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_histogram</span>()
+  p2 <span style="color:#f92672">&lt;-</span> p1 <span style="color:#f92672">+</span> <span style="color:#a6e22e">scale_x_log10</span>()
+  p1 <span style="color:#f92672">+</span> p2</code></pre></div>
 </div>
 </div>
 </div>
@@ -1025,7 +1025,7 @@ Using the patchwork package:
     
     
     
-    <script src="/js/academic.min.4182b289689108d47721d002a07cd804.js"></script>
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
 
     
 

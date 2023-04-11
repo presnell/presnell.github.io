@@ -1,0 +1,1484 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Brett Presnell">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Background   I&#39;ve been reading and sending email with GNU Emacs since about 1991. In that time I have used at least five different emacs email clients: MH-E, VM, Mew, gnus, and now mu4e.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/email/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://presnell.github.io/post/email/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Brett Presnell">
+  <meta property="og:url" content="https://presnell.github.io/post/email/">
+  <meta property="og:title" content="Reading Email with Emacs | Brett Presnell">
+  <meta property="og:description" content="Background   I&#39;ve been reading and sending email with GNU Emacs since about 1991. In that time I have used at least five different emacs email clients: MH-E, VM, Mew, gnus, and now mu4e."><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2022-10-09T16:16:58-04:00">
+    
+    <meta property="article:modified_time" content="2022-10-10T18:49:37-04:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://presnell.github.io/post/email/"
+  },
+  "headline": "Reading Email with Emacs",
+  
+  "datePublished": "2022-10-09T16:16:58-04:00",
+  "dateModified": "2022-10-10T18:49:37-04:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Brett Presnell"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Brett Presnell",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Background   I\u0026#39;ve been reading and sending email with GNU Emacs since about 1991. In that time I have used at least five different emacs email clients: MH-E, VM, Mew, gnus, and now mu4e."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Reading Email with Emacs | Brett Presnell</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
+
+  
+  
+  
+    <script>window.staDarkLightChooser = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Brett Presnell</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Brett Presnell</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/teaching/"><span>Teaching</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Reading Email with Emacs</h1>
+
+  
+  <p class="page-subtitle">My Trials and tribulations with outlook.office365.com and OAuth2</p>
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span ><a href="/author/brett-presnell/">Brett Presnell</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Oct 10, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    13 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Background
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+I&#39;ve been reading and sending email with GNU Emacs since about 1991.
+In that time I have used at least five different emacs email clients:
+<code class="verbatim">MH-E</code>, <code class="verbatim">VM</code>, <code class="verbatim">Mew</code>, <code class="verbatim">gnus</code>, and now <code class="verbatim">mu4e</code>.  I have also adapted to
+many different email server setups, and I have helped many of my
+current and especially my former colleagues do the same.</p>
+<p>
+Some years ago now our departmental email server was shut down and our
+email moved to a Microsoft Exchange server.  The Exchange IMAP server
+(used for reading email) in conjunction with <code class="verbatim">gnus</code> was so slow that
+it was unusable, so I switched to a combination of the <code class="verbatim">mu4e</code> emacs
+client with a local maildir store kept in sync with the server by
+<code class="verbatim">offlineimap</code>.  I was serving as department chair at the time and the
+super fast search provided by <code class="verbatim">mu</code> was really nice to have with all
+the email that comes with that position.</p>
+<p>
+A few years ago the university decided to completely outsourced email
+to Microsoft, so I set up offlineimap to retrieving my email from
+<code class="verbatim">outlook.office365.com</code>.  This was a minor change requiring very
+little new effort on my part.  However, Microsoft recently decided to
+deprecate the “Basic Auth” protocol for checking email in favor of
+“Modern Auth” (oath2), so once again I was forced lose a long weekend
+adapting to a new email setup.</p>
+<p>
+I will admit here that I am trying to do all this while minimizing the
+number of things that I actually have to understand about how any of
+these protocols work.  I spent way too much of my earlier life setting
+up departmental email servers and clients before finally swearing off
+ever doing that again, and I have spent a great deal of time in the
+intervening years adapting to changing email environments and helping
+colleagues to do the same.  At this point in my life I am completely
+uninterested in how any of this works beyond what is absolutely
+required for me to use it — I just want to continue to read and
+write work email in the same development environment (emacs) that I
+use for everything else.</p>
+<p>
+In any case, there are two parts to this problem: retrieving and
+syncing email with Microsoft&#39;s IMAP server, which I have been doing
+with offlineimap; and sending email messages via Microsoft&#39;s SMTP
+(Symmetric Mail Transport Protocol) server, which I have been doing
+with emacs&#39;s built-in sendmail code for many years.  There do exist
+emacs packages named oauth2, auth-source-xoauth2, and oauth2-request
+but I didn&#39;t get very far with any of them and they wouldn&#39;t help me
+on the IMAP side, since I now use an external problem (offlineimap)
+for that interaction (now that I&#39;ve grown used to <code class="verbatim">mu4e</code> I&#39;m not going
+back to <code class="verbatim">gnus</code>).</p>
+<p>
+So, I need to find another way to send email that works with oauth2,
+and I need either to confiure offlineimap to work with oauth2 or find
+another way to interact with the IMAP server.  These days the most
+common sendmail replacement seems to be <code class="verbatim">msmtp</code>, so I pretty quickly
+settled on that.</p>
+<p>
+To retrieve/sync and send email via Microsofts servers with oauth2,
+one must have a registered &#34;client app&#34;.  There is a mechanism for
+registering such an app with Microsoft Azure (whatever that is), but
+this failed for me because my institution does not allow me (or
+anyone?) to register a new app.  This means that I must do what
+everyone else apparently does, which is to use the client ID and
+secret for Mozilla&#39;s Thunderbird email client (there&#39;s actually
+nothing secret about these and you will see them below).</p>
+<p>
+Early on in the process I tried using <a href="https://github.com/UvA-FNWI/M365-IMAP">M365-IMAP</a> (python) and I was
+able to make it work with <code class="verbatim">offlineimap</code>, but the authorization token
+or tokens have to be updated periodically (every hour or so?). I also
+don&#39;t want to be storing them in a clear text file, so the barebones
+usage outlined there won&#39;t work for me.  Still, at a minimum, this is
+a good way to retrieve some actual authentication tokens to experiment
+with.</p>
+<p>
+I also tried <code class="verbatim">mailctl</code> and I got it to work with <code class="verbatim">msmtp</code> but not with
+<code class="verbatim">offlineimap</code>.  I tried another method, but the initial authentication
+step (which uses a browser) wouldn&#39;t work for me because all the
+graphics (buttons) for my institutions login page didn&#39;t show up,
+leaving me unable to complete the 2-factor authentication. (I think I
+was trying either <a href="https://github.com/simonrob/email-oauth2-proxy">email-oauth2-proxy</a> or <a href="https://github.com/ahrex/oauth-helper-office-365">oauth-helper-office-365</a> when I
+ran into this problem.)</p>
+<p>
+I finally came across
+<code class="verbatim">[[https://tratt.net/laurie/blog/2022/pizauth_oauth_authenticator_alpha.html][pizauth]]</code>
+and this actually seems to work for me and takes care of any worries
+about storing any authentication details on disk.  However, I didn&#39;t
+manage to get it working with <code class="verbatim">offlineimap</code> (I&#39;m sure that&#39;s on me),
+so I decided to switch over to <code class="verbatim">isync/mbsync</code>, which I was already
+aware of as a faster alternative to <code class="verbatim">offlineimap</code>.  The rest of this
+describes the process of getting this working on Ubuntu 22.04 (LTS),
+a.k.a., &#34;Ubuntu Jammy&#34;.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Setting Up <code class="verbatim">pizauth</code>
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+First we need a Rust compiler.  For this, just go to the <a href="https://www.rust-lang.org/learn/get-started">Getting
+Started</a> page for rust and follow the instructions to use the Rustup
+tool to install Rust.  This will install a personal copy of rust in
+your home directory (as opposed to a system-wide installation).  Then
+add the following lines to your <code class="verbatim">~/.profile</code> (or wherever you keep
+your shell startup stuff):</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">source ~/.cargo/env</code></pre></div>
+</div>
+<p>
+You may need to reload your <code class="verbatim">.profile</code> (or your <code class="verbatim">.bashrc</code>) or just
+log out and log back in again to get the rust compiler on your path.</p>
+<p>
+Next download <code class="verbatim">pizauth</code> either from <a href="https://tratt.net/laurie/src/pizauth/">Laurie Tratt&#39;s web pages</a>
+or from the <a href="https://github.com/ltratt/pizauth/">Github repository</a> and untar/unzip it if necessary. I was
+able to compile the program with <code class="verbatim">make</code> but <code class="verbatim">sudo make install</code> failed
+because <code class="verbatim">sudo</code> doesn&#39;t have the Rust compiler on it&#39;s path.  To fix
+this, I edited the <code class="verbatim">Makefile</code> and changed these lines</p>
+<pre class="example">
+install:
+	cargo build --release
+	install -d ${PREFIX}/bin
+	...
+</pre>
+<p>to</p>
+<pre class="example">
+install:
+	# cargo build --release
+	install -d ${PREFIX}/bin
+        ...
+</pre>
+<p>This works becuase the <code class="verbatim">cargo build --release</code> step is already done
+when you run <code class="verbatim">make</code> (without <code class="verbatim">sudo</code>) to compile the program, so it can
+safely be left out of the installation step.  (For reference, <code class="verbatim">cargo</code>
+is the Rust package manager.)</p>
+<p>
+So again, after this edit, just run the following commands to compile
+<code class="verbatim">pizauth</code> and install it in <code class="verbatim">/usr/local</code>.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  cd pizauth-0.1.0
+  make
+  sudo make install</code></pre></div>
+</div>
+<p>
+I next created the file <code class="verbatim">~/.config/pizauth.conf</code>, whose contents are
+given below.  The <code class="verbatim">client_id</code> and <code class="verbatim">client_secret</code> are actually for
+thunderbird, but this works.  For your own use you may want to change
+<code class="verbatim">&#34;UF&#34;</code> to something else (e.g., <code class="verbatim">&#34;work&#34;</code>) and you will have to replace
+my email address with your own on the <code class="verbatim">login_hint</code> line.</p>
+<pre class="example">
+account &#34;UF&#34; {
+    auth_uri = &#34;https://login.microsoftonline.com/common/oauth2/v2.0/authorize&#34;;
+    token_uri = &#34;https://login.microsoftonline.com/common/oauth2/v2.0/token&#34;;
+    client_id = &#34;08162f7c-0fd2-4200-a84a-f25a4db0b584&#34;;
+    client_secret = &#34;TxRBilcHdC6WGBee]fs?QR:SJ8nI[g82&#34;;
+    scopes = [
+      &#34;https://outlook.office365.com/IMAP.AccessAsUser.All&#34;,
+      &#34;https://outlook.office365.com/SMTP.Send&#34;,
+      &#34;offline_access&#34;
+    ];
+    // You don&#39;t have to specify login_hint, but it does make
+    // authentication a little easier.
+    login_hint = &#34;presnell@ufl.edu&#34;;
+}
+</pre>
+<p>
+Next run</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  pizauth server</code></pre></div>
+</div>
+<p>You shouldn&#39;t see any output from this.  Assuming that all has gone
+well to here, run (again, change <code class="verbatim">UF</code> to whatever you used for the
+account name in your <code class="verbatim">pizauth.conf</code> file.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  pizauth show UF</code></pre></div>
+</div>
+<p>The first time you do this a URL will be output.  Copy this URL and
+open it in your browser and do whatever is needed to authenticate with
+your institution (if your browser is already authenticated, you may
+not have to do anything but open the URL).  To see if this worked, run
+<code class="verbatim">pizauth show UF</code> again and you should see the access token obtained.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Installing and Configuring <code class="verbatim">msmtp</code>
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>
+This one is easy to install:</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo apt install msmtp</code></pre></div>
+</div>
+<p>
+Next create the file <code class="verbatim">~/.msmtprc</code> with the following contents, which
+again will need to be modified to match your situation.</p>
+<pre class="example">
+  ## UF email via office365 (Microsoft)
+  account UF
+  auth    xoauth2
+  host    smtp.office365.com
+  protocol smtp
+  port    587
+  tls     on
+  tls_starttls on
+  from    presnell@ufl.edu
+  user    presnell@ufl.edu
+  passwordeval pizauth show UF
+</pre>
+<p>
+At this stage you can test that sending email is working by running
+something like:</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  printf <span style="color:#e6db74">&#34;Subject: Test\n\nHello there me.&#34;</span> | msmtp -a UF your_personal_account@gmail.com</code></pre></div>
+</div>
+<p>and checking that the mail is received at your personal account.</p>
+<p>
+An error similar to this:</p>
+<pre class="example">
+sh: 1: pizauth: Permission denied
+msmtp: cannot read output of &#39;pizauth show UF&#39;
+</pre>
+<p>probably indicates that your OS (Ubuntu for me) has put some overly
+restrictive apparmor conditions on msmtp.  You can fix this by
+disabling apparmor for msmtp like this:</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo ln -s /etc/apparmor.d/usr.bin.msmtp /etc/apparmor.d/disable/
+  sudo apparmor_parser -R /etc/apparmor.d/usr.bin.msmtp</code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Installing and Configuring <code class="verbatim">isync/mbsync</code>
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>
+Again, installion of the <code class="verbatim">isync</code> package is routine.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo apt install isync</code></pre></div>
+</div>
+<p>
+To use <code class="verbatim">mbsync</code> with oauth2, you also need to install an xoauth2
+plugin for SASL (Simple Authentication and Security Layer).  There are
+several available, and I first tried the <a href="https://launchpad.net/~sasl-xoauth2/+archive/ubuntu/stable">ppa</a> on <a href="https://launchpad.net/">Cononical&#39;s Launchpad</a>,
+but it did not work for me.  The most commonly used plugin seems to be
+<a href="https://github.com/moriyoshi/cyrus-sasl-xoauth2">this one</a> (I think that it is used in Arch linux and in Free BSD). To
+install it, I followed the instructions in the Install Cyrus SASL
+OAuth2 section of <a href="https://unix.stackexchange.com/questions/625637/configuring-mbsync-with-authmech-xoauth2">this page</a>.  As prerequisites, you need to install
+that <code class="verbatim">libsasl2-dev</code> package and if you want to do the last step
+(verifying that XOATH2 is known to SASL probably isn&#39;t necessary), you
+will also need to install the <code class="verbatim">sasl2-bin</code> package to get the
+<code class="verbatim">saslpluginviewer</code> command:</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo apt install libsasl2-dev sasl2-bin</code></pre></div>
+</div>
+<p>After this just follow the instructions mentioned above, i.e.,</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  <span style="color:#75715e"># Clone the Cyrus SASL OAuth2 sources.</span>
+  git clone https://github.com/moriyoshi/cyrus-sasl-xoauth2.git
+
+  <span style="color:#75715e"># Configure and make.</span>
+  cd cyrus-sasl-xoauth2
+  ./autogen.sh
+  ./configure
+
+  <span style="color:#75715e"># SASL2 libraries on Ubuntu are in /usr/lib/x86_64-linux-gnu/; modify the Makefile accordingly</span>
+  sed -i <span style="color:#e6db74">&#39;s%pkglibdir = ${CYRUS_SASL_PREFIX}/lib/sasl2%pkglibdir = ${CYRUS_SASL_PREFIX}/lib/x86_64-linux-gnu/sasl2%&#39;</span> Makefile
+
+  make
+  sudo make install
+
+  <span style="color:#75715e"># Verify XOAUTH2 is known to SASL.</span>
+  saslpluginviewer | grep XOAUTH2</code></pre></div>
+</div>
+<p>
+Finally, I created a <code class="verbatim">~/.mbsyncrc</code> file with the contents below.  By
+default Outlook creates and syncs a bunch of folders that I don&#39;t use.
+I basically keep everything in INBOX and Archive and use <code class="verbatim">mu</code> to find
+things quickly, so it&#39;s easiest for me to just list the folders that I
+want in the <code class="verbatim">Patterns</code> line.  If you create a lot of folders for your
+email, then it might be easier to say what you don&#39;t want (there are
+examples online of how to do this), or just use <code class="verbatim">*</code> and download
+everything.</p>
+<p>
+Also, for initial testing, the RECOMMENDATIONS section of
+the
+<code class="verbatim">[[https://manpages.ubuntu.com/manpages/jammy/man1/mbsync.1.html][mbsync man page]]</code>
+recommends leaving <code class="verbatim">Expunge None</code> (the default) to make
+sure you don&#39;t lose mail if anything goes awry.</p>
+<p>
+Finally, I set <code class="verbatim">Create Near</code> so that folders (mailboxes) would be
+created on the local side when I initially sync things up, but I don&#39;t
+really want to create any new folders on either end.  You might prefer
+<code class="verbatim">Create Both</code>, which I assume is a lot more common.</p>
+<p>
+Note that a &#34;Channel&#34; in <code class="verbatim">mbsync</code> combines a <code class="verbatim">Far</code> with a <code class="verbatim">Near</code>
+store; in this case the <code class="verbatim">UF</code> channel combines <code class="verbatim">UFRemote</code> and
+<code class="verbatim">UFLocal</code>.</p>
+<pre class="example">
+  IMAPAccount UF
+  Host outlook.office365.com
+  User presnell@ufl.edu
+  Port 993
+  SSLType IMAPS
+  SSLVersions TLSv1.1 TLSv1.2
+  AuthMechs XOAUTH2
+  PassCmd &#34;pizauth show UF&#34;
+
+  IMAPStore UFRemote
+  Account UF
+
+  MailDirStore UFLocal
+  Path ~/Maildir/UF/
+  Inbox ~/Maildir/UF/INBOX
+  Subfolders Verbatim
+
+  Channel UF
+  Far :UFRemote:
+  Near :UFLocal:
+  SyncState *
+  ## I only want these 5 folders:
+  Patterns &#34;INBOX&#34; &#34;Archive&#34; &#34;Drafts&#34; &#34;Sent Items&#34; &#34;Deleted Items&#34;
+  ## You can sync EVERYTHING by using this line instead:
+  ## Patterns *
+  Create Near
+  Expunge Both
+</pre>
+<p>
+I also had to manually create the <code class="verbatim">~Maildir/UF</code> directory.  You
+probably don&#39;t want that to be readable by anyone but you either, so
+set the permissions accordingly.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  mkdir -p ~/Maildir/UF
+  chmod -R go-rwx ~/Maildir</code></pre></div>
+</div>
+<p>
+Finally, test by running the following command.  It will take a while
+the first time to download all your email.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  mbsync UF</code></pre></div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Socket error: unexpected eof
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>
+I consistently get the following error message when I run <code class="verbatim">mbsync UF</code>,
+but the error doesn&#39;t seem to cause any problems.</p>
+<pre class="example">
+Socket error: secure read from outlook.office365.com (52.96.29.82:993): error:0A000126:SSL routines::unexpected eof while reading
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Duplicate messages
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>
+<a href="http://tiborsimko.org/mbsync-duplicate-uid.html">This post</a> may be useful for diagnosing and fixing duplicate message
+errors from <code class="verbatim">mbsync</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Installing <code class="verbatim">mu</code> and <code class="verbatim">mu4e</code>
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>
+I&#39;m going to install the latest version of <code class="verbatim">mu</code> and <code class="verbatim">mu4e</code> from
+github.  If you&#39;re happy with an older version, you can install the
+Ubuntu package <code class="verbatim">maildir-utils</code> with apt.</p>
+<p>
+It might be a good idea to clear out any existing mu and mu4e
+installations if you have used them before, e.g., with <code class="verbatim">sudo apt purge
+maildir-utils</code>.  I had installed them manually from source, so I did
+something like this:</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo rm /usr/local/bin/mu
+  sudo rm -r /usr/local/share/emacs/site-lisp/mu4e
+  sudo rm -r /usr/local/share/man/man*/mu-*
+  sudo rm /usr/local/share/man1/mu.1
+  sudo rm /usr/local/share/man1/mug.1
+  sudo rm -r /usr/local/share/doc/mu</code></pre></div>
+</div>
+<p>
+Make sure these prerequisite libraries are installed.  Add <code class="verbatim">emacs</code> to
+the list of packages if you don&#39;t already have it (I use
+<code class="verbatim">emacs-snapshot</code> from a ppa so I&#39;m not including that here).</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo apt install libgmime-3.0-dev libxapian-dev</code></pre></div>
+</div>
+<p>
+Next install the meson build system.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  sudo apt install meson ninja-build</code></pre></div>
+</div>
+<p>
+Now we can download the <a href="https://github.com/djcb/mu/releases">most recent release of mu</a> (currently 1.8.10)
+and install as below.  It is possible that there are prerequisite
+packages that need to be installed with <code class="verbatim">apt</code>, but if so, I seem to
+have all of them already installed from previous installations of mu.</p>
+<div class="src src-sh">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  cd ~/Download
+  tar -xf mu-1.8.10.tar.xz
+  cd mu-1.8.10
+  meson build <span style="color:#f92672">&amp;&amp;</span> ninja -C build
+  sudo ninja -C build install   <span style="color:#75715e"># By default this will install into /usr/local</span></code></pre></div>
+</div>
+<p>
+To index your mail, just run:</p>
+<pre class="example">
+mu init --maildir=~/Maildir --my-address=presnell@ufl.edu --my-address=presnell@stat.ufl.edu
+mu info  # Checking everything is correct
+mu index
+</pre>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Configuring <code class="verbatim">mu4e</code>
+</h2>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Further Notes
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<ul>
+<li>
+<p>It looks like this person <a href="https://sites.uw.edu/bxf4/2022/09/01/getting-uw-outlook-365-oauth2-to-work-with-emacs-mu4e-mbsync-and-msmtp/">had a similar ordeal</a></p>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+My comments for Laurie Tratt&#39;s blog post on pizauth:
+</h3>
+</div>
+</li>
+</ul>
+<blockquote>
+<p>Works for me! Thanks so much for this. I lost access to my work email last week when MS turned off basic authentication.  After I had struggled to arrive at an acceptable (no tokens stored in unencrypted files) and complete (IMAP and SMTP both working smoothly) solution with any of the other options I came across, pizauth saved the day. I had been using offlineimap + mu + mu4e and emacs&#39;s built-in sendmail stuff. I ended up with pizauth + mbsync + msmtp + mu + mu4e, but it&#39;s working, so I&#39;m happy.</p>
+<p>
+A few comments:</p>
+<ol>
+<li>
+<p>I have rust installed via rustup (so in my home directory) and on my linux box (Ubuntu 22.04) I couldn&#39;t get sudo to use it for &#34;sudo make install&#34;, so I commented the &#34;cargo build –release&#34; step out of the install recipe in the Makefile.  With that change  &#34;make; sudo make install&#34; worked without a hitch.</p>
+</li>
+</ol>
+<ol>
+<li>
+<p>My institution does not allow me to register a new application with Azure, so I&#39;m just using the client id and secret for thunderbird, which I assume is what most people are doing.</p>
+</li>
+<li>
+<p>Offlineimap will work with OAuth2 (I verified this by generating access and renew tokens and manually entering them into my .offlineimaprc file). I think that it should work with pizauth (by calling pizauth in a manner similar to this (<a href="https://wiki.archlinux.org/title/OfflineIMAP#Configuring_OAuth2_and_getting_access_tokens_via_mailctl)">https://wiki.archlinux.org/title/OfflineIMAP#Configuring_OAuth2_and_getting_access_tokens_via_mailctl)</a> or this (<a href="https://www.macs.hw.ac.uk/~rs46/posts/2022-01-11-mu4e-oauth.html)">https://www.macs.hw.ac.uk/~rs46/posts/2022-01-11-mu4e-oauth.html)</a> but somehow I failed to get it to work. FWIW, I thought that offlineimap needed both an access token and a renewal token, and assuming that both would eventually expire if not used, I don&#39;t see how to get the refresh token from pizauth.</p>
+</li>
+</ol>
+<p>Today I noticed that offlineimap also has built-in functionality for renewing OAuth2 tokens (<a href="https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).">https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).</a>  I didn&#39;t realize this, so I may have misunderstood some of the configuration advice that I encountered elsewhere.  I certainly would have continued with offlineimap if I had managed to get everything working properly, but mbsync does seem to be a bit faster, so there&#39;s that I guess.</p>
+</blockquote>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/brett-presnell/avatar_huf6f389b0181be98efdee6ad452d8bc5e_18853_270x270_fill_q90_lanczos_center.jpg" alt="Brett Presnell">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="https://presnell.github.io/">Brett Presnell</a></h5>
+        <h6 class="card-subtitle">Associate Professor of Statistics</h6>
+        <p class="card-text">My research interests include nonparametric and computationally intensive statistics, model misspecification, statistical computing, and the analysis of directional data.</p>
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=cUQ7YCMAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/presnell" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/files/vita.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

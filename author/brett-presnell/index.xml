@@ -5,12 +5,484 @@
     <link>https://presnell.github.io/author/brett-presnell/</link>
       <atom:link href="https://presnell.github.io/author/brett-presnell/index.xml" rel="self" type="application/rss+xml" />
     <description>Brett Presnell</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 16 Jun 2022 10:40:03 -0500</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 09 Oct 2022 16:16:58 -0400</lastBuildDate>
     <image>
-      <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_3.png</url>
+      <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Brett Presnell</title>
       <link>https://presnell.github.io/author/brett-presnell/</link>
     </image>
+    
+    <item>
+      <title>Reading Email with Emacs</title>
+      <link>https://presnell.github.io/post/email/</link>
+      <pubDate>Sun, 09 Oct 2022 16:16:58 -0400</pubDate>
+      <guid>https://presnell.github.io/post/email/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+Background
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+I&amp;#39;ve been reading and sending email with GNU Emacs since about 1991.
+In that time I have used at least five different emacs email clients:
+&lt;code class=&#34;verbatim&#34;&gt;MH-E&lt;/code&gt;, &lt;code class=&#34;verbatim&#34;&gt;VM&lt;/code&gt;, &lt;code class=&#34;verbatim&#34;&gt;Mew&lt;/code&gt;, &lt;code class=&#34;verbatim&#34;&gt;gnus&lt;/code&gt;, and now &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt;.  I have also adapted to
+many different email server setups, and I have helped many of my
+current and especially my former colleagues do the same.&lt;/p&gt;
+&lt;p&gt;
+Some years ago now our departmental email server was shut down and our
+email moved to a Microsoft Exchange server.  The Exchange IMAP server
+(used for reading email) in conjunction with &lt;code class=&#34;verbatim&#34;&gt;gnus&lt;/code&gt; was so slow that
+it was unusable, so I switched to a combination of the &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt; emacs
+client with a local maildir store kept in sync with the server by
+&lt;code class=&#34;verbatim&#34;&gt;offlineimap&lt;/code&gt;.  I was serving as department chair at the time and the
+super fast search provided by &lt;code class=&#34;verbatim&#34;&gt;mu&lt;/code&gt; was really nice to have with all
+the email that comes with that position.&lt;/p&gt;
+&lt;p&gt;
+A few years ago the university decided to completely outsourced email
+to Microsoft, so I set up offlineimap to retrieving my email from
+&lt;code class=&#34;verbatim&#34;&gt;outlook.office365.com&lt;/code&gt;.  This was a minor change requiring very
+little new effort on my part.  However, Microsoft recently decided to
+deprecate the “Basic Auth” protocol for checking email in favor of
+“Modern Auth” (oath2), so once again I was forced lose a long weekend
+adapting to a new email setup.&lt;/p&gt;
+&lt;p&gt;
+I will admit here that I am trying to do all this while minimizing the
+number of things that I actually have to understand about how any of
+these protocols work.  I spent way too much of my earlier life setting
+up departmental email servers and clients before finally swearing off
+ever doing that again, and I have spent a great deal of time in the
+intervening years adapting to changing email environments and helping
+colleagues to do the same.  At this point in my life I am completely
+uninterested in how any of this works beyond what is absolutely
+required for me to use it — I just want to continue to read and
+write work email in the same development environment (emacs) that I
+use for everything else.&lt;/p&gt;
+&lt;p&gt;
+In any case, there are two parts to this problem: retrieving and
+syncing email with Microsoft&amp;#39;s IMAP server, which I have been doing
+with offlineimap; and sending email messages via Microsoft&amp;#39;s SMTP
+(Symmetric Mail Transport Protocol) server, which I have been doing
+with emacs&amp;#39;s built-in sendmail code for many years.  There do exist
+emacs packages named oauth2, auth-source-xoauth2, and oauth2-request
+but I didn&amp;#39;t get very far with any of them and they wouldn&amp;#39;t help me
+on the IMAP side, since I now use an external problem (offlineimap)
+for that interaction (now that I&amp;#39;ve grown used to &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt; I&amp;#39;m not going
+back to &lt;code class=&#34;verbatim&#34;&gt;gnus&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;
+So, I need to find another way to send email that works with oauth2,
+and I need either to confiure offlineimap to work with oauth2 or find
+another way to interact with the IMAP server.  These days the most
+common sendmail replacement seems to be &lt;code class=&#34;verbatim&#34;&gt;msmtp&lt;/code&gt;, so I pretty quickly
+settled on that.&lt;/p&gt;
+&lt;p&gt;
+To retrieve/sync and send email via Microsofts servers with oauth2,
+one must have a registered &amp;#34;client app&amp;#34;.  There is a mechanism for
+registering such an app with Microsoft Azure (whatever that is), but
+this failed for me because my institution does not allow me (or
+anyone?) to register a new app.  This means that I must do what
+everyone else apparently does, which is to use the client ID and
+secret for Mozilla&amp;#39;s Thunderbird email client (there&amp;#39;s actually
+nothing secret about these and you will see them below).&lt;/p&gt;
+&lt;p&gt;
+Early on in the process I tried using &lt;a href=&#34;https://github.com/UvA-FNWI/M365-IMAP&#34;&gt;M365-IMAP&lt;/a&gt; (python) and I was
+able to make it work with &lt;code class=&#34;verbatim&#34;&gt;offlineimap&lt;/code&gt;, but the authorization token
+or tokens have to be updated periodically (every hour or so?). I also
+don&amp;#39;t want to be storing them in a clear text file, so the barebones
+usage outlined there won&amp;#39;t work for me.  Still, at a minimum, this is
+a good way to retrieve some actual authentication tokens to experiment
+with.&lt;/p&gt;
+&lt;p&gt;
+I also tried &lt;code class=&#34;verbatim&#34;&gt;mailctl&lt;/code&gt; and I got it to work with &lt;code class=&#34;verbatim&#34;&gt;msmtp&lt;/code&gt; but not with
+&lt;code class=&#34;verbatim&#34;&gt;offlineimap&lt;/code&gt;.  I tried another method, but the initial authentication
+step (which uses a browser) wouldn&amp;#39;t work for me because all the
+graphics (buttons) for my institutions login page didn&amp;#39;t show up,
+leaving me unable to complete the 2-factor authentication. (I think I
+was trying either &lt;a href=&#34;https://github.com/simonrob/email-oauth2-proxy&#34;&gt;email-oauth2-proxy&lt;/a&gt; or &lt;a href=&#34;https://github.com/ahrex/oauth-helper-office-365&#34;&gt;oauth-helper-office-365&lt;/a&gt; when I
+ran into this problem.)&lt;/p&gt;
+&lt;p&gt;
+I finally came across
+&lt;code class=&#34;verbatim&#34;&gt;[[https://tratt.net/laurie/blog/2022/pizauth_oauth_authenticator_alpha.html][pizauth]]&lt;/code&gt;
+and this actually seems to work for me and takes care of any worries
+about storing any authentication details on disk.  However, I didn&amp;#39;t
+manage to get it working with &lt;code class=&#34;verbatim&#34;&gt;offlineimap&lt;/code&gt; (I&amp;#39;m sure that&amp;#39;s on me),
+so I decided to switch over to &lt;code class=&#34;verbatim&#34;&gt;isync/mbsync&lt;/code&gt;, which I was already
+aware of as a faster alternative to &lt;code class=&#34;verbatim&#34;&gt;offlineimap&lt;/code&gt;.  The rest of this
+describes the process of getting this working on Ubuntu 22.04 (LTS),
+a.k.a., &amp;#34;Ubuntu Jammy&amp;#34;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
+Setting Up &lt;code class=&#34;verbatim&#34;&gt;pizauth&lt;/code&gt;
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+First we need a Rust compiler.  For this, just go to the &lt;a href=&#34;https://www.rust-lang.org/learn/get-started&#34;&gt;Getting
+Started&lt;/a&gt; page for rust and follow the instructions to use the Rustup
+tool to install Rust.  This will install a personal copy of rust in
+your home directory (as opposed to a system-wide installation).  Then
+add the following lines to your &lt;code class=&#34;verbatim&#34;&gt;~/.profile&lt;/code&gt; (or wherever you keep
+your shell startup stuff):&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;source ~/.cargo/env&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+You may need to reload your &lt;code class=&#34;verbatim&#34;&gt;.profile&lt;/code&gt; (or your &lt;code class=&#34;verbatim&#34;&gt;.bashrc&lt;/code&gt;) or just
+log out and log back in again to get the rust compiler on your path.&lt;/p&gt;
+&lt;p&gt;
+Next download &lt;code class=&#34;verbatim&#34;&gt;pizauth&lt;/code&gt; either from &lt;a href=&#34;https://tratt.net/laurie/src/pizauth/&#34;&gt;Laurie Tratt&amp;#39;s web pages&lt;/a&gt;
+or from the &lt;a href=&#34;https://github.com/ltratt/pizauth/&#34;&gt;Github repository&lt;/a&gt; and untar/unzip it if necessary. I was
+able to compile the program with &lt;code class=&#34;verbatim&#34;&gt;make&lt;/code&gt; but &lt;code class=&#34;verbatim&#34;&gt;sudo make install&lt;/code&gt; failed
+because &lt;code class=&#34;verbatim&#34;&gt;sudo&lt;/code&gt; doesn&amp;#39;t have the Rust compiler on it&amp;#39;s path.  To fix
+this, I edited the &lt;code class=&#34;verbatim&#34;&gt;Makefile&lt;/code&gt; and changed these lines&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+install:
+	cargo build --release
+	install -d ${PREFIX}/bin
+	...
+&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+install:
+	# cargo build --release
+	install -d ${PREFIX}/bin
+        ...
+&lt;/pre&gt;
+&lt;p&gt;This works becuase the &lt;code class=&#34;verbatim&#34;&gt;cargo build --release&lt;/code&gt; step is already done
+when you run &lt;code class=&#34;verbatim&#34;&gt;make&lt;/code&gt; (without &lt;code class=&#34;verbatim&#34;&gt;sudo&lt;/code&gt;) to compile the program, so it can
+safely be left out of the installation step.  (For reference, &lt;code class=&#34;verbatim&#34;&gt;cargo&lt;/code&gt;
+is the Rust package manager.)&lt;/p&gt;
+&lt;p&gt;
+So again, after this edit, just run the following commands to compile
+&lt;code class=&#34;verbatim&#34;&gt;pizauth&lt;/code&gt; and install it in &lt;code class=&#34;verbatim&#34;&gt;/usr/local&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  cd pizauth-0.1.0
+  make
+  sudo make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+I next created the file &lt;code class=&#34;verbatim&#34;&gt;~/.config/pizauth.conf&lt;/code&gt;, whose contents are
+given below.  The &lt;code class=&#34;verbatim&#34;&gt;client_id&lt;/code&gt; and &lt;code class=&#34;verbatim&#34;&gt;client_secret&lt;/code&gt; are actually for
+thunderbird, but this works.  For your own use you may want to change
+&lt;code class=&#34;verbatim&#34;&gt;&amp;#34;UF&amp;#34;&lt;/code&gt; to something else (e.g., &lt;code class=&#34;verbatim&#34;&gt;&amp;#34;work&amp;#34;&lt;/code&gt;) and you will have to replace
+my email address with your own on the &lt;code class=&#34;verbatim&#34;&gt;login_hint&lt;/code&gt; line.&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+account &amp;#34;UF&amp;#34; {
+    auth_uri = &amp;#34;https://login.microsoftonline.com/common/oauth2/v2.0/authorize&amp;#34;;
+    token_uri = &amp;#34;https://login.microsoftonline.com/common/oauth2/v2.0/token&amp;#34;;
+    client_id = &amp;#34;08162f7c-0fd2-4200-a84a-f25a4db0b584&amp;#34;;
+    client_secret = &amp;#34;TxRBilcHdC6WGBee]fs?QR:SJ8nI[g82&amp;#34;;
+    scopes = [
+      &amp;#34;https://outlook.office365.com/IMAP.AccessAsUser.All&amp;#34;,
+      &amp;#34;https://outlook.office365.com/SMTP.Send&amp;#34;,
+      &amp;#34;offline_access&amp;#34;
+    ];
+    // You don&amp;#39;t have to specify login_hint, but it does make
+    // authentication a little easier.
+    login_hint = &amp;#34;presnell@ufl.edu&amp;#34;;
+}
+&lt;/pre&gt;
+&lt;p&gt;
+Next run&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  pizauth server&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;You shouldn&amp;#39;t see any output from this.  Assuming that all has gone
+well to here, run (again, change &lt;code class=&#34;verbatim&#34;&gt;UF&lt;/code&gt; to whatever you used for the
+account name in your &lt;code class=&#34;verbatim&#34;&gt;pizauth.conf&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  pizauth show UF&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The first time you do this a URL will be output.  Copy this URL and
+open it in your browser and do whatever is needed to authenticate with
+your institution (if your browser is already authenticated, you may
+not have to do anything but open the URL).  To see if this worked, run
+&lt;code class=&#34;verbatim&#34;&gt;pizauth show UF&lt;/code&gt; again and you should see the access token obtained.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
+Installing and Configuring &lt;code class=&#34;verbatim&#34;&gt;msmtp&lt;/code&gt;
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+This one is easy to install:&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo apt install msmtp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Next create the file &lt;code class=&#34;verbatim&#34;&gt;~/.msmtprc&lt;/code&gt; with the following contents, which
+again will need to be modified to match your situation.&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+  ## UF email via office365 (Microsoft)
+  account UF
+  auth    xoauth2
+  host    smtp.office365.com
+  protocol smtp
+  port    587
+  tls     on
+  tls_starttls on
+  from    presnell@ufl.edu
+  user    presnell@ufl.edu
+  passwordeval pizauth show UF
+&lt;/pre&gt;
+&lt;p&gt;
+At this stage you can test that sending email is working by running
+something like:&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  printf &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Subject: Test\n\nHello there me.&amp;#34;&lt;/span&gt; | msmtp -a UF your_personal_account@gmail.com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;and checking that the mail is received at your personal account.&lt;/p&gt;
+&lt;p&gt;
+An error similar to this:&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+sh: 1: pizauth: Permission denied
+msmtp: cannot read output of &amp;#39;pizauth show UF&amp;#39;
+&lt;/pre&gt;
+&lt;p&gt;probably indicates that your OS (Ubuntu for me) has put some overly
+restrictive apparmor conditions on msmtp.  You can fix this by
+disabling apparmor for msmtp like this:&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo ln -s /etc/apparmor.d/usr.bin.msmtp /etc/apparmor.d/disable/
+  sudo apparmor_parser -R /etc/apparmor.d/usr.bin.msmtp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-4&#34;&gt;
+Installing and Configuring &lt;code class=&#34;verbatim&#34;&gt;isync/mbsync&lt;/code&gt;
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Again, installion of the &lt;code class=&#34;verbatim&#34;&gt;isync&lt;/code&gt; package is routine.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo apt install isync&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+To use &lt;code class=&#34;verbatim&#34;&gt;mbsync&lt;/code&gt; with oauth2, you also need to install an xoauth2
+plugin for SASL (Simple Authentication and Security Layer).  There are
+several available, and I first tried the &lt;a href=&#34;https://launchpad.net/~sasl-xoauth2/+archive/ubuntu/stable&#34;&gt;ppa&lt;/a&gt; on &lt;a href=&#34;https://launchpad.net/&#34;&gt;Cononical&amp;#39;s Launchpad&lt;/a&gt;,
+but it did not work for me.  The most commonly used plugin seems to be
+&lt;a href=&#34;https://github.com/moriyoshi/cyrus-sasl-xoauth2&#34;&gt;this one&lt;/a&gt; (I think that it is used in Arch linux and in Free BSD). To
+install it, I followed the instructions in the Install Cyrus SASL
+OAuth2 section of &lt;a href=&#34;https://unix.stackexchange.com/questions/625637/configuring-mbsync-with-authmech-xoauth2&#34;&gt;this page&lt;/a&gt;.  As prerequisites, you need to install
+that &lt;code class=&#34;verbatim&#34;&gt;libsasl2-dev&lt;/code&gt; package and if you want to do the last step
+(verifying that XOATH2 is known to SASL probably isn&amp;#39;t necessary), you
+will also need to install the &lt;code class=&#34;verbatim&#34;&gt;sasl2-bin&lt;/code&gt; package to get the
+&lt;code class=&#34;verbatim&#34;&gt;saslpluginviewer&lt;/code&gt; command:&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo apt install libsasl2-dev sasl2-bin&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;After this just follow the instructions mentioned above, i.e.,&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# Clone the Cyrus SASL OAuth2 sources.&lt;/span&gt;
+  git clone https://github.com/moriyoshi/cyrus-sasl-xoauth2.git
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# Configure and make.&lt;/span&gt;
+  cd cyrus-sasl-xoauth2
+  ./autogen.sh
+  ./configure
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# SASL2 libraries on Ubuntu are in /usr/lib/x86_64-linux-gnu/; modify the Makefile accordingly&lt;/span&gt;
+  sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s%pkglibdir = ${CYRUS_SASL_PREFIX}/lib/sasl2%pkglibdir = ${CYRUS_SASL_PREFIX}/lib/x86_64-linux-gnu/sasl2%&amp;#39;&lt;/span&gt; Makefile
+
+  make
+  sudo make install
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;# Verify XOAUTH2 is known to SASL.&lt;/span&gt;
+  saslpluginviewer | grep XOAUTH2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Finally, I created a &lt;code class=&#34;verbatim&#34;&gt;~/.mbsyncrc&lt;/code&gt; file with the contents below.  By
+default Outlook creates and syncs a bunch of folders that I don&amp;#39;t use.
+I basically keep everything in INBOX and Archive and use &lt;code class=&#34;verbatim&#34;&gt;mu&lt;/code&gt; to find
+things quickly, so it&amp;#39;s easiest for me to just list the folders that I
+want in the &lt;code class=&#34;verbatim&#34;&gt;Patterns&lt;/code&gt; line.  If you create a lot of folders for your
+email, then it might be easier to say what you don&amp;#39;t want (there are
+examples online of how to do this), or just use &lt;code class=&#34;verbatim&#34;&gt;*&lt;/code&gt; and download
+everything.&lt;/p&gt;
+&lt;p&gt;
+Also, for initial testing, the RECOMMENDATIONS section of
+the
+&lt;code class=&#34;verbatim&#34;&gt;[[https://manpages.ubuntu.com/manpages/jammy/man1/mbsync.1.html][mbsync man page]]&lt;/code&gt;
+recommends leaving &lt;code class=&#34;verbatim&#34;&gt;Expunge None&lt;/code&gt; (the default) to make
+sure you don&amp;#39;t lose mail if anything goes awry.&lt;/p&gt;
+&lt;p&gt;
+Finally, I set &lt;code class=&#34;verbatim&#34;&gt;Create Near&lt;/code&gt; so that folders (mailboxes) would be
+created on the local side when I initially sync things up, but I don&amp;#39;t
+really want to create any new folders on either end.  You might prefer
+&lt;code class=&#34;verbatim&#34;&gt;Create Both&lt;/code&gt;, which I assume is a lot more common.&lt;/p&gt;
+&lt;p&gt;
+Note that a &amp;#34;Channel&amp;#34; in &lt;code class=&#34;verbatim&#34;&gt;mbsync&lt;/code&gt; combines a &lt;code class=&#34;verbatim&#34;&gt;Far&lt;/code&gt; with a &lt;code class=&#34;verbatim&#34;&gt;Near&lt;/code&gt;
+store; in this case the &lt;code class=&#34;verbatim&#34;&gt;UF&lt;/code&gt; channel combines &lt;code class=&#34;verbatim&#34;&gt;UFRemote&lt;/code&gt; and
+&lt;code class=&#34;verbatim&#34;&gt;UFLocal&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+  IMAPAccount UF
+  Host outlook.office365.com
+  User presnell@ufl.edu
+  Port 993
+  SSLType IMAPS
+  SSLVersions TLSv1.1 TLSv1.2
+  AuthMechs XOAUTH2
+  PassCmd &amp;#34;pizauth show UF&amp;#34;
+
+  IMAPStore UFRemote
+  Account UF
+
+  MailDirStore UFLocal
+  Path ~/Maildir/UF/
+  Inbox ~/Maildir/UF/INBOX
+  Subfolders Verbatim
+
+  Channel UF
+  Far :UFRemote:
+  Near :UFLocal:
+  SyncState *
+  ## I only want these 5 folders:
+  Patterns &amp;#34;INBOX&amp;#34; &amp;#34;Archive&amp;#34; &amp;#34;Drafts&amp;#34; &amp;#34;Sent Items&amp;#34; &amp;#34;Deleted Items&amp;#34;
+  ## You can sync EVERYTHING by using this line instead:
+  ## Patterns *
+  Create Near
+  Expunge Both
+&lt;/pre&gt;
+&lt;p&gt;
+I also had to manually create the &lt;code class=&#34;verbatim&#34;&gt;~Maildir/UF&lt;/code&gt; directory.  You
+probably don&amp;#39;t want that to be readable by anyone but you either, so
+set the permissions accordingly.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  mkdir -p ~/Maildir/UF
+  chmod -R go-rwx ~/Maildir&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Finally, test by running the following command.  It will take a while
+the first time to download all your email.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  mbsync UF&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-5&#34;&gt;
+Socket error: unexpected eof
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+I consistently get the following error message when I run &lt;code class=&#34;verbatim&#34;&gt;mbsync UF&lt;/code&gt;,
+but the error doesn&amp;#39;t seem to cause any problems.&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+Socket error: secure read from outlook.office365.com (52.96.29.82:993): error:0A000126:SSL routines::unexpected eof while reading
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-6&#34;&gt;
+Duplicate messages
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+&lt;a href=&#34;http://tiborsimko.org/mbsync-duplicate-uid.html&#34;&gt;This post&lt;/a&gt; may be useful for diagnosing and fixing duplicate message
+errors from &lt;code class=&#34;verbatim&#34;&gt;mbsync&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-7&#34;&gt;
+Installing &lt;code class=&#34;verbatim&#34;&gt;mu&lt;/code&gt; and &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt;
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+I&amp;#39;m going to install the latest version of &lt;code class=&#34;verbatim&#34;&gt;mu&lt;/code&gt; and &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt; from
+github.  If you&amp;#39;re happy with an older version, you can install the
+Ubuntu package &lt;code class=&#34;verbatim&#34;&gt;maildir-utils&lt;/code&gt; with apt.&lt;/p&gt;
+&lt;p&gt;
+It might be a good idea to clear out any existing mu and mu4e
+installations if you have used them before, e.g., with &lt;code class=&#34;verbatim&#34;&gt;sudo apt purge
+maildir-utils&lt;/code&gt;.  I had installed them manually from source, so I did
+something like this:&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo rm /usr/local/bin/mu
+  sudo rm -r /usr/local/share/emacs/site-lisp/mu4e
+  sudo rm -r /usr/local/share/man/man*/mu-*
+  sudo rm /usr/local/share/man1/mu.1
+  sudo rm /usr/local/share/man1/mug.1
+  sudo rm -r /usr/local/share/doc/mu&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Make sure these prerequisite libraries are installed.  Add &lt;code class=&#34;verbatim&#34;&gt;emacs&lt;/code&gt; to
+the list of packages if you don&amp;#39;t already have it (I use
+&lt;code class=&#34;verbatim&#34;&gt;emacs-snapshot&lt;/code&gt; from a ppa so I&amp;#39;m not including that here).&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo apt install libgmime-3.0-dev libxapian-dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Next install the meson build system.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  sudo apt install meson ninja-build&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+Now we can download the &lt;a href=&#34;https://github.com/djcb/mu/releases&#34;&gt;most recent release of mu&lt;/a&gt; (currently 1.8.10)
+and install as below.  It is possible that there are prerequisite
+packages that need to be installed with &lt;code class=&#34;verbatim&#34;&gt;apt&lt;/code&gt;, but if so, I seem to
+have all of them already installed from previous installations of mu.&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  cd ~/Download
+  tar -xf mu-1.8.10.tar.xz
+  cd mu-1.8.10
+  meson build &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ninja -C build
+  sudo ninja -C build install   &lt;span style=&#34;color:#75715e&#34;&gt;# By default this will install into /usr/local&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;
+To index your mail, just run:&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+mu init --maildir=~/Maildir --my-address=presnell@ufl.edu --my-address=presnell@stat.ufl.edu
+mu info  # Checking everything is correct
+mu index
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-8&#34;&gt;
+Configuring &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt;
+&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-9&#34;&gt;
+Further Notes
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;It looks like this person &lt;a href=&#34;https://sites.uw.edu/bxf4/2022/09/01/getting-uw-outlook-365-oauth2-to-work-with-emacs-mu4e-mbsync-and-msmtp/&#34;&gt;had a similar ordeal&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-10&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-10&#34;&gt;
+My comments for Laurie Tratt&amp;#39;s blog post on pizauth:
+&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Works for me! Thanks so much for this. I lost access to my work email last week when MS turned off basic authentication.  After I had struggled to arrive at an acceptable (no tokens stored in unencrypted files) and complete (IMAP and SMTP both working smoothly) solution with any of the other options I came across, pizauth saved the day. I had been using offlineimap + mu + mu4e and emacs&amp;#39;s built-in sendmail stuff. I ended up with pizauth + mbsync + msmtp + mu + mu4e, but it&amp;#39;s working, so I&amp;#39;m happy.&lt;/p&gt;
+&lt;p&gt;
+A few comments:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;I have rust installed via rustup (so in my home directory) and on my linux box (Ubuntu 22.04) I couldn&amp;#39;t get sudo to use it for &amp;#34;sudo make install&amp;#34;, so I commented the &amp;#34;cargo build –release&amp;#34; step out of the install recipe in the Makefile.  With that change  &amp;#34;make; sudo make install&amp;#34; worked without a hitch.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;My institution does not allow me to register a new application with Azure, so I&amp;#39;m just using the client id and secret for thunderbird, which I assume is what most people are doing.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Offlineimap will work with OAuth2 (I verified this by generating access and renew tokens and manually entering them into my .offlineimaprc file). I think that it should work with pizauth (by calling pizauth in a manner similar to this (&lt;a href=&#34;https://wiki.archlinux.org/title/OfflineIMAP#Configuring_OAuth2_and_getting_access_tokens_via_mailctl)&#34;&gt;https://wiki.archlinux.org/title/OfflineIMAP#Configuring_OAuth2_and_getting_access_tokens_via_mailctl)&lt;/a&gt; or this (&lt;a href=&#34;https://www.macs.hw.ac.uk/~rs46/posts/2022-01-11-mu4e-oauth.html)&#34;&gt;https://www.macs.hw.ac.uk/~rs46/posts/2022-01-11-mu4e-oauth.html)&lt;/a&gt; but somehow I failed to get it to work. FWIW, I thought that offlineimap needed both an access token and a renewal token, and assuming that both would eventually expire if not used, I don&amp;#39;t see how to get the refresh token from pizauth.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Today I noticed that offlineimap also has built-in functionality for renewing OAuth2 tokens (&lt;a href=&#34;https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).&#34;&gt;https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).&lt;/a&gt;  I didn&amp;#39;t realize this, so I may have misunderstood some of the configuration advice that I encountered elsewhere.  I certainly would have continued with offlineimap if I had managed to get everything working properly, but mbsync does seem to be a bit faster, so there&amp;#39;s that I guess.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>R Tips and Tricks</title>
@@ -36,15 +508,15 @@ This can be useful when you have lots of columns and want to just look
 at a certain type.  Pipe it into `names()` to just get the names of
 the columns.&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;(swiss)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  swiss &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tibble&lt;/span&gt;(swiss)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  swiss &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;where&lt;/span&gt;(is.double))&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;(swiss)
+  swiss &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;as_tibble&lt;/span&gt;(swiss)
+  swiss &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;where&lt;/span&gt;(is.double))&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 A base-R version would be something like:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;(swiss)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  swiss[, &lt;span style=&#34;color:#a6e22e&#34;&gt;sapply&lt;/span&gt;(swiss, is.double)]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;(swiss)
+  swiss[, &lt;span style=&#34;color:#a6e22e&#34;&gt;sapply&lt;/span&gt;(swiss, is.double)]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -74,11 +546,11 @@ Using the cowplot package:
 &lt;/h4&gt;
 &lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-4&#34;&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(cowplot)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(hcvvt, &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_variable))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_histogram&lt;/span&gt;()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_x_log10&lt;/span&gt;()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grid&lt;/span&gt;(p1, p2)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(cowplot)
+  p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(hcvvt, &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_variable))
+  p1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_histogram&lt;/span&gt;()
+  p2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_x_log10&lt;/span&gt;()
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grid&lt;/span&gt;(p1, p2)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -88,11 +560,11 @@ Using the patchwork package:
 &lt;/h4&gt;
 &lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-4&#34;&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(patchwork)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(hcvvt, &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_variable))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_histogram&lt;/span&gt;()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_x_log10&lt;/span&gt;()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; p2&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(patchwork)
+  p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ggplot&lt;/span&gt;(hcvvt, &lt;span style=&#34;color:#a6e22e&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_variable))
+  p1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;geom_histogram&lt;/span&gt;()
+  p2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scale_x_log10&lt;/span&gt;()
+  p1 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; p2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -132,9 +604,9 @@ put it on github a while back to make it more easily available.  So,
 if you landed on my web pages while looking for the &lt;code class=&#34;verbatim&#34;&gt;icda&lt;/code&gt; package,
 you can install it in R with the following sequence of commands:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;devtools&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(devtools)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;presnell/icda&amp;#34;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;devtools&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(devtools)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;presnell/icda&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 And here are &lt;a href=&#34;files/icda-notes.pdf&#34;&gt;my old class notes&lt;/a&gt; and the &lt;a href=&#34;files/icda-notes.R&#34;&gt;tangled R code&lt;/a&gt;.&lt;/p&gt;
@@ -148,10 +620,7 @@ And here are &lt;a href=&#34;files/icda-notes.pdf&#34;&gt;my old class notes&lt;
       <link>https://presnell.github.io/post/rankedsetsampling/</link>
       <pubDate>Mon, 09 Nov 2020 17:38:21 -0500</pubDate>
       <guid>https://presnell.github.io/post/rankedsetsampling/</guid>
-      <description>&lt;nav&gt;
-&lt;ul&gt;
-&lt;/ul&gt;
-&lt;/nav&gt;
+      <description>
 &lt;p&gt;
 Once upon a time I did a little work on ranked set sampling with my
 former colleague Lora Bohn, work which was eventually published in the
@@ -208,20 +677,20 @@ directory on the departmental file server (so &lt;code class=&#34;verbatim&#34;&
 and &lt;code class=&#34;verbatim&#34;&gt;H:/.Rprofile&lt;/code&gt; in Windows), or use a text editor to create the
 file yourself with with the following contents:&lt;/p&gt;
 &lt;div class=&#34;src src-r&#34;&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sysname&amp;#34;&lt;/span&gt;])) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;win-library&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;grepl&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Sys.info&lt;/span&gt;()[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sysname&amp;#34;&lt;/span&gt;])) {
+    my.lib.path &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file.path&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;R&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;win-library&amp;#34;&lt;/span&gt;,
+                             &lt;span style=&#34;color:#a6e22e&#34;&gt;paste&lt;/span&gt;(R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;major,
+                                   &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\..*$&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, R.version&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;minor),
+                                   sep&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;))
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dir.exists&lt;/span&gt;(my.lib.path)) &lt;span style=&#34;color:#a6e22e&#34;&gt;dir.create&lt;/span&gt;(my.lib.path, recursive &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;.libPaths&lt;/span&gt;(my.lib.path)
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;rm&lt;/span&gt;(my.lib.path)
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 Now, whenever you start R in the classroom, run the command&lt;/p&gt;
-&lt;div class=&#34;src src-r eval=false&#34;&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r eval=false&#34; data-lang=&#34;r eval=false&#34;&gt;source(&amp;#34;H:/.Rprofile&amp;#34;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
 This first checks that you are running R in Windows. If so, then it
@@ -294,8 +763,8 @@ section.  If you already have a non-empty &lt;code class=&#34;verbatim&#34;&gt;.
 this to it, and of course you could also create different versions for
 different classes and put them in the appropriate places if that
 tickles your fancy.  In the classroom I still have to run&lt;/p&gt;
-&lt;div class=&#34;src src-r eval=false&#34;&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-r eval=false&#34; data-lang=&#34;r eval=false&#34;&gt;source(&amp;#34;H:/.Rprofile&amp;#34;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;src src-r&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;H:/.Rprofile&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;after starting R, but I guess I&amp;#39;m going to have to live with that.&lt;/p&gt;
 &lt;/div&gt;
