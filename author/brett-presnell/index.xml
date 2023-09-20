@@ -39,18 +39,17 @@ client with a local maildir store kept in sync with the server by
 super fast search provided by &lt;code class=&#34;verbatim&#34;&gt;mu&lt;/code&gt; was really nice to have with all
 the email that comes with that position.&lt;/p&gt;
 &lt;p&gt;
-A few years ago the university decided to completely outsourced email
-to Microsoft, so I set up offlineimap to retrieving my email from
-&lt;code class=&#34;verbatim&#34;&gt;outlook.office365.com&lt;/code&gt;.  This was a minor change requiring very
-little new effort on my part.  However, Microsoft recently decided to
-deprecate the “Basic Auth” protocol for checking email in favor of
-“Modern Auth” (oath2), so once again I was forced lose a long weekend
-adapting to a new email setup.&lt;/p&gt;
+A few years ago the university decided to completely outsource its
+email services to Microsoft, so I configured offlineimap to retrieve
+my email from &lt;code class=&#34;verbatim&#34;&gt;outlook.office365.com&lt;/code&gt;.  This posed no problems until
+recently, when Microsoft deprecated the “Basic Auth” protocol for
+checking email in favor of “Modern Auth” (oath2) and I was once again
+forced lose a long weekend adapting to a new email setup.&lt;/p&gt;
 &lt;p&gt;
-I will admit here that I am trying to do all this while minimizing the
-number of things that I actually have to understand about how any of
-these protocols work.  I spent way too much of my earlier life setting
-up departmental email servers and clients before finally swearing off
+I admit that I am trying to do all this while minimizing the number of
+things that I actually have to understand about how any of these
+protocols work.  I spent way too much of my earlier life setting up
+departmental email servers and clients before finally swearing off
 ever doing that again, and I have spent a great deal of time in the
 intervening years adapting to changing email environments and helping
 colleagues to do the same.  At this point in my life I am completely
@@ -59,22 +58,21 @@ required for me to use it — I just want to continue to read and
 write work email in the same development environment (emacs) that I
 use for everything else.&lt;/p&gt;
 &lt;p&gt;
-In any case, there are two parts to this problem: retrieving and
-syncing email with Microsoft&amp;#39;s IMAP server, which I have been doing
-with offlineimap; and sending email messages via Microsoft&amp;#39;s SMTP
-(Symmetric Mail Transport Protocol) server, which I have been doing
-with emacs&amp;#39;s built-in sendmail code for many years.  There do exist
-emacs packages named oauth2, auth-source-xoauth2, and oauth2-request
-but I didn&amp;#39;t get very far with any of them and they wouldn&amp;#39;t help me
-on the IMAP side, since I now use an external problem (offlineimap)
-for that interaction (now that I&amp;#39;ve grown used to &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt; I&amp;#39;m not going
-back to &lt;code class=&#34;verbatim&#34;&gt;gnus&lt;/code&gt;).&lt;/p&gt;
+There are two parts to this problem: retrieving and syncing email with
+Microsoft&amp;#39;s IMAP server, which I have been doing with offlineimap; and
+sending email messages via Microsoft&amp;#39;s SMTP (Symmetric Mail Transport
+Protocol) server, which I have been doing for many years with emacs&amp;#39;s
+built-in sendmail code.  There do exist emacs packages named oauth2,
+auth-source-xoauth2, and oauth2-request but I didn&amp;#39;t get very far with
+any of them and they wouldn&amp;#39;t help me on the IMAP side, since I use an
+external program (offlineimap) for that interaction (having become
+used to &lt;code class=&#34;verbatim&#34;&gt;mu4e&lt;/code&gt; I&amp;#39;m not going back to &lt;code class=&#34;verbatim&#34;&gt;gnus&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;
 So, I need to find another way to send email that works with oauth2,
 and I need either to confiure offlineimap to work with oauth2 or find
 another way to interact with the IMAP server.  These days the most
-common sendmail replacement seems to be &lt;code class=&#34;verbatim&#34;&gt;msmtp&lt;/code&gt;, so I pretty quickly
-settled on that.&lt;/p&gt;
+common sendmail replacement seems to be &lt;code class=&#34;verbatim&#34;&gt;msmtp&lt;/code&gt;, so I settled on that
+for outgoing email.&lt;/p&gt;
 &lt;p&gt;
 To retrieve/sync and send email via Microsofts servers with oauth2,
 one must have a registered &amp;#34;client app&amp;#34;.  There is a mechanism for
@@ -1031,10 +1029,10 @@ are a couple of misprints in the answer to b.  It should read&lt;/p&gt;
 &lt;/h3&gt;
 &lt;div id=&#34;outline-text-headline-17&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
-For \(P(Y&amp;gt;=1)\), the solution should be&lt;/p&gt;
+For \(P(Y \ge 1)\), the solution should be&lt;/p&gt;
 &lt;p&gt;
 \begin{align}
-  P(Y &amp;gt;= 1)
+  P(Y \ge 1)
   &amp;amp;= 1 - P(Y = 0) \\
   &amp;amp;= 1- \binom{5}{0}(0.9)^0(0.1)^5 \\
   &amp;amp;= 1 - (0.1)^5 \\

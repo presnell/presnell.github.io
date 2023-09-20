@@ -276,7 +276,7 @@
     
       <meta property="article:published_time" content="2022-10-09T16:16:58-04:00">
     
-    <meta property="article:modified_time" content="2022-10-10T18:49:37-04:00">
+    <meta property="article:modified_time" content="2023-05-26T17:21:04-04:00">
   
 
   
@@ -305,7 +305,7 @@
   "headline": "Reading Email with Emacs",
   
   "datePublished": "2022-10-09T16:16:58-04:00",
-  "dateModified": "2022-10-10T18:49:37-04:00",
+  "dateModified": "2023-05-26T17:21:04-04:00",
   
   "author": {
     "@type": "Person",
@@ -667,7 +667,7 @@
           Last updated on
       
     
-    Oct 10, 2022
+    May 26, 2023
   </span>
   
 
@@ -734,18 +734,17 @@ client with a local maildir store kept in sync with the server by
 super fast search provided by <code class="verbatim">mu</code> was really nice to have with all
 the email that comes with that position.</p>
 <p>
-A few years ago the university decided to completely outsourced email
-to Microsoft, so I set up offlineimap to retrieving my email from
-<code class="verbatim">outlook.office365.com</code>.  This was a minor change requiring very
-little new effort on my part.  However, Microsoft recently decided to
-deprecate the “Basic Auth” protocol for checking email in favor of
-“Modern Auth” (oath2), so once again I was forced lose a long weekend
-adapting to a new email setup.</p>
+A few years ago the university decided to completely outsource its
+email services to Microsoft, so I configured offlineimap to retrieve
+my email from <code class="verbatim">outlook.office365.com</code>.  This posed no problems until
+recently, when Microsoft deprecated the “Basic Auth” protocol for
+checking email in favor of “Modern Auth” (oath2) and I was once again
+forced lose a long weekend adapting to a new email setup.</p>
 <p>
-I will admit here that I am trying to do all this while minimizing the
-number of things that I actually have to understand about how any of
-these protocols work.  I spent way too much of my earlier life setting
-up departmental email servers and clients before finally swearing off
+I admit that I am trying to do all this while minimizing the number of
+things that I actually have to understand about how any of these
+protocols work.  I spent way too much of my earlier life setting up
+departmental email servers and clients before finally swearing off
 ever doing that again, and I have spent a great deal of time in the
 intervening years adapting to changing email environments and helping
 colleagues to do the same.  At this point in my life I am completely
@@ -754,22 +753,21 @@ required for me to use it — I just want to continue to read and
 write work email in the same development environment (emacs) that I
 use for everything else.</p>
 <p>
-In any case, there are two parts to this problem: retrieving and
-syncing email with Microsoft&#39;s IMAP server, which I have been doing
-with offlineimap; and sending email messages via Microsoft&#39;s SMTP
-(Symmetric Mail Transport Protocol) server, which I have been doing
-with emacs&#39;s built-in sendmail code for many years.  There do exist
-emacs packages named oauth2, auth-source-xoauth2, and oauth2-request
-but I didn&#39;t get very far with any of them and they wouldn&#39;t help me
-on the IMAP side, since I now use an external problem (offlineimap)
-for that interaction (now that I&#39;ve grown used to <code class="verbatim">mu4e</code> I&#39;m not going
-back to <code class="verbatim">gnus</code>).</p>
+There are two parts to this problem: retrieving and syncing email with
+Microsoft&#39;s IMAP server, which I have been doing with offlineimap; and
+sending email messages via Microsoft&#39;s SMTP (Symmetric Mail Transport
+Protocol) server, which I have been doing for many years with emacs&#39;s
+built-in sendmail code.  There do exist emacs packages named oauth2,
+auth-source-xoauth2, and oauth2-request but I didn&#39;t get very far with
+any of them and they wouldn&#39;t help me on the IMAP side, since I use an
+external program (offlineimap) for that interaction (having become
+used to <code class="verbatim">mu4e</code> I&#39;m not going back to <code class="verbatim">gnus</code>).</p>
 <p>
 So, I need to find another way to send email that works with oauth2,
 and I need either to confiure offlineimap to work with oauth2 or find
 another way to interact with the IMAP server.  These days the most
-common sendmail replacement seems to be <code class="verbatim">msmtp</code>, so I pretty quickly
-settled on that.</p>
+common sendmail replacement seems to be <code class="verbatim">msmtp</code>, so I settled on that
+for outgoing email.</p>
 <p>
 To retrieve/sync and send email via Microsofts servers with oauth2,
 one must have a registered &#34;client app&#34;.  There is a mechanism for
