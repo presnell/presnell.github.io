@@ -752,39 +752,49 @@ uninterested in how any of this works beyond what is absolutely
 required for me to use it — I just want to continue to read and
 write work email in the same development environment (emacs) that I
 use for everything else.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Slightly More Technical Background
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
 <p>
 There are two parts to this problem: retrieving and syncing email with
 Microsoft&#39;s IMAP server, which I have been doing with offlineimap; and
 sending email messages via Microsoft&#39;s SMTP (Symmetric Mail Transport
 Protocol) server, which I have been doing for many years with emacs&#39;s
 built-in sendmail code.  There do exist emacs packages named oauth2,
-auth-source-xoauth2, and oauth2-request but I didn&#39;t get very far with
-any of them and they wouldn&#39;t help me on the IMAP side, since I use an
-external program (offlineimap) for that interaction (having become
-used to <code class="verbatim">mu4e</code> I&#39;m not going back to <code class="verbatim">gnus</code>).</p>
+auth-source-xoauth2, and oauth2-request, but I didn&#39;t get very far
+with any of them and they wouldn&#39;t help me on the IMAP side, because I
+use an external program (offlineimap) for that interaction (and having
+become used to <code class="verbatim">mu4e</code> I&#39;m not going back to <code class="verbatim">gnus</code>).</p>
 <p>
-So, I need to find another way to send email that works with oauth2,
-and I need either to confiure offlineimap to work with oauth2 or find
-another way to interact with the IMAP server.  These days the most
-common sendmail replacement seems to be <code class="verbatim">msmtp</code>, so I settled on that
-for outgoing email.</p>
+So, I needed (1) to find another way to send email that works with
+oauth2, and (2) to either configure offlineimap to work with oauth2 or
+find another program to handle interactions with the IMAP server.  For
+sending email messages, the most commonly used sendmail replacement
+seems to be <code class="verbatim">msmtp</code>, so I planned to use that, assuming that I could
+configure it to use oauth2. (If you don&#39;t know, the actual sending of
+messages is traditionally handled separately from reading and managing
+messages and folders.)</p>
 <p>
-To retrieve/sync and send email via Microsofts servers with oauth2,
-one must have a registered &#34;client app&#34;.  There is a mechanism for
-registering such an app with Microsoft Azure (whatever that is), but
-this failed for me because my institution does not allow me (or
+BTW, to retrieve/sync and send email via Microsofts servers with
+oauth2, one must have a registered &#34;client app&#34;.  There is a mechanism
+for registering such an app with Microsoft Azure (whatever that is),
+but this failed for me because my institution does not allow me (or
 anyone?) to register a new app.  This means that I must do what
 everyone else apparently does, which is to use the client ID and
 secret for Mozilla&#39;s Thunderbird email client (there&#39;s actually
 nothing secret about these and you will see them below).</p>
 <p>
-Early on in the process I tried using <a href="https://github.com/UvA-FNWI/M365-IMAP">M365-IMAP</a> (python) and I was
-able to make it work with <code class="verbatim">offlineimap</code>, but the authorization token
-or tokens have to be updated periodically (every hour or so?). I also
-don&#39;t want to be storing them in a clear text file, so the barebones
-usage outlined there won&#39;t work for me.  Still, at a minimum, this is
-a good way to retrieve some actual authentication tokens to experiment
-with.</p>
+Early on in my search for a solution, I tried <a href="https://github.com/UvA-FNWI/M365-IMAP">M365-IMAP</a> (python) to
+handle the authentication. I was able to make it work with
+<code class="verbatim">offlineimap</code>, but the authorization token or tokens have to be
+updated periodically (every hour or so?). I also don&#39;t want to be
+storing them in a clear text file, so the barebones usage outlined
+there won&#39;t work for me.  Still, at a minimum, this is a good way to
+retrieve some actual authentication tokens to experiment with.</p>
 <p>
 I also tried <code class="verbatim">mailctl</code> and I got it to work with <code class="verbatim">msmtp</code> but not with
 <code class="verbatim">offlineimap</code>.  I tried another method, but the initial authentication
@@ -794,22 +804,21 @@ leaving me unable to complete the 2-factor authentication. (I think I
 was trying either <a href="https://github.com/simonrob/email-oauth2-proxy">email-oauth2-proxy</a> or <a href="https://github.com/ahrex/oauth-helper-office-365">oauth-helper-office-365</a> when I
 ran into this problem.)</p>
 <p>
-I finally came across
-<code class="verbatim">[[https://tratt.net/laurie/blog/2022/pizauth_oauth_authenticator_alpha.html][pizauth]]</code>
-and this actually seems to work for me and takes care of any worries
-about storing any authentication details on disk.  However, I didn&#39;t
-manage to get it working with <code class="verbatim">offlineimap</code> (I&#39;m sure that&#39;s on me),
-so I decided to switch over to <code class="verbatim">isync/mbsync</code>, which I was already
-aware of as a faster alternative to <code class="verbatim">offlineimap</code>.  The rest of this
-describes the process of getting this working on Ubuntu 22.04 (LTS),
-a.k.a., &#34;Ubuntu Jammy&#34;.</p>
+I finally came across Larie Tratt&#39;s <a href="https://tratt.net/laurie/blog/2022/pizauth_oauth_authenticator_alpha.html">pizauth</a> and this actually seems to
+work for me and takes care of any worries about storing any
+authentication details on disk.  However, I didn&#39;t manage to get it
+working with <code class="verbatim">offlineimap</code> (I&#39;m sure that&#39;s on me), so I decided to
+switch over to <code class="verbatim">isync/mbsync</code>, which I was already aware of as a
+faster alternative to <code class="verbatim">offlineimap</code>.  The rest of this describes the
+process of getting this working on Ubuntu 22.04 (LTS), a.k.a., &#34;Ubuntu
+Jammy&#34;.</p>
 </div>
 </div>
-<div id="outline-container-headline-2" class="outline-2">
-<h2 id="headline-2">
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
 Setting Up <code class="verbatim">pizauth</code>
 </h2>
-<div id="outline-text-headline-2" class="outline-text-2">
+<div id="outline-text-headline-3" class="outline-text-2">
 <p>
 First we need a Rust compiler.  For this, just go to the <a href="https://www.rust-lang.org/learn/get-started">Getting
 Started</a> page for rust and follow the instructions to use the Rustup
@@ -894,11 +903,11 @@ not have to do anything but open the URL).  To see if this worked, run
 <code class="verbatim">pizauth show UF</code> again and you should see the access token obtained.</p>
 </div>
 </div>
-<div id="outline-container-headline-3" class="outline-2">
-<h2 id="headline-3">
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
 Installing and Configuring <code class="verbatim">msmtp</code>
 </h2>
-<div id="outline-text-headline-3" class="outline-text-2">
+<div id="outline-text-headline-4" class="outline-text-2">
 <p>
 This one is easy to install:</p>
 <div class="src src-sh">
@@ -942,11 +951,11 @@ disabling apparmor for msmtp like this:</p>
 </div>
 </div>
 </div>
-<div id="outline-container-headline-4" class="outline-2">
-<h2 id="headline-4">
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
 Installing and Configuring <code class="verbatim">isync/mbsync</code>
 </h2>
-<div id="outline-text-headline-4" class="outline-text-2">
+<div id="outline-text-headline-5" class="outline-text-2">
 <p>
 Again, installion of the <code class="verbatim">isync</code> package is routine.</p>
 <div class="src src-sh">
@@ -1053,11 +1062,11 @@ the first time to download all your email.</p>
 <div class="src src-sh">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  mbsync UF</code></pre></div>
 </div>
-<div id="outline-container-headline-5" class="outline-3">
-<h3 id="headline-5">
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
 Socket error: unexpected eof
 </h3>
-<div id="outline-text-headline-5" class="outline-text-3">
+<div id="outline-text-headline-6" class="outline-text-3">
 <p>
 I consistently get the following error message when I run <code class="verbatim">mbsync UF</code>,
 but the error doesn&#39;t seem to cause any problems.</p>
@@ -1066,11 +1075,11 @@ Socket error: secure read from outlook.office365.com (52.96.29.82:993): error:0A
 </pre>
 </div>
 </div>
-<div id="outline-container-headline-6" class="outline-3">
-<h3 id="headline-6">
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
 Duplicate messages
 </h3>
-<div id="outline-text-headline-6" class="outline-text-3">
+<div id="outline-text-headline-7" class="outline-text-3">
 <p>
 <a href="http://tiborsimko.org/mbsync-duplicate-uid.html">This post</a> may be useful for diagnosing and fixing duplicate message
 errors from <code class="verbatim">mbsync</code>.</p>
@@ -1078,11 +1087,11 @@ errors from <code class="verbatim">mbsync</code>.</p>
 </div>
 </div>
 </div>
-<div id="outline-container-headline-7" class="outline-2">
-<h2 id="headline-7">
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
 Installing <code class="verbatim">mu</code> and <code class="verbatim">mu4e</code>
 </h2>
-<div id="outline-text-headline-7" class="outline-text-2">
+<div id="outline-text-headline-8" class="outline-text-2">
 <p>
 I&#39;m going to install the latest version of <code class="verbatim">mu</code> and <code class="verbatim">mu4e</code> from
 github.  If you&#39;re happy with an older version, you can install the
@@ -1133,21 +1142,21 @@ mu index
 </pre>
 </div>
 </div>
-<div id="outline-container-headline-8" class="outline-2">
-<h2 id="headline-8">
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
 Configuring <code class="verbatim">mu4e</code>
 </h2>
 </div>
-<div id="outline-container-headline-9" class="outline-2">
-<h2 id="headline-9">
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
 Further Notes
 </h2>
-<div id="outline-text-headline-9" class="outline-text-2">
+<div id="outline-text-headline-10" class="outline-text-2">
 <ul>
 <li>
 <p>It looks like this person <a href="https://sites.uw.edu/bxf4/2022/09/01/getting-uw-outlook-365-oauth2-to-work-with-emacs-mu4e-mbsync-and-msmtp/">had a similar ordeal</a></p>
-<div id="outline-container-headline-10" class="outline-3">
-<h3 id="headline-10">
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
 My comments for Laurie Tratt&#39;s blog post on pizauth:
 </h3>
 </div>
