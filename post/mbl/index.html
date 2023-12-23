@@ -30,7 +30,8 @@
   
     
   
-  <meta name="description" content="data_dir &lt;- &quot;~/Personal/Sports/MBL/2023/Data&quot; r_script_dir &lt;- &quot;~/Personal/Sports/MBL/2023/R-scripts&quot; xl_file &lt;- &quot;MBL2_2023.xlsx&quot; rds_file &lt;- &quot;MBL2_2023.rds&quot; data_script &lt;- &quot;read_mbl_results.R&quot; xl_file &lt;- file.path(data_dir, xl_file) rds_file &lt;- file.path(data_dir, rds_file) data_script &lt;- file.path(r_script_dir, data_script) library(tidyverse) mtimes &lt;- file.">
+  <meta name="description" content="Create summary data frame of results by moron and week.
+ Code mbl_by_moron_week &lt;- mbl |&gt; summarize( wins = sum(result == &quot;win&quot;), losses = sum(result == &quot;lose&quot;), pushes = sum(result == &quot;push&quot;), units_won = sum(units_won), .">
 
   
   <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/mbl/">
@@ -270,7 +271,8 @@
   <meta property="og:site_name" content="Brett Presnell">
   <meta property="og:url" content="https://presnell.github.io/post/mbl/">
   <meta property="og:title" content="MBL2 2023: A Closer Look | Brett Presnell">
-  <meta property="og:description" content="data_dir &lt;- &quot;~/Personal/Sports/MBL/2023/Data&quot; r_script_dir &lt;- &quot;~/Personal/Sports/MBL/2023/R-scripts&quot; xl_file &lt;- &quot;MBL2_2023.xlsx&quot; rds_file &lt;- &quot;MBL2_2023.rds&quot; data_script &lt;- &quot;read_mbl_results.R&quot; xl_file &lt;- file.path(data_dir, xl_file) rds_file &lt;- file.path(data_dir, rds_file) data_script &lt;- file.path(r_script_dir, data_script) library(tidyverse) mtimes &lt;- file."><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="Create summary data frame of results by moron and week.
+ Code mbl_by_moron_week &lt;- mbl |&gt; summarize( wins = sum(result == &quot;win&quot;), losses = sum(result == &quot;lose&quot;), pushes = sum(result == &quot;push&quot;), units_won = sum(units_won), ."><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -320,7 +322,7 @@
       "url": "https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "data_dir \u0026lt;- \u0026quot;~/Personal/Sports/MBL/2023/Data\u0026quot; r_script_dir \u0026lt;- \u0026quot;~/Personal/Sports/MBL/2023/R-scripts\u0026quot; xl_file \u0026lt;- \u0026quot;MBL2_2023.xlsx\u0026quot; rds_file \u0026lt;- \u0026quot;MBL2_2023.rds\u0026quot; data_script \u0026lt;- \u0026quot;read_mbl_results.R\u0026quot; xl_file \u0026lt;- file.path(data_dir, xl_file) rds_file \u0026lt;- file.path(data_dir, rds_file) data_script \u0026lt;- file.path(r_script_dir, data_script) library(tidyverse) mtimes \u0026lt;- file."
+  "description": "Create summary data frame of results by moron and week.\n Code mbl_by_moron_week \u0026lt;- mbl |\u0026gt; summarize( wins = sum(result == \u0026quot;win\u0026quot;), losses = sum(result == \u0026quot;lose\u0026quot;), pushes = sum(result == \u0026quot;push\u0026quot;), units_won = sum(units_won), ."
 }
 </script>
 
@@ -698,38 +700,9 @@
   <div class="article-container">
 
     <div class="article-style">
-      <pre><code class="language-r">data_dir &lt;- &quot;~/Personal/Sports/MBL/2023/Data&quot;
-r_script_dir &lt;- &quot;~/Personal/Sports/MBL/2023/R-scripts&quot;
-
-xl_file &lt;- &quot;MBL2_2023.xlsx&quot;
-rds_file &lt;- &quot;MBL2_2023.rds&quot;
-data_script &lt;- &quot;read_mbl_results.R&quot;
-
-xl_file &lt;- file.path(data_dir, xl_file)
-rds_file &lt;- file.path(data_dir, rds_file)
-data_script &lt;- file.path(r_script_dir, data_script)
-
-library(tidyverse)
-
-mtimes &lt;- file.info(xl_file, rds_file)$mtime
-names(mtimes) &lt;- c(&quot;src&quot;, &quot;sav&quot;)
-
-if (mtimes[&quot;src&quot;] &gt; mtimes[&quot;sav&quot;]) {
-    source(data_script)
-    saveRDS(mbl, rds_file)
-} else {
-    mbl &lt;- readRDS(rds_file)
-}
-</code></pre>
-<pre><code class="language-r">mbl &lt;- mbl |&gt;
-    mutate(moron = str_sub(moron, 1, 1))
-</code></pre>
-<pre><code class="language-r">mbl &lt;- mbl |&gt;
-    mutate(
-        result = (units_won == wager) - (units_won == 0) + 2,
-        result = ifelse(is.na(result), 4, result),
-        result = c(&quot;lose&quot;, &quot;push&quot;, &quot;win&quot;, NA)[result]) 
-</code></pre>
+      <p>Create summary data frame of results by moron and week.</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week &lt;- mbl |&gt;
     summarize(
         wins = sum(result == &quot;win&quot;),
@@ -746,26 +719,39 @@ if (mtimes[&quot;src&quot;] &gt; mtimes[&quot;sav&quot;]) {
     filter(!is.na(units_won)) |&gt;
     mutate(season_total = cumsum(units_won), .by = moron)
 </code></pre>
-<pre><code class="language-r">## Quantiles of weekly units won by the morons. (What's a good total?)
-mbl_by_moron_week |&gt; pull(units_won) |&gt; quantile(probs = seq(0, 1, by = 0.1))
+</details>
+<p>Here are some quantiles of the weekly units won by the morons. This is
+an attempt to determine what constitutes a good or bad weekly total.</p>
+<details>
+<summary>Code</summary>
+<pre><code class="language-r">mbl_by_moron_week |&gt; pull(units_won) |&gt; quantile(probs = seq(0.1, 0.9, by = 0.1))
 </code></pre>
-<pre><code>   0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-20.00 31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 90.00 
+</details>
+<pre><code>  10%   20%   30%   40%   50%   60%   70%   80%   90% 
+31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 
 </code></pre>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">## Histogram of weekly units won by the morons.
 mbl_by_moron_week |&gt;
     ggplot(aes(x = units_won)) +
     geom_histogram(binwidth = 10)
 </code></pre>
-<p><img src="mbl-2023-analysis.markdown_strict_files/figure-markdown_strict/hist-weekly-totals-1.png" width="768" /></p>
+</details>
+<p><img src="index.markdown_strict_files/figure-markdown_strict/hist-weekly-totals-1.png" width="768" /></p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     ggplot(aes(x = week, y = season_total,
                color = fct_reorder2(moron, week, season_total))) +
     geom_line(linewidth = 1) +
     labs(color = &quot;moron&quot;)
 </code></pre>
-<p><img src="mbl-2023-analysis.markdown_strict_files/figure-markdown_strict/moron_cum_totals-1.png" width="768" /></p>
+</details>
+<p><img src="index.markdown_strict_files/figure-markdown_strict/moron_cum_totals-1.png" width="768" /></p>
 <p>How many weeks has each moron been one of the top scorers?</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     group_by(week) |&gt;
     mutate(
@@ -777,6 +763,7 @@ mbl_by_moron_week |&gt;
     summarize(n = n(), .by = moron) |&gt;
     arrange(desc(n))
 </code></pre>
+</details>
 <pre><code># A tibble: 6 × 2
   moron     n
   &lt;chr&gt; &lt;int&gt;
@@ -788,12 +775,15 @@ mbl_by_moron_week |&gt;
 6 D         2
 </code></pre>
 <p>Which moron&rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     summarize(mean = mean(units_won), sd = sd(units_won),
               median = median(units_won), mad = mad(units_won),
               .by = moron) |&gt;
     arrange(desc(sd))
 </code></pre>
+</details>
 <pre><code># A tibble: 6 × 5
   moron  mean    sd median   mad
   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -806,6 +796,8 @@ mbl_by_moron_week |&gt;
 </code></pre>
 <p>Which moron&rsquo;s weekly totals are the most (and least) variable (ordered
 by median absolute deviation)?</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     summarize(
         mean = mean(units_won), sd = sd(units_won),
@@ -813,6 +805,7 @@ by median absolute deviation)?</p>
         .by = moron) |&gt;
     arrange(desc(mad), desc(sd))
 </code></pre>
+</details>
 <pre><code># A tibble: 6 × 5
   moron  mean    sd median   mad
   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -825,6 +818,8 @@ by median absolute deviation)?</p>
 </code></pre>
 <p>Overall number of winning, losing, and pushed wagers for each moron.
 The stated win percentage counts pushes as half a win.</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(moron, result)) |&gt;
@@ -835,6 +830,7 @@ The stated win percentage counts pushes as half a win.</p>
     relocate(n, win, lose, push, .after = moron) |&gt;
     arrange(desc(win_pct))
 </code></pre>
+</details>
 <pre><code># A tibble: 6 × 6
   moron     n   win  lose  push win_pct
   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
@@ -848,6 +844,8 @@ The stated win percentage counts pushes as half a win.</p>
 <p>Do these morons know what they&rsquo;re doing when they wager different
 amounts? The overall number of wining, losing, and pushed wagers by
 units wagered.</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(wager, result)) |&gt;
@@ -858,6 +856,7 @@ units wagered.</p>
     relocate(n, win, lose, push, .after = wager) |&gt;
     arrange(wager)
 </code></pre>
+</details>
 <pre><code># A tibble: 4 × 6
   wager     n   win  lose  push win_pct
   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
@@ -868,6 +867,8 @@ units wagered.</p>
 </code></pre>
 <p>The overall percentages of wining, losing, and pushed wagers by units
 wagered.</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(wager, result)) |&gt;
@@ -881,6 +882,7 @@ wagered.</p>
     relocate(n, win, lose, push, .after = wager) |&gt;
     arrange(wager)
 </code></pre>
+</details>
 <pre><code># A tibble: 4 × 5
   wager     n   win  lose  push
   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -891,6 +893,8 @@ wagered.</p>
 </code></pre>
 <p>The overall percentages of wining, losing, and pushed wagers by units
 wagered for the individual morons.</p>
+<details>
+<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(moron, wager, result)) |&gt;
@@ -902,6 +906,7 @@ wagered for the individual morons.</p>
     arrange(moron, wager) |&gt;
     print(n = Inf)
 </code></pre>
+</details>
 <pre><code># A tibble: 15 × 7
    moron wager     n   win  lose  push win_pct
    &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;

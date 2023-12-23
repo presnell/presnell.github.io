@@ -903,7 +903,8 @@ Florida</a>.</p>
     
     <a href="/post/mbl/" class="summary-link">
       <div class="article-style">
-        data_dir &lt;- &quot;~/Personal/Sports/MBL/2023/Data&quot; r_script_dir &lt;- &quot;~/Personal/Sports/MBL/2023/R-scripts&quot; xl_file &lt;- &quot;MBL2_2023.xlsx&quot; rds_file &lt;- &quot;MBL2_2023.rds&quot; data_script &lt;- &quot;read_mbl_results.R&quot; xl_file &lt;- file.path(data_dir, xl_file) rds_file &lt;- file.path(data_dir, rds_file) data_script &lt;- file.path(r_script_dir, data_script) library(tidyverse) mtimes &lt;- file.
+        Create summary data frame of results by moron and week.
+ Code mbl_by_moron_week &lt;- mbl |&gt; summarize( wins = sum(result == &quot;win&quot;), losses = sum(result == &quot;lose&quot;), pushes = sum(result == &quot;push&quot;), units_won = sum(units_won), .
       </div>
     </a>
     
