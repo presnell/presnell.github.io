@@ -5,12 +5,243 @@
     <link>https://presnell.github.io/</link>
       <atom:link href="https://presnell.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Brett Presnell</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 09 Oct 2022 16:16:58 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 19 Dec 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Brett Presnell</title>
       <link>https://presnell.github.io/</link>
     </image>
+    
+    <item>
+      <title>MBL2 2023: A Closer Look</title>
+      <link>https://presnell.github.io/post/mbl/</link>
+      <pubDate>Tue, 19 Dec 2023 00:00:00 +0000</pubDate>
+      <guid>https://presnell.github.io/post/mbl/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data_dir &amp;lt;- &amp;quot;~/Personal/Sports/MBL/2023/Data&amp;quot;
+r_script_dir &amp;lt;- &amp;quot;~/Personal/Sports/MBL/2023/R-scripts&amp;quot;
+
+xl_file &amp;lt;- &amp;quot;MBL2_2023.xlsx&amp;quot;
+rds_file &amp;lt;- &amp;quot;MBL2_2023.rds&amp;quot;
+data_script &amp;lt;- &amp;quot;read_mbl_results.R&amp;quot;
+
+xl_file &amp;lt;- file.path(data_dir, xl_file)
+rds_file &amp;lt;- file.path(data_dir, rds_file)
+data_script &amp;lt;- file.path(r_script_dir, data_script)
+
+library(tidyverse)
+
+mtimes &amp;lt;- file.info(xl_file, rds_file)$mtime
+names(mtimes) &amp;lt;- c(&amp;quot;src&amp;quot;, &amp;quot;sav&amp;quot;)
+
+if (mtimes[&amp;quot;src&amp;quot;] &amp;gt; mtimes[&amp;quot;sav&amp;quot;]) {
+    source(data_script)
+    saveRDS(mbl, rds_file)
+} else {
+    mbl &amp;lt;- readRDS(rds_file)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl &amp;lt;- mbl |&amp;gt;
+    mutate(moron = str_sub(moron, 1, 1))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl &amp;lt;- mbl |&amp;gt;
+    mutate(
+        result = (units_won == wager) - (units_won == 0) + 2,
+        result = ifelse(is.na(result), 4, result),
+        result = c(&amp;quot;lose&amp;quot;, &amp;quot;push&amp;quot;, &amp;quot;win&amp;quot;, NA)[result]) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week &amp;lt;- mbl |&amp;gt;
+    summarize(
+        wins = sum(result == &amp;quot;win&amp;quot;),
+        losses = sum(result == &amp;quot;lose&amp;quot;),
+        pushes = sum(result == &amp;quot;push&amp;quot;),
+        units_won = sum(units_won),
+        .by = c(moron, week, mia)
+    ) |&amp;gt;
+    ## Handle MIA weeks with tidyr::fill().
+    arrange(moron, week) |&amp;gt;    # Making sure that observations are ordered correctly.
+    group_by(moron) |&amp;gt;         # Grouping means filling done only within group (by moron).
+    fill(units_won, .direction = &amp;quot;up&amp;quot;) |&amp;gt;
+    ungroup() |&amp;gt;
+    filter(!is.na(units_won)) |&amp;gt;
+    mutate(season_total = cumsum(units_won), .by = moron)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Quantiles of weekly units won by the morons. (What&#39;s a good total?)
+mbl_by_moron_week |&amp;gt; pull(units_won) |&amp;gt; quantile(probs = seq(0, 1, by = 0.1))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;   0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
+20.00 31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 90.00 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Histogram of weekly units won by the morons.
+mbl_by_moron_week |&amp;gt;
+    ggplot(aes(x = units_won)) +
+    geom_histogram(binwidth = 10)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;mbl-2023-analysis.markdown_strict_files/figure-markdown_strict/hist-weekly-totals-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    ggplot(aes(x = week, y = season_total,
+               color = fct_reorder2(moron, week, season_total))) +
+    geom_line(linewidth = 1) +
+    labs(color = &amp;quot;moron&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;mbl-2023-analysis.markdown_strict_files/figure-markdown_strict/moron_cum_totals-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;How many weeks has each moron been one of the top scorers?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    group_by(week) |&amp;gt;
+    mutate(
+        week_max = max(units_won),
+        top_scorer = (units_won == week_max)
+    ) |&amp;gt;
+    ungroup() |&amp;gt;
+    filter(top_scorer) |&amp;gt;
+    summarize(n = n(), .by = moron) |&amp;gt;
+    arrange(desc(n))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 2
+  moron     n
+  &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;
+1 H         5
+2 W         5
+3 K         4
+4 P         4
+5 S         3
+6 D         2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    summarize(mean = mean(units_won), sd = sd(units_won),
+              median = median(units_won), mad = mad(units_won),
+              .by = moron) |&amp;gt;
+    arrange(desc(sd))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
+  moron  mean    sd median   mad
+  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+1 W      53.4  21.3   50    22.2
+2 K      49.1  17.1   55    22.2
+3 P      56.4  17.0   55    22.2
+4 H      52.8  16.7   50    18.5
+5 S      50.6  15.5   42.5  11.1
+6 D      55.5  15.3   55    22.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered
+by median absolute deviation)?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    summarize(
+        mean = mean(units_won), sd = sd(units_won),
+        median = median(units_won), mad = mad(units_won),
+        .by = moron) |&amp;gt;
+    arrange(desc(mad), desc(sd))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
+  moron  mean    sd median   mad
+  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+1 W      53.4  21.3   50    22.2
+2 K      49.1  17.1   55    22.2
+3 P      56.4  17.0   55    22.2
+4 D      55.5  15.3   55    22.2
+5 H      52.8  16.7   50    18.5
+6 S      50.6  15.5   42.5  11.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Overall number of winning, losing, and pushed wagers for each moron.
+The stated win percentage counts pushes as half a win.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(moron, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
+    relocate(n, win, lose, push, .after = moron) |&amp;gt;
+    arrange(desc(win_pct))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 6
+  moron     n   win  lose  push win_pct
+  &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
+1 P       160    89    68     3    56.6
+2 D       160    86    70     4    55  
+3 W       160    85    74     1    53.4
+4 S       160    79    77     4    50.6
+5 H       150    73    72     5    50.3
+6 K       150    70    77     3    47.7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Do these morons know what they&amp;rsquo;re doing when they wager different
+amounts? The overall number of wining, losing, and pushed wagers by
+units wagered.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(wager, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
+    relocate(n, win, lose, push, .after = wager) |&amp;gt;
+    arrange(wager)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 4 × 6
+  wager     n   win  lose  push win_pct
+  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
+1     5    72    36    33     3    52.1
+2    10   825   424   385    16    52.4
+3    15    14     4     9     1    32.1
+4    20    29    18    11     0    62.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The overall percentages of wining, losing, and pushed wagers by units
+wagered.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(wager, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win = 100*win/n,
+        push = 100*push/n,
+        lose = 100*lose/n
+    ) |&amp;gt;
+    relocate(n, win, lose, push, .after = wager) |&amp;gt;
+    arrange(wager)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 4 × 5
+  wager     n   win  lose  push
+  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+1     5    72  50    45.8  4.17
+2    10   825  51.4  46.7  1.94
+3    15    14  28.6  64.3  7.14
+4    20    29  62.1  37.9  0   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The overall percentages of wining, losing, and pushed wagers by units
+wagered for the individual morons.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(moron, wager, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
+    relocate(n, win, lose, push, .after = wager) |&amp;gt;
+    arrange(moron, wager) |&amp;gt;
+    print(n = Inf)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 15 × 7
+   moron wager     n   win  lose  push win_pct
+   &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
+ 1 D         5    13     4     8     1    34.6
+ 2 D        10   140    79    58     3    57.5
+ 3 D        15     1     0     1     0     0  
+ 4 D        20     6     3     3     0    50  
+ 5 H         5    23    10    11     2    47.8
+ 6 H        10   114    56    55     3    50.4
+ 7 H        15     3     1     2     0    33.3
+ 8 H        20    10     6     4     0    60  
+ 9 K        10   150    70    77     3    47.7
+10 P         5    36    22    14     0    61.1
+11 P        10   101    55    44     2    55.4
+12 P        15    10     3     6     1    35  
+13 P        20    13     9     4     0    69.2
+14 S        10   160    79    77     4    50.6
+15 W        10   160    85    74     1    53.4
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Reading Email with Emacs</title>
