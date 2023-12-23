@@ -13,18 +13,6 @@
     </image>
     
     <item>
-      <title>MBL</title>
-      <link>https://presnell.github.io/post/mbl/</link>
-      <pubDate>Sun, 09 Oct 2022 16:16:58 -0400</pubDate>
-      <guid>https://presnell.github.io/post/mbl/</guid>
-      <description>
-* Background
-
-This is just a dummy post.
-</description>
-    </item>
-    
-    <item>
       <title>Reading Email with Emacs</title>
       <link>https://presnell.github.io/post/email/</link>
       <pubDate>Sun, 09 Oct 2022 16:16:58 -0400</pubDate>
