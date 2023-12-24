@@ -5,12 +5,261 @@
     <link>https://presnell.github.io/</link>
       <atom:link href="https://presnell.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Brett Presnell</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 09 Oct 2022 16:16:58 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 24 Dec 2023 14:04:20 -0500</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Brett Presnell</title>
       <link>https://presnell.github.io/</link>
     </image>
+    
+    <item>
+      <title>MBL2 2023: A Closer Look</title>
+      <link>https://presnell.github.io/talk/mbl/</link>
+      <pubDate>Sun, 24 Dec 2023 14:04:20 -0500</pubDate>
+      <guid>https://presnell.github.io/talk/mbl/</guid>
+      <description>&lt;p&gt;The morons betting league (MBL2) is a small informal group of friends
+(morons) who compete every week by picking ten football bets (NCAAF
+and NFL) totaling 100 &amp;ldquo;units&amp;rdquo; against the spread and/or over-under.
+Here&amp;rsquo;s a small sample of the data. Note that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The players (morons) are represented by one-letter codes.&lt;/li&gt;
+&lt;li&gt;Some weeks may not have happened yet, so you may see a lot of missing (NA) data.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mia&lt;/code&gt; is an indicator of whether the moron failed to enter their
+picks. According to the MBL2 rules a player is allowed to have one
+missed week replaced by their score from the subsequent week.&lt;/li&gt;
+&lt;li&gt;The listing of the teams/games and the line is very irregular
+because these are entered by hand with no standardization. For this
+reason, the league inforamtion (NCAAF vs NFL) is also unavailable.
+So the only useful data are the moron, week, number of units
+wagered, and number of units won.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    select(-cells) |&amp;gt;
+    slice_sample(n = 10) |&amp;gt;
+    arrange(week, moron)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 10 × 7
+   moron  week mia   team_s                         line      wager units_won
+   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;                          &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+ 1 P         1 FALSE TEX @ ALA                      TEX +7.0      5         5
+ 2 K         7 FALSE det/BAL                        &amp;gt;42.5        10        10
+ 3 P        10 FALSE Miami at (4) Florida State     FSU -14.5    20         0
+ 4 D        12 FALSE Clemson                        -7.5         10        10
+ 5 P        12 FALSE (2) Ohio State at (3) Michigan MICH -3.5    10        10
+ 6 S        12 FALSE MIA                            -9.5         10        10
+ 7 S        14 FALSE DAL                            -3.5         10        10
+ 8 P        17 FALSE &amp;lt;NA&amp;gt;                           &amp;lt;NA&amp;gt;         NA        NA
+ 9 S        17 FALSE &amp;lt;NA&amp;gt;                           &amp;lt;NA&amp;gt;         NA        NA
+10 H        18 FALSE &amp;lt;NA&amp;gt;                           &amp;lt;NA&amp;gt;         NA        NA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The next bit of code creates a result column (win, lose, or push) the
+wager and units_won columns.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl &amp;lt;- mbl |&amp;gt;
+    mutate(
+        result = (units_won == wager) - (units_won == 0) + 2,
+        result = ifelse(is.na(result), 4, result),
+        result = c(&amp;quot;lose&amp;quot;, &amp;quot;push&amp;quot;, &amp;quot;win&amp;quot;, NA)[result]) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The next bit of code creates a summary data frame of results by moron
+and week. It uses &lt;code&gt;tidyr::fill()&lt;/code&gt; to backfill the units won for weeks
+where &lt;code&gt;mia == TRUE&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week &amp;lt;- mbl |&amp;gt;
+    summarize(
+        wins = sum(result == &amp;quot;win&amp;quot;),
+        losses = sum(result == &amp;quot;lose&amp;quot;),
+        pushes = sum(result == &amp;quot;push&amp;quot;),
+        units_won = sum(units_won),
+        .by = c(moron, week, mia)
+    ) |&amp;gt;
+    ## Handle MIA weeks with tidyr::fill().
+    arrange(moron, week) |&amp;gt;    # Making sure that observations are ordered correctly.
+    group_by(moron) |&amp;gt;         # Grouping means filling done only within group (by moron).
+    fill(units_won, .direction = &amp;quot;up&amp;quot;) |&amp;gt;
+    ungroup() |&amp;gt;
+    filter(!is.na(units_won)) |&amp;gt;
+    mutate(season_total = cumsum(units_won), .by = moron)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here are some quantiles of the weekly units won by the morons. This is
+an attempt to determine what constitutes a good or bad weekly total.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt; pull(units_won) |&amp;gt; quantile(probs = seq(0.1, 0.9, by = 0.1))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;  10%   20%   30%   40%   50%   60%   70%   80%   90% 
+31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And here is a histogram of the same information.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Histogram of weekly units won by the morons.
+mbl_by_moron_week |&amp;gt;
+    ggplot(aes(x = units_won)) +
+    geom_histogram(binwidth = 10)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;index.markdown_strict_files/figure-markdown_strict/hist-weekly-totals-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This is a line plot of the moron&amp;rsquo;s season totals by week.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    ggplot(aes(x = week, y = season_total,
+               color = fct_reorder2(moron, week, season_total))) +
+    geom_line(linewidth = 1) +
+    labs(color = &amp;quot;moron&amp;quot;, x = &amp;quot;Week&amp;quot;, y = &amp;quot;Season Total&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;index.markdown_strict_files/figure-markdown_strict/moron_cum_totals-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;How many weeks has each moron been one of the top scorers?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    group_by(week) |&amp;gt;
+    mutate(
+        week_max = max(units_won),
+        top_scorer = (units_won == week_max)
+    ) |&amp;gt;
+    ungroup() |&amp;gt;
+    filter(top_scorer) |&amp;gt;
+    summarize(n = n(), .by = moron) |&amp;gt;
+    arrange(desc(n))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 2
+  moron     n
+  &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;
+1 H         5
+2 W         5
+3 K         4
+4 P         4
+5 S         3
+6 D         2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    summarize(mean = mean(units_won), sd = sd(units_won),
+              median = median(units_won), mad = mad(units_won),
+              .by = moron) |&amp;gt;
+    arrange(desc(sd))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
+  moron  mean    sd median   mad
+  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+1 W      53.4  21.3   50    22.2
+2 K      49.1  17.1   55    22.2
+3 P      56.4  17.0   55    22.2
+4 H      52.8  16.7   50    18.5
+5 S      50.6  15.5   42.5  11.1
+6 D      55.5  15.3   55    22.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered
+by median absolute deviation)?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    summarize(
+        mean = mean(units_won), sd = sd(units_won),
+        median = median(units_won), mad = mad(units_won),
+        .by = moron) |&amp;gt;
+    arrange(desc(mad), desc(sd))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
+  moron  mean    sd median   mad
+  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+1 W      53.4  21.3   50    22.2
+2 K      49.1  17.1   55    22.2
+3 P      56.4  17.0   55    22.2
+4 D      55.5  15.3   55    22.2
+5 H      52.8  16.7   50    18.5
+6 S      50.6  15.5   42.5  11.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Overall number of winning, losing, and pushed wagers for each moron.
+The stated win percentage counts pushes as half a win.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(moron, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
+    relocate(n, win, lose, push, .after = moron) |&amp;gt;
+    arrange(desc(win_pct))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 6
+  moron     n   win  lose  push win_pct
+  &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
+1 P       160    89    68     3    56.6
+2 D       160    86    70     4    55  
+3 W       160    85    74     1    53.4
+4 S       160    79    77     4    50.6
+5 H       150    73    72     5    50.3
+6 K       150    70    77     3    47.7
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Do these morons know what they&amp;rsquo;re doing when they wager different
+amounts? The overall number of winning, losing, and pushed wagers by
+units wagered.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(wager, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
+    relocate(n, win, lose, push, .after = wager) |&amp;gt;
+    arrange(wager)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 4 × 6
+  wager     n   win  lose  push win_pct
+  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
+1     5    72    36    33     3    52.1
+2    10   825   424   385    16    52.4
+3    15    14     4     9     1    32.1
+4    20    29    18    11     0    62.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The overall percentages of winning, losing, and pushed wagers by units
+wagered.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(wager, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win = 100*win/n,
+        push = 100*push/n,
+        lose = 100*lose/n
+    ) |&amp;gt;
+    relocate(n, win, lose, push, .after = wager) |&amp;gt;
+    arrange(wager)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 4 × 5
+  wager     n   win  lose  push
+  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+1     5    72  50    45.8  4.17
+2    10   825  51.4  46.7  1.94
+3    15    14  28.6  64.3  7.14
+4    20    29  62.1  37.9  0   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The overall percentages of wining, losing, and pushed wagers by units
+wagered for the individual morons. Note that some morons only ever bet
+in 10-unit increments.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
+    filter(!is.na(result)) |&amp;gt;
+    summarize(n = n(), .by = c(moron, wager, result)) |&amp;gt;
+    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
+    mutate(
+        n = win + push + lose,
+        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
+    relocate(n, win, lose, push, .after = wager) |&amp;gt;
+    arrange(moron, wager) |&amp;gt;
+    print(n = Inf)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# A tibble: 15 × 7
+   moron wager     n   win  lose  push win_pct
+   &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
+ 1 D         5    13     4     8     1    34.6
+ 2 D        10   140    79    58     3    57.5
+ 3 D        15     1     0     1     0     0  
+ 4 D        20     6     3     3     0    50  
+ 5 H         5    23    10    11     2    47.8
+ 6 H        10   114    56    55     3    50.4
+ 7 H        15     3     1     2     0    33.3
+ 8 H        20    10     6     4     0    60  
+ 9 K        10   150    70    77     3    47.7
+10 P         5    36    22    14     0    61.1
+11 P        10   101    55    44     2    55.4
+12 P        15    10     3     6     1    35  
+13 P        20    13     9     4     0    69.2
+14 S        10   160    79    77     4    50.6
+15 W        10   160    85    74     1    53.4
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Reading Email with Emacs</title>
@@ -1413,294 +1662,6 @@ Easy-Hugo
 The &lt;a href=&#34;https://github.com/masasam/emacs-easy-hugo&#34;&gt;easy-hugo&lt;/a&gt; package might be useful for maintaining my web site.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>MBL2 2023: A Closer Look</title>
-      <link>https://presnell.github.io/talk/mbl/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://presnell.github.io/talk/mbl/</guid>
-      <description>&lt;p&gt;The morons betting league (MBL2) is a small informal group of friends
-(morons) who compete every week by picking ten football bets (NCAAF
-and NFL) totaling 100 &amp;ldquo;units&amp;rdquo; against the spread and/or over-under.
-Here&amp;rsquo;s a small sample of the data. Note that&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The players (morons) are represented by one-letter codes.&lt;/li&gt;
-&lt;li&gt;Some weeks may not have happened yet, so you may see a lot of missing (NA) data.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;mia&lt;/code&gt; is an indicator of whether the moron failed to enter their
-picks. According to the MBL2 rules a player is allowed to have one
-missed week replaced by their score from the subsequent week.&lt;/li&gt;
-&lt;li&gt;The listing of the teams/games and the line is very irregular
-because these are entered by hand with no standardization. For this
-reason, the league inforamtion (NCAAF vs NFL) is also unavailable.
-So the only useful data are the moron, week, number of units
-wagered, and number of units won.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
-    select(-cells) |&amp;gt;
-    slice_sample(n = 10) |&amp;gt;
-    arrange(week, moron)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 10 × 7
-   moron  week mia   team_s     line       wager units_won
-   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
- 1 D         1 FALSE miss       -6.5          10        10
- 2 K         2 FALSE JAX        3             10         0
- 3 S         3 FALSE LSU        -17.5         10         0
- 4 P         4 FALSE LOU @ NCSU UNDER 55.5    10        10
- 5 D         6 FALSE Vols       -3.5          10        10
- 6 W         6 FALSE JAX        -4            10        10
- 7 K         9 FALSE PHI        -3            10        10
- 8 S        10 FALSE ATL        -1.5          10         0
- 9 S        11 FALSE CLE        -4            10         0
-10 K        18 FALSE &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;          NA        NA
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The next bit of code creates a result column (win, lose, or push) the
-wager and units_won columns.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl &amp;lt;- mbl |&amp;gt;
-    mutate(
-        result = (units_won == wager) - (units_won == 0) + 2,
-        result = ifelse(is.na(result), 4, result),
-        result = c(&amp;quot;lose&amp;quot;, &amp;quot;push&amp;quot;, &amp;quot;win&amp;quot;, NA)[result]) 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;p&gt;The next bit of code creates a summary data frame of results by moron
-and week. It uses &lt;code&gt;tidyr::fill()&lt;/code&gt; to backfill the units won for weeks
-where &lt;code&gt;mia == TRUE&lt;/code&gt;.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week &amp;lt;- mbl |&amp;gt;
-    summarize(
-        wins = sum(result == &amp;quot;win&amp;quot;),
-        losses = sum(result == &amp;quot;lose&amp;quot;),
-        pushes = sum(result == &amp;quot;push&amp;quot;),
-        units_won = sum(units_won),
-        .by = c(moron, week, mia)
-    ) |&amp;gt;
-    ## Handle MIA weeks with tidyr::fill().
-    arrange(moron, week) |&amp;gt;    # Making sure that observations are ordered correctly.
-    group_by(moron) |&amp;gt;         # Grouping means filling done only within group (by moron).
-    fill(units_won, .direction = &amp;quot;up&amp;quot;) |&amp;gt;
-    ungroup() |&amp;gt;
-    filter(!is.na(units_won)) |&amp;gt;
-    mutate(season_total = cumsum(units_won), .by = moron)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;p&gt;Here are some quantiles of the weekly units won by the morons. This is
-an attempt to determine what constitutes a good or bad weekly total.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt; pull(units_won) |&amp;gt; quantile(probs = seq(0.1, 0.9, by = 0.1))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;  10%   20%   30%   40%   50%   60%   70%   80%   90% 
-31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And here is a histogram of the same information.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Histogram of weekly units won by the morons.
-mbl_by_moron_week |&amp;gt;
-    ggplot(aes(x = units_won)) +
-    geom_histogram(binwidth = 10)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;p&gt;&lt;img src=&#34;index.markdown_strict_files/figure-markdown_strict/hist-weekly-totals-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;This is a line plot of the moron&amp;rsquo;s season totals by week.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
-    ggplot(aes(x = week, y = season_total,
-               color = fct_reorder2(moron, week, season_total))) +
-    geom_line(linewidth = 1) +
-    labs(color = &amp;quot;moron&amp;quot;, x = &amp;quot;Week&amp;quot;, y = &amp;quot;Season Total&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;p&gt;&lt;img src=&#34;index.markdown_strict_files/figure-markdown_strict/moron_cum_totals-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;How many weeks has each moron been one of the top scorers?&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
-    group_by(week) |&amp;gt;
-    mutate(
-        week_max = max(units_won),
-        top_scorer = (units_won == week_max)
-    ) |&amp;gt;
-    ungroup() |&amp;gt;
-    filter(top_scorer) |&amp;gt;
-    summarize(n = n(), .by = moron) |&amp;gt;
-    arrange(desc(n))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 2
-  moron     n
-  &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;
-1 H         5
-2 W         5
-3 K         4
-4 P         4
-5 S         3
-6 D         2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
-    summarize(mean = mean(units_won), sd = sd(units_won),
-              median = median(units_won), mad = mad(units_won),
-              .by = moron) |&amp;gt;
-    arrange(desc(sd))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
-  moron  mean    sd median   mad
-  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1 W      53.4  21.3   50    22.2
-2 K      49.1  17.1   55    22.2
-3 P      56.4  17.0   55    22.2
-4 H      52.8  16.7   50    18.5
-5 S      50.6  15.5   42.5  11.1
-6 D      55.5  15.3   55    22.2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered
-by median absolute deviation)?&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
-    summarize(
-        mean = mean(units_won), sd = sd(units_won),
-        median = median(units_won), mad = mad(units_won),
-        .by = moron) |&amp;gt;
-    arrange(desc(mad), desc(sd))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
-  moron  mean    sd median   mad
-  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1 W      53.4  21.3   50    22.2
-2 K      49.1  17.1   55    22.2
-3 P      56.4  17.0   55    22.2
-4 D      55.5  15.3   55    22.2
-5 H      52.8  16.7   50    18.5
-6 S      50.6  15.5   42.5  11.1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Overall number of winning, losing, and pushed wagers for each moron.
-The stated win percentage counts pushes as half a win.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
-    filter(!is.na(result)) |&amp;gt;
-    summarize(n = n(), .by = c(moron, result)) |&amp;gt;
-    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
-    mutate(
-        n = win + push + lose,
-        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
-    relocate(n, win, lose, push, .after = moron) |&amp;gt;
-    arrange(desc(win_pct))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 6
-  moron     n   win  lose  push win_pct
-  &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
-1 P       160    89    68     3    56.6
-2 D       160    86    70     4    55  
-3 W       160    85    74     1    53.4
-4 S       160    79    77     4    50.6
-5 H       150    73    72     5    50.3
-6 K       150    70    77     3    47.7
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Do these morons know what they&amp;rsquo;re doing when they wager different
-amounts? The overall number of winning, losing, and pushed wagers by
-units wagered.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
-    filter(!is.na(result)) |&amp;gt;
-    summarize(n = n(), .by = c(wager, result)) |&amp;gt;
-    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
-    mutate(
-        n = win + push + lose,
-        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
-    relocate(n, win, lose, push, .after = wager) |&amp;gt;
-    arrange(wager)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 4 × 6
-  wager     n   win  lose  push win_pct
-  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
-1     5    72    36    33     3    52.1
-2    10   825   424   385    16    52.4
-3    15    14     4     9     1    32.1
-4    20    29    18    11     0    62.1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The overall percentages of winning, losing, and pushed wagers by units
-wagered.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
-    filter(!is.na(result)) |&amp;gt;
-    summarize(n = n(), .by = c(wager, result)) |&amp;gt;
-    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
-    mutate(
-        n = win + push + lose,
-        win = 100*win/n,
-        push = 100*push/n,
-        lose = 100*lose/n
-    ) |&amp;gt;
-    relocate(n, win, lose, push, .after = wager) |&amp;gt;
-    arrange(wager)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 4 × 5
-  wager     n   win  lose  push
-  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1     5    72  50    45.8  4.17
-2    10   825  51.4  46.7  1.94
-3    15    14  28.6  64.3  7.14
-4    20    29  62.1  37.9  0   
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The overall percentages of wining, losing, and pushed wagers by units
-wagered for the individual morons. Note that some morons only ever bet
-in 10-unit increments.&lt;/p&gt;
-&lt;details&gt;
-&lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl |&amp;gt;
-    filter(!is.na(result)) |&amp;gt;
-    summarize(n = n(), .by = c(moron, wager, result)) |&amp;gt;
-    pivot_wider(names_from = result, values_from = n, values_fill = 0) |&amp;gt;
-    mutate(
-        n = win + push + lose,
-        win_pct = 100 * (win + 0.5*push) / n) |&amp;gt;
-    relocate(n, win, lose, push, .after = wager) |&amp;gt;
-    arrange(moron, wager) |&amp;gt;
-    print(n = Inf)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 15 × 7
-   moron wager     n   win  lose  push win_pct
-   &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
- 1 D         5    13     4     8     1    34.6
- 2 D        10   140    79    58     3    57.5
- 3 D        15     1     0     1     0     0  
- 4 D        20     6     3     3     0    50  
- 5 H         5    23    10    11     2    47.8
- 6 H        10   114    56    55     3    50.4
- 7 H        15     3     1     2     0    33.3
- 8 H        20    10     6     4     0    60  
- 9 K        10   150    70    77     3    47.7
-10 P         5    36    22    14     0    61.1
-11 P        10   101    55    44     2    55.4
-12 P        15    10     3     6     1    35  
-13 P        20    13     9     4     0    69.2
-14 S        10   160    79    77     4    50.6
-15 W        10   160    85    74     1    53.4
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

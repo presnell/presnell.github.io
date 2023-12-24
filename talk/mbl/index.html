@@ -274,7 +274,9 @@
   <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
+      <meta property="article:published_time" content="2023-12-24T14:04:20-05:00">
     
+    <meta property="article:modified_time" content="2023-12-24T14:04:20-05:00">
   
 
   
@@ -298,7 +300,7 @@
   "name": "MBL2 2023: A Closer Look",
   
   
-  "startDate": "0001-01-01T00:00:00Z",
+  "startDate": "2023-12-24T14:04:20-05:00",
   
   
   "performer": {
@@ -678,7 +680,7 @@
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">Date</div>
           <div class="col-12 col-md-9">
-            Jan 1, 0001 12:00 AM
+            Dec 24, 2023 2:04 PM
           </div>
         </div>
       </div>
@@ -709,44 +711,36 @@ reason, the league inforamtion (NCAAF vs NFL) is also unavailable.
 So the only useful data are the moron, week, number of units
 wagered, and number of units won.</li>
 </ul>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     select(-cells) |&gt;
     slice_sample(n = 10) |&gt;
     arrange(week, moron)
 </code></pre>
-</details>
 <pre><code># A tibble: 10 × 7
-   moron  week mia   team_s     line       wager units_won
-   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
- 1 D         1 FALSE miss       -6.5          10        10
- 2 K         2 FALSE JAX        3             10         0
- 3 S         3 FALSE LSU        -17.5         10         0
- 4 P         4 FALSE LOU @ NCSU UNDER 55.5    10        10
- 5 D         6 FALSE Vols       -3.5          10        10
- 6 W         6 FALSE JAX        -4            10        10
- 7 K         9 FALSE PHI        -3            10        10
- 8 S        10 FALSE ATL        -1.5          10         0
- 9 S        11 FALSE CLE        -4            10         0
-10 K        18 FALSE &lt;NA&gt;       &lt;NA&gt;          NA        NA
+   moron  week mia   team_s                         line      wager units_won
+   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;                          &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1 P         1 FALSE TEX @ ALA                      TEX +7.0      5         5
+ 2 K         7 FALSE det/BAL                        &gt;42.5        10        10
+ 3 P        10 FALSE Miami at (4) Florida State     FSU -14.5    20         0
+ 4 D        12 FALSE Clemson                        -7.5         10        10
+ 5 P        12 FALSE (2) Ohio State at (3) Michigan MICH -3.5    10        10
+ 6 S        12 FALSE MIA                            -9.5         10        10
+ 7 S        14 FALSE DAL                            -3.5         10        10
+ 8 P        17 FALSE &lt;NA&gt;                           &lt;NA&gt;         NA        NA
+ 9 S        17 FALSE &lt;NA&gt;                           &lt;NA&gt;         NA        NA
+10 H        18 FALSE &lt;NA&gt;                           &lt;NA&gt;         NA        NA
 </code></pre>
 <p>The next bit of code creates a result column (win, lose, or push) the
 wager and units_won columns.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl &lt;- mbl |&gt;
     mutate(
         result = (units_won == wager) - (units_won == 0) + 2,
         result = ifelse(is.na(result), 4, result),
         result = c(&quot;lose&quot;, &quot;push&quot;, &quot;win&quot;, NA)[result]) 
 </code></pre>
-</details>
 <p>The next bit of code creates a summary data frame of results by moron
 and week. It uses <code>tidyr::fill()</code> to backfill the units won for weeks
 where <code>mia == TRUE</code>.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week &lt;- mbl |&gt;
     summarize(
         wins = sum(result == &quot;win&quot;),
@@ -763,41 +757,29 @@ where <code>mia == TRUE</code>.</p>
     filter(!is.na(units_won)) |&gt;
     mutate(season_total = cumsum(units_won), .by = moron)
 </code></pre>
-</details>
 <p>Here are some quantiles of the weekly units won by the morons. This is
 an attempt to determine what constitutes a good or bad weekly total.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt; pull(units_won) |&gt; quantile(probs = seq(0.1, 0.9, by = 0.1))
 </code></pre>
-</details>
 <pre><code>  10%   20%   30%   40%   50%   60%   70%   80%   90% 
 31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 
 </code></pre>
 <p>And here is a histogram of the same information.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">## Histogram of weekly units won by the morons.
 mbl_by_moron_week |&gt;
     ggplot(aes(x = units_won)) +
     geom_histogram(binwidth = 10)
 </code></pre>
-</details>
 <p><img src="index.markdown_strict_files/figure-markdown_strict/hist-weekly-totals-1.png" width="768" /></p>
 <p>This is a line plot of the moron&rsquo;s season totals by week.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     ggplot(aes(x = week, y = season_total,
                color = fct_reorder2(moron, week, season_total))) +
     geom_line(linewidth = 1) +
     labs(color = &quot;moron&quot;, x = &quot;Week&quot;, y = &quot;Season Total&quot;)
 </code></pre>
-</details>
 <p><img src="index.markdown_strict_files/figure-markdown_strict/moron_cum_totals-1.png" width="768" /></p>
 <p>How many weeks has each moron been one of the top scorers?</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     group_by(week) |&gt;
     mutate(
@@ -809,7 +791,6 @@ mbl_by_moron_week |&gt;
     summarize(n = n(), .by = moron) |&gt;
     arrange(desc(n))
 </code></pre>
-</details>
 <pre><code># A tibble: 6 × 2
   moron     n
   &lt;chr&gt; &lt;int&gt;
@@ -821,15 +802,12 @@ mbl_by_moron_week |&gt;
 6 D         2
 </code></pre>
 <p>Which moron&rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     summarize(mean = mean(units_won), sd = sd(units_won),
               median = median(units_won), mad = mad(units_won),
               .by = moron) |&gt;
     arrange(desc(sd))
 </code></pre>
-</details>
 <pre><code># A tibble: 6 × 5
   moron  mean    sd median   mad
   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -842,8 +820,6 @@ mbl_by_moron_week |&gt;
 </code></pre>
 <p>Which moron&rsquo;s weekly totals are the most (and least) variable (ordered
 by median absolute deviation)?</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl_by_moron_week |&gt;
     summarize(
         mean = mean(units_won), sd = sd(units_won),
@@ -851,7 +827,6 @@ by median absolute deviation)?</p>
         .by = moron) |&gt;
     arrange(desc(mad), desc(sd))
 </code></pre>
-</details>
 <pre><code># A tibble: 6 × 5
   moron  mean    sd median   mad
   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -864,8 +839,6 @@ by median absolute deviation)?</p>
 </code></pre>
 <p>Overall number of winning, losing, and pushed wagers for each moron.
 The stated win percentage counts pushes as half a win.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(moron, result)) |&gt;
@@ -876,7 +849,6 @@ The stated win percentage counts pushes as half a win.</p>
     relocate(n, win, lose, push, .after = moron) |&gt;
     arrange(desc(win_pct))
 </code></pre>
-</details>
 <pre><code># A tibble: 6 × 6
   moron     n   win  lose  push win_pct
   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
@@ -890,8 +862,6 @@ The stated win percentage counts pushes as half a win.</p>
 <p>Do these morons know what they&rsquo;re doing when they wager different
 amounts? The overall number of winning, losing, and pushed wagers by
 units wagered.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(wager, result)) |&gt;
@@ -902,7 +872,6 @@ units wagered.</p>
     relocate(n, win, lose, push, .after = wager) |&gt;
     arrange(wager)
 </code></pre>
-</details>
 <pre><code># A tibble: 4 × 6
   wager     n   win  lose  push win_pct
   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
@@ -913,8 +882,6 @@ units wagered.</p>
 </code></pre>
 <p>The overall percentages of winning, losing, and pushed wagers by units
 wagered.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(wager, result)) |&gt;
@@ -928,7 +895,6 @@ wagered.</p>
     relocate(n, win, lose, push, .after = wager) |&gt;
     arrange(wager)
 </code></pre>
-</details>
 <pre><code># A tibble: 4 × 5
   wager     n   win  lose  push
   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -940,8 +906,6 @@ wagered.</p>
 <p>The overall percentages of wining, losing, and pushed wagers by units
 wagered for the individual morons. Note that some morons only ever bet
 in 10-unit increments.</p>
-<details>
-<summary>Code</summary>
 <pre><code class="language-r">mbl |&gt;
     filter(!is.na(result)) |&gt;
     summarize(n = n(), .by = c(moron, wager, result)) |&gt;
@@ -953,7 +917,6 @@ in 10-unit increments.</p>
     arrange(moron, wager) |&gt;
     print(n = Inf)
 </code></pre>
-</details>
 <pre><code># A tibble: 15 × 7
    moron wager     n   win  lose  push win_pct
    &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
