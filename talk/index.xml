@@ -5,7 +5,7 @@
     <link>https://presnell.github.io/talk/</link>
       <atom:link href="https://presnell.github.io/talk/index.xml" rel="self" type="application/rss+xml" />
     <description>Recent &amp; Upcoming Talks</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 19 Dec 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Recent &amp; Upcoming Talks</title>
@@ -15,7 +15,7 @@
     <item>
       <title>MBL2 2023: A Closer Look</title>
       <link>https://presnell.github.io/talk/mbl/</link>
-      <pubDate>Tue, 19 Dec 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://presnell.github.io/talk/mbl/</guid>
       <description>&lt;p&gt;The morons betting league (MBL2) is a small informal group of friends
 (morons) who compete every week by picking ten football bets (NCAAF
@@ -42,18 +42,18 @@ wagered, and number of units won.&lt;/li&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 10 × 7
-   moron  week mia   team_s                             line     wager units_won
-   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;                              &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
- 1 S         1 FALSE Den                                -3.5        10         0
- 2 D         9 FALSE Pokes                              5.5         10        10
- 3 H         9 FALSE okla                               -5.5         5         0
- 4 P        12 FALSE Washington State at (5) Washington WSU +16…    10        10
- 5 P        12 FALSE Kentucky at (10) Louisville        LOU -6.5    10         0
- 6 K        13 FALSE PIT                                -5.5        10         0
- 7 H        14 FALSE det                                -3           5         0
- 8 D        17 FALSE &amp;lt;NA&amp;gt;                               &amp;lt;NA&amp;gt;        NA        NA
- 9 K        17 FALSE &amp;lt;NA&amp;gt;                               &amp;lt;NA&amp;gt;        NA        NA
-10 H        18 FALSE &amp;lt;NA&amp;gt;                               &amp;lt;NA&amp;gt;        NA        NA
+   moron  week mia   team_s     line       wager units_won
+   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+ 1 D         1 FALSE miss       -6.5          10        10
+ 2 K         2 FALSE JAX        3             10         0
+ 3 S         3 FALSE LSU        -17.5         10         0
+ 4 P         4 FALSE LOU @ NCSU UNDER 55.5    10        10
+ 5 D         6 FALSE Vols       -3.5          10        10
+ 6 W         6 FALSE JAX        -4            10        10
+ 7 K         9 FALSE PHI        -3            10        10
+ 8 S        10 FALSE ATL        -1.5          10         0
+ 9 S        11 FALSE CLE        -4            10         0
+10 K        18 FALSE &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;          NA        NA
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The next bit of code creates a result column (win, lose, or push) the
 wager and units_won columns.&lt;/p&gt;

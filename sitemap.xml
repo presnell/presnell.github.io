@@ -8,22 +8,12 @@
   </url>
   
   <url>
-    <loc>https://presnell.github.io/</loc>
-    <lastmod>2023-12-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://presnell.github.io/talk/mbl/</loc>
-    <lastmod>2023-12-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://presnell.github.io/talk/</loc>
-    <lastmod>2023-12-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://presnell.github.io/authors/</loc>
+    <lastmod>2023-05-26T17:21:04-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://presnell.github.io/</loc>
     <lastmod>2023-05-26T17:21:04-04:00</lastmod>
   </url>
   
@@ -87,11 +77,19 @@
   </url>
   
   <url>
+    <loc>https://presnell.github.io/talk/mbl/</loc>
+  </url>
+  
+  <url>
     <loc>https://presnell.github.io/publication_types/</loc>
   </url>
   
   <url>
     <loc>https://presnell.github.io/publication/</loc>
+  </url>
+  
+  <url>
+    <loc>https://presnell.github.io/talk/</loc>
   </url>
   
   <url>
