@@ -42,18 +42,18 @@ wagered, and number of units won.&lt;/li&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 10 × 7
-   moron  week mia   team_s                           line    wager units_won
-   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;                            &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
- 1 H         0 FALSE uva                              28         10         0
- 2 H         0 FALSE wvau                             20.5       10         0
- 3 S         5 FALSE MIA                              -11        10        10
- 4 P         8 FALSE (4) Florida State at Wake Forest FSU -20    20        20
- 5 D        10 FALSE Clones                           -6.5       10        10
- 6 K        11 FALSE lac                              -3         10         0
- 7 W        12 FALSE pit/CIN                          &amp;gt;34.5      10         0
- 8 H        13 FALSE arz/PIT                          &amp;gt;41.5       5         0
- 9 W        15 FALSE lac/LVR                          &amp;lt;34        10         0
-10 W        15 FALSE atl/CAR                          &amp;lt;34.5      10        10
+   moron  week mia   team_s                       line     wager units_won
+   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;                        &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+ 1 H         2 FALSE sf4/LAR                      &amp;gt;44.5       10        10
+ 2 D         5 FALSE UK                           14.5         5         0
+ 3 H         5 FALSE dal/SF4                      &amp;gt;45.0       10        10
+ 4 P         5 FALSE MD @ OSU                     MD +19.5    10         0
+ 5 D         6 FALSE FSU                          -17.5       10        10
+ 6 P         6 FALSE (8) Oregon at (6) Washington ORE +3      10         5
+ 7 K        12 FALSE DAL                          -10.5       10        10
+ 8 D        14 FALSE Fins                         -13.5       10         0
+ 9 P        17 FALSE &amp;lt;NA&amp;gt;                         &amp;lt;NA&amp;gt;        NA        NA
+10 W        17 FALSE &amp;lt;NA&amp;gt;                         &amp;lt;NA&amp;gt;        NA        NA
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The next bit of code creates a result column (win, lose, or push) the
 wager and units_won columns.&lt;/p&gt;
@@ -92,11 +92,13 @@ where &lt;code&gt;mia == TRUE&lt;/code&gt;.&lt;/p&gt;
 an attempt to determine what constitutes a good or bad weekly total.&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt; pull(units_won) |&amp;gt; quantile(probs = seq(0.1, 0.9, by = 0.1))
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
+    pull(units_won) |&amp;gt;
+    quantile(probs = seq(0.1, 0.9, by = 0.1))
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;  10%   20%   30%   40%   50%   60%   70%   80%   90% 
-31.25 40.00 40.00 45.00 50.00 60.00 60.00 70.00 75.00 
+&lt;pre&gt;&lt;code&gt;10% 20% 30% 40% 50% 60% 70% 80% 90% 
+ 30  40  40  45  50  60  60  70  75 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And here is a histogram of the same information.&lt;/p&gt;
 &lt;details&gt;
@@ -141,8 +143,8 @@ mbl_by_moron_week |&amp;gt;
 2 W         5
 3 K         4
 4 P         4
-5 S         3
-6 D         2
+5 D         3
+6 S         3
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?&lt;/p&gt;
 &lt;details&gt;
@@ -157,15 +159,17 @@ mbl_by_moron_week |&amp;gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
   moron  mean    sd median   mad
   &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1 W      53.4  21.3   50    22.2
-2 K      49.1  17.1   55    22.2
-3 P      56.4  17.0   55    22.2
-4 H      52.8  16.7   50    18.5
-5 S      50.6  15.5   42.5  11.1
-6 D      55.5  15.3   55    22.2
+1 W      53.2  20.7     50 14.8 
+2 K      47.9  17.1     50 22.2 
+3 H      51.5  17.0     50 22.2 
+4 P      56.6  16.5     55 22.2 
+5 D      56.9  16.0     55 22.2 
+6 S      50    15.2     40  7.41
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered
-by median absolute deviation)?&lt;/p&gt;
+by median absolute deviation)? Using &lt;code&gt;knitr::kable()&lt;/code&gt; here for a
+prettier table, but I&amp;rsquo;m getting misaligned column headers. I may
+report this as a bug.&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
@@ -173,19 +177,65 @@ by median absolute deviation)?&lt;/p&gt;
         mean = mean(units_won), sd = sd(units_won),
         median = median(units_won), mad = mad(units_won),
         .by = moron) |&amp;gt;
-    arrange(desc(mad), desc(sd))
+    arrange(desc(mad), desc(sd)) |&amp;gt;
+    kable()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
-&lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
-  moron  mean    sd median   mad
-  &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1 W      53.4  21.3   50    22.2
-2 K      49.1  17.1   55    22.2
-3 P      56.4  17.0   55    22.2
-4 D      55.5  15.3   55    22.2
-5 H      52.8  16.7   50    18.5
-6 S      50.6  15.5   42.5  11.1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;moron&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;mean&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;sd&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;median&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;mad&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;K&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;47.94118&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;17.14450&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;H&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;51.47059&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;17.04907&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;P&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;56.61765&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;16.46353&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;55&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;D&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;56.91176&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;15.99632&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;55&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;W&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;53.23529&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20.68674&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.826&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;S&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50.00000&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;15.20691&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;40&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;7.413&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;Overall number of winning, losing, and pushed wagers for each moron.
 The stated win percentage counts pushes as half a win.&lt;/p&gt;
 &lt;details&gt;
@@ -204,12 +254,12 @@ The stated win percentage counts pushes as half a win.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 6 × 6
   moron     n   win  lose  push win_pct
   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
-1 P       160    89    68     3    56.6
-2 D       160    86    70     4    55  
-3 W       160    85    74     1    53.4
-4 S       160    79    77     4    50.6
-5 H       150    73    72     5    50.3
-6 K       150    70    77     3    47.7
+1 P       170    95    72     3    56.8
+2 D       170    94    72     4    56.5
+3 W       170    90    79     1    53.2
+4 S       170    83    83     4    50  
+5 H       160    76    79     5    49.1
+6 K       160    73    84     3    46.6
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Do these morons know what they&amp;rsquo;re doing when they wager different
 amounts? The overall number of winning, losing, and pushed wagers by
@@ -230,10 +280,10 @@ units wagered.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 4 × 6
   wager     n   win  lose  push win_pct
   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
-1     5    72    36    33     3    52.1
-2    10   825   424   385    16    52.4
-3    15    14     4     9     1    32.1
-4    20    29    18    11     0    62.1
+1     5    77    38    36     3    51.3
+2    10   877   450   411    16    52.2
+3    15    15     4    10     1    30  
+4    20    31    19    12     0    61.3
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The overall percentages of winning, losing, and pushed wagers by units
 wagered.&lt;/p&gt;
@@ -256,10 +306,10 @@ wagered.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 4 × 5
   wager     n   win  lose  push
   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1     5    72  50    45.8  4.17
-2    10   825  51.4  46.7  1.94
-3    15    14  28.6  64.3  7.14
-4    20    29  62.1  37.9  0   
+1     5    77  49.4  46.8  3.90
+2    10   877  51.3  46.9  1.82
+3    15    15  26.7  66.7  6.67
+4    20    31  61.3  38.7  0   
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The overall percentages of wining, losing, and pushed wagers by units
 wagered for the individual morons. Note that some morons only ever bet
@@ -282,20 +332,20 @@ in 10-unit increments.&lt;/p&gt;
    moron wager     n   win  lose  push win_pct
    &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
  1 D         5    13     4     8     1    34.6
- 2 D        10   140    79    58     3    57.5
+ 2 D        10   150    87    60     3    59  
  3 D        15     1     0     1     0     0  
  4 D        20     6     3     3     0    50  
- 5 H         5    23    10    11     2    47.8
- 6 H        10   114    56    55     3    50.4
- 7 H        15     3     1     2     0    33.3
- 8 H        20    10     6     4     0    60  
- 9 K        10   150    70    77     3    47.7
+ 5 H         5    28    12    14     2    46.4
+ 6 H        10   116    56    57     3    49.6
+ 7 H        15     4     1     3     0    25  
+ 8 H        20    12     7     5     0    58.3
+ 9 K        10   160    73    84     3    46.6
 10 P         5    36    22    14     0    61.1
-11 P        10   101    55    44     2    55.4
+11 P        10   111    61    48     2    55.9
 12 P        15    10     3     6     1    35  
 13 P        20    13     9     4     0    69.2
-14 S        10   160    79    77     4    50.6
-15 W        10   160    85    74     1    53.4
+14 S        10   170    83    83     4    50  
+15 W        10   170    90    79     1    53.2
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
