@@ -276,7 +276,7 @@
     
       <meta property="article:published_time" content="2023-12-24T14:04:20-05:00">
     
-    <meta property="article:modified_time" content="2023-12-26T11:55:03-05:00">
+    <meta property="article:modified_time" content="2024-01-09T09:06:08-05:00">
   
 
   
@@ -720,18 +720,18 @@ wagered, and number of units won.</li>
 </code></pre>
 </details>
 <pre><code># A tibble: 10 × 7
-   moron  week mia   team_s                       line     wager units_won
-   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;                        &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;
- 1 H         2 FALSE sf4/LAR                      &gt;44.5       10        10
- 2 D         5 FALSE UK                           14.5         5         0
- 3 H         5 FALSE dal/SF4                      &gt;45.0       10        10
- 4 P         5 FALSE MD @ OSU                     MD +19.5    10         0
- 5 D         6 FALSE FSU                          -17.5       10        10
- 6 P         6 FALSE (8) Oregon at (6) Washington ORE +3      10         5
- 7 K        12 FALSE DAL                          -10.5       10        10
- 8 D        14 FALSE Fins                         -13.5       10         0
- 9 P        17 FALSE &lt;NA&gt;                         &lt;NA&gt;        NA        NA
-10 W        17 FALSE &lt;NA&gt;                         &lt;NA&gt;        NA        NA
+   moron  week mia   team_s    line  wager units_won
+   &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;
+ 1 W         4 FALSE uf/UK     &lt;44      10         0
+ 2 W         5 FALSE tide      -2.5     10        10
+ 3 W         6 FALSE DAME      -2.5     10        10
+ 4 H         7 FALSE PHI       -2       10        10
+ 5 H         7 FALSE was/NYG   &lt;39.5    10        10
+ 6 S         8 FALSE Utah      6.5      10         0
+ 7 K        10 FALSE DAL       -16.5    10        10
+ 8 W        11 FALSE cin/BAL   O46.0    10        10
+ 9 W        14 FALSE buf/KCC   &lt;47.5    10        10
+10 W        17 FALSE ncsu/ksst &lt;47.5    10        10
 </code></pre>
 <p>The next bit of code creates a result column (win, lose, or push) the
 wager and units_won columns.</p>
@@ -776,7 +776,7 @@ an attempt to determine what constitutes a good or bad weekly total.</p>
 </code></pre>
 </details>
 <pre><code>10% 20% 30% 40% 50% 60% 70% 80% 90% 
- 30  40  40  45  50  60  60  70  75 
+ 30  40  40  47  50  60  65  70  80 
 </code></pre>
 <p>And here is a histogram of the same information.</p>
 <details>
@@ -818,11 +818,11 @@ mbl_by_moron_week |&gt;
   moron     n
   &lt;chr&gt; &lt;int&gt;
 1 H         5
-2 W         5
-3 K         4
-4 P         4
-5 D         3
-6 S         3
+2 P         5
+3 W         5
+4 K         4
+5 S         4
+6 D         3
 </code></pre>
 <p>Which moron&rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?</p>
 <details>
@@ -837,12 +837,12 @@ mbl_by_moron_week |&gt;
 <pre><code># A tibble: 6 × 5
   moron  mean    sd median   mad
   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 W      53.2  20.7     50 14.8 
-2 K      47.9  17.1     50 22.2 
-3 H      51.5  17.0     50 22.2 
-4 P      56.6  16.5     55 22.2 
-5 D      56.9  16.0     55 22.2 
-6 S      50    15.2     40  7.41
+1 W      54.5  23.0   50   29.7 
+2 S      52.9  20.9   40    7.41
+3 H      54.2  20.2   50   22.2 
+4 K      47.9  17.1   50   22.2 
+5 P      58.3  16.5   57.5 25.9 
+6 D      57.8  16.1   55   22.2 
 </code></pre>
 <p>Which moron&rsquo;s weekly totals are the most (and least) variable (ordered
 by median absolute deviation)? Using <code>knitr::kable()</code> here for a
@@ -871,46 +871,46 @@ report this as a bug.</p>
 </thead>
 <tbody>
 <tr>
-<td align="left">K</td>
-<td align="right">47.94118</td>
-<td align="right">17.14450</td>
-<td align="right">50</td>
-<td align="right">22.239</td>
-</tr>
-<tr>
-<td align="left">H</td>
-<td align="right">51.47059</td>
-<td align="right">17.04907</td>
-<td align="right">50</td>
-<td align="right">22.239</td>
+<td align="left">W</td>
+<td align="right">54.47368</td>
+<td align="right">23.02744</td>
+<td align="right">50.0</td>
+<td align="right">29.6520</td>
 </tr>
 <tr>
 <td align="left">P</td>
-<td align="right">56.61765</td>
-<td align="right">16.46353</td>
-<td align="right">55</td>
-<td align="right">22.239</td>
+<td align="right">58.28947</td>
+<td align="right">16.50027</td>
+<td align="right">57.5</td>
+<td align="right">25.9455</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="right">54.21053</td>
+<td align="right">20.24250</td>
+<td align="right">50.0</td>
+<td align="right">22.2390</td>
+</tr>
+<tr>
+<td align="left">K</td>
+<td align="right">47.94118</td>
+<td align="right">17.14450</td>
+<td align="right">50.0</td>
+<td align="right">22.2390</td>
 </tr>
 <tr>
 <td align="left">D</td>
-<td align="right">56.91176</td>
-<td align="right">15.99632</td>
-<td align="right">55</td>
-<td align="right">22.239</td>
-</tr>
-<tr>
-<td align="left">W</td>
-<td align="right">53.23529</td>
-<td align="right">20.68674</td>
-<td align="right">50</td>
-<td align="right">14.826</td>
+<td align="right">57.76316</td>
+<td align="right">16.09207</td>
+<td align="right">55.0</td>
+<td align="right">22.2390</td>
 </tr>
 <tr>
 <td align="left">S</td>
-<td align="right">50.00000</td>
-<td align="right">15.20691</td>
-<td align="right">40</td>
-<td align="right">7.413</td>
+<td align="right">52.89474</td>
+<td align="right">20.90427</td>
+<td align="right">40.0</td>
+<td align="right">7.4130</td>
 </tr>
 </tbody>
 </table>
@@ -932,12 +932,12 @@ The stated win percentage counts pushes as half a win.</p>
 <pre><code># A tibble: 6 × 6
   moron     n   win  lose  push win_pct
   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
-1 P       170    95    72     3    56.8
-2 D       170    94    72     4    56.5
-3 W       170    90    79     1    53.2
-4 S       170    83    83     4    50  
-5 H       160    76    79     5    49.1
-6 K       160    73    84     3    46.6
+1 P       200   109    88     3    55.2
+2 D       200   108    88     4    55  
+3 W       200   103    96     1    51.8
+4 S       200    98    97     5    50.2
+5 H       190    91    94     5    49.2
+6 K       179    84    91     4    48.0
 </code></pre>
 <p>Do these morons know what they&rsquo;re doing when they wager different
 amounts? The overall number of winning, losing, and pushed wagers by
@@ -958,10 +958,10 @@ units wagered.</p>
 <pre><code># A tibble: 4 × 6
   wager     n   win  lose  push win_pct
   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
-1     5    77    38    36     3    51.3
-2    10   877   450   411    16    52.2
-3    15    15     4    10     1    30  
-4    20    31    19    12     0    61.3
+1     5   103    51    49     3    51.0
+2    10   996   507   472    17    51.8
+3    15    16     4    11     1    28.1
+4    20    54    31    22     1    58.3
 </code></pre>
 <p>The overall percentages of winning, losing, and pushed wagers by units
 wagered.</p>
@@ -984,10 +984,10 @@ wagered.</p>
 <pre><code># A tibble: 4 × 5
   wager     n   win  lose  push
   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     5    77  49.4  46.8  3.90
-2    10   877  51.3  46.9  1.82
-3    15    15  26.7  66.7  6.67
-4    20    31  61.3  38.7  0   
+1     5   103  49.5  47.6  2.91
+2    10   996  50.9  47.4  1.71
+3    15    16  25    68.8  6.25
+4    20    54  57.4  40.7  1.85
 </code></pre>
 <p>The overall percentages of wining, losing, and pushed wagers by units
 wagered for the individual morons. Note that some morons only ever bet
@@ -1006,24 +1006,26 @@ in 10-unit increments.</p>
     print(n = Inf)
 </code></pre>
 </details>
-<pre><code># A tibble: 15 × 7
+<pre><code># A tibble: 17 × 7
    moron wager     n   win  lose  push win_pct
    &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
- 1 D         5    13     4     8     1    34.6
- 2 D        10   150    87    60     3    59  
+ 1 D         5    17     6    10     1    38.2
+ 2 D        10   174    99    72     3    57.8
  3 D        15     1     0     1     0     0  
- 4 D        20     6     3     3     0    50  
- 5 H         5    28    12    14     2    46.4
- 6 H        10   116    56    57     3    49.6
+ 4 D        20     8     3     5     0    37.5
+ 5 H         5    40    17    21     2    45  
+ 6 H        10   128    63    62     3    50.4
  7 H        15     4     1     3     0    25  
- 8 H        20    12     7     5     0    58.3
- 9 K        10   160    73    84     3    46.6
-10 P         5    36    22    14     0    61.1
-11 P        10   111    61    48     2    55.9
-12 P        15    10     3     6     1    35  
-13 P        20    13     9     4     0    69.2
-14 S        10   170    83    83     4    50  
-15 W        10   170    90    79     1    53.2
+ 8 H        20    18    10     8     0    55.6
+ 9 K         5     5     3     2     0    60  
+10 K        10   161    74    84     3    46.9
+11 K        20    13     7     5     1    57.7
+12 P         5    41    25    16     0    61.0
+13 P        10   133    70    61     2    53.4
+14 P        15    11     3     7     1    31.8
+15 P        20    15    11     4     0    73.3
+16 S        10   200    98    97     5    50.2
+17 W        10   200   103    96     1    51.8
 </code></pre>
 
     </div>
