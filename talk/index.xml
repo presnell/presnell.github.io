@@ -5,7 +5,7 @@
     <link>https://presnell.github.io/talk/</link>
       <atom:link href="https://presnell.github.io/talk/index.xml" rel="self" type="application/rss+xml" />
     <description>Recent &amp; Upcoming Talks</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 24 Dec 2023 14:04:20 -0500</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 11 Jan 2024 14:05:46 -0500</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Recent &amp; Upcoming Talks</title>
@@ -15,23 +15,30 @@
     <item>
       <title>MBL2 2023: A Closer Look</title>
       <link>https://presnell.github.io/talk/mbl/</link>
-      <pubDate>Sun, 24 Dec 2023 14:04:20 -0500</pubDate>
+      <pubDate>Thu, 11 Jan 2024 14:05:46 -0500</pubDate>
       <guid>https://presnell.github.io/talk/mbl/</guid>
       <description>&lt;p&gt;The morons betting league (MBL2) is a small informal group of friends
 (morons) who compete every week by picking ten football bets (NCAAF
-and NFL) totaling 100 &amp;ldquo;units&amp;rdquo; against the spread and/or over-under.
+and NFL) totaling 100 &amp;ldquo;units&amp;rdquo; against the spread and/or over-under
 Here&amp;rsquo;s a small sample of the data. Note that&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The players (morons) are represented by one-letter codes.&lt;/li&gt;
-&lt;li&gt;Some weeks may not have happened yet, so you may see a lot of missing (NA) data.&lt;/li&gt;
+&lt;li&gt;Some weeks may not have happened yet, so you may see a lot of
+missing (NA) data.&lt;/li&gt;
+&lt;li&gt;There is one exceptional (bowl) week where the morons place 20 bets
+totalling 200 units. Note also that one moron placed 10 bets
+totalling 200 units that week, which is technically against the
+&amp;ldquo;rules&amp;rdquo; of the MBL.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;mia&lt;/code&gt; is an indicator of whether the moron failed to enter their
-picks. According to the MBL2 rules a player is allowed to have one
-missed week replaced by their score from the subsequent week.&lt;/li&gt;
+picks. According to the MBL2 &amp;ldquo;rules&amp;rdquo; a player is allowed to have one
+missed week replaced by their score from the subsequent week. The
+&amp;ldquo;rules&amp;rdquo; do not specify what happens if the week missed or the week
+following the week missed is the 20-bet week.&lt;/li&gt;
 &lt;li&gt;The listing of the teams/games and the line is very irregular
-because these are entered by hand with no standardization. For this
-reason, the league inforamtion (NCAAF vs NFL) is also unavailable.
-So the only useful data are the moron, week, number of units
-wagered, and number of units won.&lt;/li&gt;
+because these are emailed and entered by hand with no
+standardization. For this reason, the league inforamtion (NCAAF vs
+NFL) is also unavailable. So the only useful data are the moron,
+week, number of units wagered, and number of units won.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
@@ -42,18 +49,18 @@ wagered, and number of units won.&lt;/li&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 10 × 7
-   moron  week mia   team_s    line  wager units_won
-   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
- 1 W         4 FALSE uf/UK     &amp;lt;44      10         0
- 2 W         5 FALSE tide      -2.5     10        10
- 3 W         6 FALSE DAME      -2.5     10        10
- 4 H         7 FALSE PHI       -2       10        10
- 5 H         7 FALSE was/NYG   &amp;lt;39.5    10        10
- 6 S         8 FALSE Utah      6.5      10         0
- 7 K        10 FALSE DAL       -16.5    10        10
- 8 W        11 FALSE cin/BAL   O46.0    10        10
- 9 W        14 FALSE buf/KCC   &amp;lt;47.5    10        10
-10 W        17 FALSE ncsu/ksst &amp;lt;47.5    10        10
+   moron  week mia   team_s                         line      wager units_won
+   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;lgl&amp;gt; &amp;lt;chr&amp;gt;                          &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;
+ 1 K         0 FALSE uscar                          2.5          10         0
+ 2 P         3 FALSE FSU @ CLEM                     OVER 55.0    10         5
+ 3 P         3 FALSE NE @ NYJ                       NYJ +3.0     10         0
+ 4 P         7 FALSE (17) Duke at (4) Florida State FSU -13.5    20        20
+ 5 D         8 FALSE Horns                          -17.5        20        20
+ 6 W         9 FALSE kssu/UTEX                      &amp;gt;50.5        10        10
+ 7 K        11 FALSE MIA                            -11.5        10         0
+ 8 S        11 FALSE Clemson                        -6.5         10        10
+ 9 D        14 FALSE Army                           -2.5         10        10
+10 S        17 FALSE LV                             3            10         5
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The next bit of code creates a result column (win, lose, or push) the
 wager and units_won columns.&lt;/p&gt;
@@ -68,11 +75,14 @@ wager and units_won columns.&lt;/p&gt;
 &lt;/details&gt;
 &lt;p&gt;The next bit of code creates a summary data frame of results by moron
 and week. It uses &lt;code&gt;tidyr::fill()&lt;/code&gt; to backfill the units won for weeks
-where &lt;code&gt;mia == TRUE&lt;/code&gt;.&lt;/p&gt;
+where &lt;code&gt;mia == TRUE&lt;/code&gt;. The variable &lt;code&gt;units_won10&lt;/code&gt; adjusts the number of
+units won to a 10-bet basis, in order to standardize the 20-bet bowl
+week to match the other weeks.&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week &amp;lt;- mbl |&amp;gt;
     summarize(
+        n_bets = n(),
         wins = sum(result == &amp;quot;win&amp;quot;),
         losses = sum(result == &amp;quot;lose&amp;quot;),
         pushes = sum(result == &amp;quot;push&amp;quot;),
@@ -85,27 +95,29 @@ where &lt;code&gt;mia == TRUE&lt;/code&gt;.&lt;/p&gt;
     fill(units_won, .direction = &amp;quot;up&amp;quot;) |&amp;gt;
     ungroup() |&amp;gt;
     filter(!is.na(units_won)) |&amp;gt;
+    mutate(units_won10 = (10/n_bets) * units_won) |&amp;gt;
     mutate(season_total = cumsum(units_won), .by = moron)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
-&lt;p&gt;Here are some quantiles of the weekly units won by the morons. This is
-an attempt to determine what constitutes a good or bad weekly total.&lt;/p&gt;
+&lt;p&gt;Here are some quantiles of the weekly units won (10-bet basis) by the
+morons. This is an attempt to determine what constitutes a good or
+bad weekly total.&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
-    pull(units_won) |&amp;gt;
+    pull(units_won10) |&amp;gt;
     quantile(probs = seq(0.1, 0.9, by = 0.1))
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 &lt;pre&gt;&lt;code&gt;10% 20% 30% 40% 50% 60% 70% 80% 90% 
- 30  40  40  47  50  60  65  70  80 
+ 30  40  40  45  50  57  60  67  75 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And here is a histogram of the same information.&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## Histogram of weekly units won by the morons.
 mbl_by_moron_week |&amp;gt;
-    ggplot(aes(x = units_won)) +
+    ggplot(aes(x = units_won10)) +
     geom_histogram(binwidth = 10)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
@@ -140,18 +152,19 @@ mbl_by_moron_week |&amp;gt;
   moron     n
   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;
 1 H         5
-2 P         5
+2 K         5
 3 W         5
-4 K         4
+4 P         4
 5 S         4
 6 D         3
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered by standard deviation)?&lt;/p&gt;
+&lt;p&gt;Which moron&amp;rsquo;s weekly totals (10-bet basis) are the most (and least)
+variable (ordered by standard deviation)?&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
-    summarize(mean = mean(units_won), sd = sd(units_won),
-              median = median(units_won), mad = mad(units_won),
+    summarize(mean = mean(units_won10), sd = sd(units_won10),
+              median = median(units_won10), mad = mad(units_won10),
               .by = moron) |&amp;gt;
     arrange(desc(sd))
 &lt;/code&gt;&lt;/pre&gt;
@@ -159,12 +172,12 @@ mbl_by_moron_week |&amp;gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 6 × 5
   moron  mean    sd median   mad
   &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1 W      54.5  23.0   50   29.7 
-2 S      52.9  20.9   40    7.41
-3 H      54.2  20.2   50   22.2 
-4 K      47.9  17.1   50   22.2 
-5 P      58.3  16.5   57.5 25.9 
-6 D      57.8  16.1   55   22.2 
+1 W      51.8  20.2     50 14.8 
+2 K      49.6  18.3     50 22.2 
+3 P      56.2  16.1     55 22.2 
+4 H      51.4  16.1     50 14.8 
+5 D      55.7  15.6     55 22.2 
+6 S      49.9  14.6     40  7.41
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Which moron&amp;rsquo;s weekly totals are the most (and least) variable (ordered
 by median absolute deviation)? Using &lt;code&gt;knitr::kable()&lt;/code&gt; here for a
@@ -174,8 +187,8 @@ report this as a bug.&lt;/p&gt;
 &lt;summary&gt;Code&lt;/summary&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mbl_by_moron_week |&amp;gt;
     summarize(
-        mean = mean(units_won), sd = sd(units_won),
-        median = median(units_won), mad = mad(units_won),
+        mean = mean(units_won10), sd = sd(units_won10),
+        median = median(units_won10), mad = mad(units_won10),
         .by = moron) |&amp;gt;
     arrange(desc(mad), desc(sd)) |&amp;gt;
     kable()
@@ -193,46 +206,46 @@ report this as a bug.&lt;/p&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;W&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;54.47368&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;23.02744&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;50.0&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;29.6520&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;K&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;49.60526&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;18.33832&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&#34;left&#34;&gt;P&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;58.28947&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;16.50027&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;57.5&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;25.9455&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;H&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;54.21053&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;20.24250&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;50.0&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;22.2390&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;K&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;47.94118&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;17.14450&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;50.0&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;22.2390&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;56.18421&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;16.12384&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;55&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&#34;left&#34;&gt;D&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;57.76316&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;16.09207&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;55.0&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;22.2390&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;55.65789&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;15.63121&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;55&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;22.239&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;W&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;51.84211&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20.22172&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.826&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;H&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;51.44737&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;16.07957&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.826&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td align=&#34;left&#34;&gt;S&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;52.89474&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;20.90427&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;40.0&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;7.4130&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;49.86842&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.63618&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;40&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;7.413&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -259,7 +272,7 @@ The stated win percentage counts pushes as half a win.&lt;/p&gt;
 3 W       200   103    96     1    51.8
 4 S       200    98    97     5    50.2
 5 H       190    91    94     5    49.2
-6 K       179    84    91     4    48.0
+6 K       180    84    92     4    47.8
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Do these morons know what they&amp;rsquo;re doing when they wager different
 amounts? The overall number of winning, losing, and pushed wagers by
@@ -280,7 +293,7 @@ units wagered.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 4 × 6
   wager     n   win  lose  push win_pct
   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;
-1     5   103    51    49     3    51.0
+1     5   104    51    50     3    50.5
 2    10   996   507   472    17    51.8
 3    15    16     4    11     1    28.1
 4    20    54    31    22     1    58.3
@@ -306,7 +319,7 @@ wagered.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# A tibble: 4 × 5
   wager     n   win  lose  push
   &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-1     5   103  49.5  47.6  2.91
+1     5   104  49.0  48.1  2.88
 2    10   996  50.9  47.4  1.71
 3    15    16  25    68.8  6.25
 4    20    54  57.4  40.7  1.85
@@ -339,7 +352,7 @@ in 10-unit increments.&lt;/p&gt;
  6 H        10   128    63    62     3    50.4
  7 H        15     4     1     3     0    25  
  8 H        20    18    10     8     0    55.6
- 9 K         5     5     3     2     0    60  
+ 9 K         5     6     3     3     0    50  
 10 K        10   161    74    84     3    46.9
 11 K        20    13     7     5     1    57.7
 12 P         5    41    25    16     0    61.0
