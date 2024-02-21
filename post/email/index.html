@@ -276,7 +276,7 @@
     
       <meta property="article:published_time" content="2022-10-09T16:16:58-04:00">
     
-    <meta property="article:modified_time" content="2023-05-26T17:21:04-04:00">
+    <meta property="article:modified_time" content="2024-01-18T11:55:29-05:00">
   
 
   
@@ -305,7 +305,7 @@
   "headline": "Reading Email with Emacs",
   
   "datePublished": "2022-10-09T16:16:58-04:00",
-  "dateModified": "2023-05-26T17:21:04-04:00",
+  "dateModified": "2024-01-18T11:55:29-05:00",
   
   "author": {
     "@type": "Person",
@@ -667,7 +667,7 @@
           Last updated on
       
     
-    May 26, 2023
+    Jan 18, 2024
   </span>
   
 
@@ -1170,16 +1170,15 @@ A few comments:</p>
 <li>
 <p>I have rust installed via rustup (so in my home directory) and on my linux box (Ubuntu 22.04) I couldn&#39;t get sudo to use it for &#34;sudo make install&#34;, so I commented the &#34;cargo build –release&#34; step out of the install recipe in the Makefile.  With that change  &#34;make; sudo make install&#34; worked without a hitch.</p>
 </li>
-</ol>
-<ol>
 <li>
 <p>My institution does not allow me to register a new application with Azure, so I&#39;m just using the client id and secret for thunderbird, which I assume is what most people are doing.</p>
 </li>
 <li>
 <p>Offlineimap will work with OAuth2 (I verified this by generating access and renew tokens and manually entering them into my .offlineimaprc file). I think that it should work with pizauth (by calling pizauth in a manner similar to this (<a href="https://wiki.archlinux.org/title/OfflineIMAP#Configuring_OAuth2_and_getting_access_tokens_via_mailctl)">https://wiki.archlinux.org/title/OfflineIMAP#Configuring_OAuth2_and_getting_access_tokens_via_mailctl)</a> or this (<a href="https://www.macs.hw.ac.uk/~rs46/posts/2022-01-11-mu4e-oauth.html)">https://www.macs.hw.ac.uk/~rs46/posts/2022-01-11-mu4e-oauth.html)</a> but somehow I failed to get it to work. FWIW, I thought that offlineimap needed both an access token and a renewal token, and assuming that both would eventually expire if not used, I don&#39;t see how to get the refresh token from pizauth.</p>
+<p>
+Today I noticed that offlineimap also has built-in functionality for renewing OAuth2 tokens (<a href="https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).">https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).</a>  I didn&#39;t realize this, so I may have misunderstood some of the configuration advice that I encountered elsewhere.  I certainly would have continued with offlineimap if I had managed to get everything working properly, but mbsync does seem to be a bit faster, so there&#39;s that I guess.</p>
 </li>
 </ol>
-<p>Today I noticed that offlineimap also has built-in functionality for renewing OAuth2 tokens (<a href="https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).">https://gist.github.com/piyueh/a2d65e095ea675a2c715ad42b7b61d10).</a>  I didn&#39;t realize this, so I may have misunderstood some of the configuration advice that I encountered elsewhere.  I certainly would have continued with offlineimap if I had managed to get everything working properly, but mbsync does seem to be a bit faster, so there&#39;s that I guess.</p>
 </blockquote>
 </div>
 </div>
