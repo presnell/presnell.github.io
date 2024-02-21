@@ -426,7 +426,7 @@ Notice that there were 4 games in the first round, 2 games in the second
 round, and 1 game in the final round, for a total of 7 games, and the
 number of possible brackets turned out to be
 \begin{equation*}
-  2^4 × 2^2 × 2^1 = 2&lt;sup&gt;(4 + 2 + 1)&lt;/sup&gt; = 2^7 = 128.
+2^4 × 2^2 × 2^1 = 2&lt;sup&gt;(4 + 2 + 1)&lt;/sup&gt; = 2^7 = 128.
 \end{equation*}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
