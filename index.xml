@@ -844,6 +844,259 @@ Today I noticed that offlineimap also has built-in functionality for renewing OA
     </item>
     
     <item>
+      <title>Response to James Sullivan, UF Strategic Communications &amp; Marketing</title>
+      <link>https://presnell.github.io/talk/marchmadness/</link>
+      <pubDate>Sun, 09 Oct 2022 16:16:58 -0400</pubDate>
+      <guid>https://presnell.github.io/talk/marchmadness/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+Probability of a Perfect Bracket
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-2&#34;&gt;
+A Primer: The Number of Possible Brackets for an Eight-Team Tournament
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+I think it&amp;#39;s easiest to understand this by first considering a
+tournament with only 8 teams (A, B, C, D, E, F, G, H) and hence three
+rounds:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;quarterfinals with 4 games (A vs B, C vs D, E vs F, and G vs H)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;semifinals with 2 games (winner of A vs B against winner of C vs D
+and winner of E vs F against winner of G vs H)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;final with 1 game (winner of the ABCD group against winner of the EFGH group)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For each game in the quarterfinals, you can choose either of the two
+teams, giving you
+\[
+2 \times 2 \times 2 \times 2 = 2^4 = 16
+\]
+possible ways to pick the winners of the quarterfinal games (ACEG,
+ACEH, ACFG, ACFH, ADEG, ADEH, ADFG, ADFH, BCEG, BCEH, BCFG, BCFH,
+BDEG, BDEH, BDFG, and BDFH).&lt;/p&gt;
+&lt;p&gt;
+No matter which 4 teams you pick to win in the quarterfinals, you can
+choose either of 2 teams in each of the 2 semifinal games, so you have
+\(2 \times 2 = 2^2 = 4\) possible choices. For example, if you chose
+A, C, E, and G to win their quarterfinal games, then your
+possibilities would be AE, AG, CE, and CG. But you have 4 possible
+choices no matter which of the 16 sets of teams you picked in the
+first round, so there are \(16 * 4 = 64\) possible ways to fill out
+the first two rounds (quarterfinals and semifinals).&lt;/p&gt;
+&lt;p&gt;
+No matter which teams you picked to win in the quarterfinals and
+semifinals, you can choose either of your two semifinal winners to win
+the final game. Thus, no matter which of the 64 possible ways you
+chose to fill in the quarterfinal and semifinal rounds, you have 2
+possible ways to finish your bracket, leaving you with a total of \(64 *
+2 = 128\) possible ways to fill in the complete bracket.&lt;/p&gt;
+&lt;p&gt;
+Notice that there were 4 games in the first round, 2 games in the second
+round, and 1 game in the final round, for a total of 7 games, and the
+number of possible brackets turned out to be
+\[
+2^4 \times 2^2 \times 2^1 = 2^{(4 + 2 + 1)} = 2^7 = 128.
+\]&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-3&#34;&gt;
+So How Many Possible Brackets for the 64 Team NCAA Tournament?
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+Now, considering the real March Madness tournament, if we ignore the
+play-in games, there are 63 games in the tournament: 32 first round
+games, 16 second round games, 8 &lt;em&gt;&amp;#34;Sweet 16&amp;#34;&lt;/em&gt; games, 4 &lt;em&gt;&amp;#34;Elite 8&amp;#34;&lt;/em&gt;
+games, 2 &lt;em&gt;&amp;#34;Final Four&amp;#34;&lt;/em&gt; games, and 1 championship game (32 + 16 + 8 +
+4 + 2 + 1 = 63). Following the same logic as we did for the eight-team
+tournament:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You could pick either of the two teams in each of the 32 first round
+games, so altogether there are \(2^{32} = \text{4,294,967,296}\)
+possible sets of winners you could pick for the first round.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Similarly, for whatever set of 32 teams you picked to win the first
+round games, there are \(2^{16} = \text{65,536}\) different sets of
+teams that you could to win their 2nd round games, so by the time
+you fill in your teams for the first 2 rounds, you have chosen 1 of
+\(2^{32} * 2^{16} = 2^{48} = \text{281,474,976,710,656}\) possibilities.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Continuing in this way, we find that there are
+\[
+2^{32} * 2^{16} * 2^8 * 2^4 * 2^2 * 2^1 = 2^{63}
+\]
+possible ways to fill in your bracket.  That&amp;#39;s
+\[
+2^{63} = \text{9,223,372,036,854,775,808}
+\]
+or roughly 9 billion billion.&lt;/p&gt;
+&lt;p&gt;
+So, &lt;strong&gt;&lt;strong&gt;if&lt;/strong&gt;&lt;/strong&gt; you flipped a coin to pick your team in each of the 63
+games, meaning that you picked your bracket completely at random from
+among the 9 billion billion possibilities, then the probability that
+you would pick the perfect bracket for that year&amp;#39;s tournament would be
+1 in 9 billion billion.&lt;/p&gt;
+&lt;p&gt;
+For comparision, the probability that a randomly chosen Floridian
+would be killed by lightning in the next year is a little less than 1
+in 3 million, so that randomly chosen Floridian has a 3 trillion
+(3,000,000,000,000) times greater chance of being killed by lightning
+next year than a randomly chosen bracket has of being perfect.&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;&lt;strong&gt;However&lt;/strong&gt;&lt;/strong&gt;, and I can&amp;#39;t emphasize this enough, this probability of
+choosing a perfect bracket is &lt;strong&gt;&lt;strong&gt;only&lt;/strong&gt;&lt;/strong&gt; correct &lt;strong&gt;&lt;strong&gt;if&lt;/strong&gt;&lt;/strong&gt; you randomly
+choose your bracket by flipping a fair coin 63 times. Of course
+absolutely &lt;strong&gt;&lt;strong&gt;no one&lt;/strong&gt;&lt;/strong&gt; picks their bracket this way.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-4&#34;&gt;
+So What&amp;#39;s the Actual Probability of Picking a Perfect Bracket?
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+&lt;strong&gt;&lt;strong&gt;If&lt;/strong&gt;&lt;/strong&gt; you didn&amp;#39;t have any opinion at all about the relative strengths
+of the teams, &lt;strong&gt;&lt;strong&gt;and if&lt;/strong&gt;&lt;/strong&gt; you weren&amp;#39;t concerned about competing with
+other bracket pickers for a prize, then it would be much better to
+just pick the higher seeded team to win each game, and then pick
+whichever of the 1 seeds you prefer in the semifinal and final games
+(there are \(2^3 = 8\) ways you could choose the winners of these last
+3 games). The probability that the tournament will go completely &amp;#34;by
+the chalk&amp;#34; and give you a perfect bracket is still vanishingly small,
+but it&amp;#39;s bigger than 1 in 9 billion billion.&lt;/p&gt;
+&lt;p&gt;
+For example, in 2023, I would have estimated the probability that this
+&amp;#34;chalk&amp;#34; method would yield a perfect bracket to be somewhere between 1
+in 291 billion and 1 in 84 billion, depending on which teams you chose
+to win the final three games. Those are still terribly small
+probabilities, and that randomly chosen Floridian is still somewhere
+between 25,000 and 93,000 times more likely to die from a lightning
+strike this year, but the chalk method is a lot better than flipping
+coins.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-5&#34;&gt;
+Some Other Comments on Perfect Brackets
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-4&#34;&gt;
+&lt;h4 id=&#34;headline-6&#34;&gt;
+Why You Probably Shouldn&amp;#39;t Choose a Completely by the Chalk Bracket for Your Pool
+&lt;/h4&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-4&#34;&gt;
+&lt;p&gt;
+If you are competing in a bracket pool, then your objective is to
+maximize your expected winnings. This is not the same as choosing your
+bracket to maximize your chances of being perfect (which is
+practically impossible anyway), and it&amp;#39;s not even the same as
+maximizing your expected final &amp;#34;score&amp;#34;.  For example, picking the
+higher seeded team to win every game is generally not a good strategy,
+because lots of other people will do the same, or close to it, so even
+if you did win, you would probably split the pot with a lot of other
+players.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-4&#34;&gt;
+&lt;h4 id=&#34;headline-7&#34;&gt;
+How Did I Estimate the Probability that a &amp;#34;By the Chalk&amp;#34; Bracket is Perfect?
+&lt;/h4&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-4&#34;&gt;
+&lt;p&gt;
+If you have a way to estimate the probability that team A wins over
+team B in any potential matchup in the tournament, then you can
+estimate the probability that a given bracket turns out to be perfect
+in a given year. Many of the &amp;#34;power ratings&amp;#34; that are provided by
+various sites on the web can be used to estimate the needed
+probabilities, although the sites don&amp;#39;t usually tell you how to do
+it. For the calculation I did above for the 2023 tournament, I used
+the team ratings from FiveThirtyEight.com.  Unfortunately these won&amp;#39;t
+be available anymore due to cutbacks at Disney/ABC, so I&amp;#39;ll have to
+use something else for 2024.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-4&#34;&gt;
+&lt;h4 id=&#34;headline-8&#34;&gt;
+What About the Play-in Games?
+&lt;/h4&gt;
+&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-4&#34;&gt;
+&lt;p&gt;
+Note: If you have to pick the 4 play-in games as well, then you have
+to pick the winners of 68 games, so in this case there are
+\[
+2^{67} = \text{147,573,952,589,676,412,928}
+\]
+possible brackets, and the probability that a bracket chosen by
+flipping coins turns out perfect is about 1 in 148 billion billion.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-9&#34;&gt;
+Analyzing the Importance of 3 Additional Basketball Statistics
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+You said:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We’d also give you 3 additional basketball statistics (points per
+game, assists per game, win/loss ratio, etc.)  to analyze their
+statistical importance (or lack thereof) in determining the winner of
+a game.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;
+I&amp;#39;m not sure that I would have the data at hand, or the spare time, to
+properly answer this question. Maybe, but given the other things I
+need to get done in the meantime, it&amp;#39;s very doubtful.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-10&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-10&#34;&gt;
+What&amp;#39;s My Interest in All of This?
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-10&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Since at least the early 2000&amp;#39;s I have participated in a small
+&amp;#34;portfolio pool&amp;#34; with some other statisticians and computer
+scientists, as well as some &amp;#34;civilians&amp;#34;. I started thinking a little
+more seriously about it in the 2010&amp;#39;s and around 2016 I got an idea
+for how I might optimize my picks for the pool. This led to me
+simulating the March Madness tournament on my home computer and using
+the outcomes to help me make my selections. My methods have evolved
+over the years and these days I run hundreds of thousands, and even
+millions of simulations of the tournment to generate training and test
+sets for choosing my picks and evaluating how well they are likely to
+perform. Almost every year I have ideas for improvements that I
+frantically implement and test out at the last minute so that I can
+submit my picks before the tournament begins. I have certainly learned
+a lot in the process.&lt;/p&gt;
+&lt;p&gt;
+I know of at least one other pool participant who is doing similar
+things: he leads a large-scale optimization research team at Google.
+A group of us started comparing ideas a couple of years ago and we
+hope at some point to write a paper (or two) about it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>R Tips and Tricks</title>
       <link>https://presnell.github.io/post/r/</link>
       <pubDate>Thu, 16 Jun 2022 10:40:03 -0500</pubDate>
@@ -1763,259 +2016,6 @@ Easy-Hugo
 &lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 The &lt;a href=&#34;https://github.com/masasam/emacs-easy-hugo&#34;&gt;easy-hugo&lt;/a&gt; package might be useful for maintaining my web site.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://presnell.github.io/talk/marchmadness/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://presnell.github.io/talk/marchmadness/</guid>
-      <description>
-&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-1&#34;&gt;
-Probability of a Perfect Bracket
-&lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
-&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-2&#34;&gt;
-A Primer: The Number of Possible Brackets for an Eight-Team Tournament
-&lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-3&#34;&gt;
-&lt;p&gt;
-I think it&amp;#39;s easiest to understand this by first considering a
-tournament with only 8 teams (A, B, C, D, E, F, G, H) and hence three
-rounds:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;quarterfinals with 4 games (A vs B, C vs D, E vs F, and G vs H)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;semifinals with 2 games (winner of A vs B against winner of C vs D
-and winner of E vs F against winner of G vs H)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;final with 1 game (winner of the ABCD group against winner of the EFGH group)&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For each game in the quarterfinals, you can choose either of the two
-teams, giving you
-\[
-2 \times 2 \times 2 \times 2 = 2^4 = 16
-\]
-possible ways to pick the winners of the quarterfinal games (ACEG,
-ACEH, ACFG, ACFH, ADEG, ADEH, ADFG, ADFH, BCEG, BCEH, BCFG, BCFH,
-BDEG, BDEH, BDFG, and BDFH).&lt;/p&gt;
-&lt;p&gt;
-No matter which 4 teams you pick to win in the quarterfinals, you can
-choose either of 2 teams in each of the 2 semifinal games, so you have
-\(2 \times 2 = 2^2 = 4\) possible choices. For example, if you chose
-A, C, E, and G to win their quarterfinal games, then your
-possibilities would be AE, AG, CE, and CG. But you have 4 possible
-choices no matter which of the 16 sets of teams you picked in the
-first round, so there are \(16 * 4 = 64\) possible ways to fill out
-the first two rounds (quarterfinals and semifinals).&lt;/p&gt;
-&lt;p&gt;
-No matter which teams you picked to win in the quarterfinals and
-semifinals, you can choose either of your two semifinal winners to win
-the final game. Thus, no matter which of the 64 possible ways you
-chose to fill in the quarterfinal and semifinal rounds, you have 2
-possible ways to finish your bracket, leaving you with a total of \(64 *
-2 = 128\) possible ways to fill in the complete bracket.&lt;/p&gt;
-&lt;p&gt;
-Notice that there were 4 games in the first round, 2 games in the second
-round, and 1 game in the final round, for a total of 7 games, and the
-number of possible brackets turned out to be
-\[
-2^4 \times 2^2 \times 2^1 = 2^{(4 + 2 + 1)} = 2^7 = 128.
-\]&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-3&#34;&gt;
-So How Many Possible Brackets for the 64 Team NCAA Tournament?
-&lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;
-&lt;p&gt;
-Now, considering the real March Madness tournament, if we ignore the
-play-in games, there are 63 games in the tournament: 32 first round
-games, 16 second round games, 8 &lt;em&gt;&amp;#34;Sweet 16&amp;#34;&lt;/em&gt; games, 4 &lt;em&gt;&amp;#34;Elite 8&amp;#34;&lt;/em&gt;
-games, 2 &lt;em&gt;&amp;#34;Final Four&amp;#34;&lt;/em&gt; games, and 1 championship game (32 + 16 + 8 +
-4 + 2 + 1 = 63). Following the same logic as we did for the eight-team
-tournament:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;You could pick either of the two teams in each of the 32 first round
-games, so altogether there are \(2^{32} = \text{4,294,967,296}\)
-possible sets of winners you could pick for the first round.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Similarly, for whatever set of 32 teams you picked to win the first
-round games, there are \(2^{16} = \text{65,536}\) different sets of
-teams that you could to win their 2nd round games, so by the time
-you fill in your teams for the first 2 rounds, you have chosen 1 of
-\(2^{32} * 2^{16} = 2^{48} = \text{281,474,976,710,656}\) possibilities.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Continuing in this way, we find that there are
-\[
-2^{32} * 2^{16} * 2^8 * 2^4 * 2^2 * 2^1 = 2^{63}
-\]
-possible ways to fill in your bracket.  That&amp;#39;s
-\[
-2^{63} = \text{9,223,372,036,854,775,808}
-\]
-or roughly 9 billion billion.&lt;/p&gt;
-&lt;p&gt;
-So, &lt;strong&gt;&lt;strong&gt;if&lt;/strong&gt;&lt;/strong&gt; you flipped a coin to pick your team in each of the 63
-games, meaning that you picked your bracket completely at random from
-among the 9 billion billion possibilities, then the probability that
-you would pick the perfect bracket for that year&amp;#39;s tournament would be
-1 in 9 billion billion.&lt;/p&gt;
-&lt;p&gt;
-For comparision, the probability that a randomly chosen Floridian
-would be killed by lightning in the next year is a little less than 1
-in 3 million, so that randomly chosen Floridian has a 3 trillion
-(3,000,000,000,000) times greater chance of being killed by lightning
-next year than a randomly chosen bracket has of being perfect.&lt;/p&gt;
-&lt;p&gt;
-&lt;strong&gt;&lt;strong&gt;However&lt;/strong&gt;&lt;/strong&gt;, and I can&amp;#39;t emphasize this enough, this probability of
-choosing a perfect bracket is &lt;strong&gt;&lt;strong&gt;only&lt;/strong&gt;&lt;/strong&gt; correct &lt;strong&gt;&lt;strong&gt;if&lt;/strong&gt;&lt;/strong&gt; you randomly
-choose your bracket by flipping a fair coin 63 times. Of course
-absolutely &lt;strong&gt;&lt;strong&gt;no one&lt;/strong&gt;&lt;/strong&gt; picks their bracket this way.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-4&#34;&gt;
-So What&amp;#39;s the Actual Probability of Picking a Perfect Bracket?
-&lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
-&lt;p&gt;
-&lt;strong&gt;&lt;strong&gt;If&lt;/strong&gt;&lt;/strong&gt; you didn&amp;#39;t have any opinion at all about the relative strengths
-of the teams, &lt;strong&gt;&lt;strong&gt;and if&lt;/strong&gt;&lt;/strong&gt; you weren&amp;#39;t concerned about competing with
-other bracket pickers for a prize, then it would be much better to
-just pick the higher seeded team to win each game, and then pick
-whichever of the 1 seeds you prefer in the semifinal and final games
-(there are \(2^3 = 8\) ways you could choose the winners of these last
-3 games). The probability that the tournament will go completely &amp;#34;by
-the chalk&amp;#34; and give you a perfect bracket is still vanishingly small,
-but it&amp;#39;s bigger than 1 in 9 billion billion.&lt;/p&gt;
-&lt;p&gt;
-For example, in 2023, I would have estimated the probability that this
-&amp;#34;chalk&amp;#34; method would yield a perfect bracket to be somewhere between 1
-in 291 billion and 1 in 84 billion, depending on which teams you chose
-to win the final three games. Those are still terribly small
-probabilities, and that randomly chosen Floridian is still somewhere
-between 25,000 and 93,000 times more likely to die from a lightning
-strike this year, but the chalk method is a lot better than flipping
-coins.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-5&#34;&gt;
-Some Other Comments on Perfect Brackets
-&lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
-&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-4&#34;&gt;
-&lt;h4 id=&#34;headline-6&#34;&gt;
-Why You Probably Shouldn&amp;#39;t Choose a Completely by the Chalk Bracket for Your Pool
-&lt;/h4&gt;
-&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-4&#34;&gt;
-&lt;p&gt;
-If you are competing in a bracket pool, then your objective is to
-maximize your expected winnings. This is not the same as choosing your
-bracket to maximize your chances of being perfect (which is
-practically impossible anyway), and it&amp;#39;s not even the same as
-maximizing your expected final &amp;#34;score&amp;#34;.  For example, picking the
-higher seeded team to win every game is generally not a good strategy,
-because lots of other people will do the same, or close to it, so even
-if you did win, you would probably split the pot with a lot of other
-players.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-4&#34;&gt;
-&lt;h4 id=&#34;headline-7&#34;&gt;
-How Did I Estimate the Probability that a &amp;#34;By the Chalk&amp;#34; Bracket is Perfect?
-&lt;/h4&gt;
-&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-4&#34;&gt;
-&lt;p&gt;
-If you have a way to estimate the probability that team A wins over
-team B in any potential matchup in the tournament, then you can
-estimate the probability that a given bracket turns out to be perfect
-in a given year. Many of the &amp;#34;power ratings&amp;#34; that are provided by
-various sites on the web can be used to estimate the needed
-probabilities, although the sites don&amp;#39;t usually tell you how to do
-it. For the calculation I did above for the 2023 tournament, I used
-the team ratings from FiveThirtyEight.com.  Unfortunately these won&amp;#39;t
-be available anymore due to cutbacks at Disney/ABC, so I&amp;#39;ll have to
-use something else for 2024.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-4&#34;&gt;
-&lt;h4 id=&#34;headline-8&#34;&gt;
-What About the Play-in Games?
-&lt;/h4&gt;
-&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-4&#34;&gt;
-&lt;p&gt;
-Note: If you have to pick the 4 play-in games as well, then you have
-to pick the winners of 68 games, so in this case there are
-\[
-2^{67} = \text{147,573,952,589,676,412,928}
-\]
-possible brackets, and the probability that a bracket chosen by
-flipping coins turns out perfect is about 1 in 148 billion billion.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-9&#34;&gt;
-Analyzing the Importance of 3 Additional Basketball Statistics
-&lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-2&#34;&gt;
-&lt;p&gt;
-You said:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;We’d also give you 3 additional basketball statistics (points per
-game, assists per game, win/loss ratio, etc.)  to analyze their
-statistical importance (or lack thereof) in determining the winner of
-a game.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;
-I&amp;#39;m not sure that I would have the data at hand, or the spare time, to
-properly answer this question. Maybe, but given the other things I
-need to get done in the meantime, it&amp;#39;s very doubtful.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-10&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-10&#34;&gt;
-What&amp;#39;s My Interest in All of This?
-&lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-10&#34; class=&#34;outline-text-2&#34;&gt;
-&lt;p&gt;
-Since at least the early 2000&amp;#39;s I have participated in a small
-&amp;#34;portfolio pool&amp;#34; with some other statisticians and computer
-scientists, as well as some &amp;#34;civilians&amp;#34;. I started thinking a little
-more seriously about it in the 2010&amp;#39;s and around 2016 I got an idea
-for how I might optimize my picks for the pool. This led to me
-simulating the March Madness tournament on my home computer and using
-the outcomes to help me make my selections. My methods have evolved
-over the years and these days I run hundreds of thousands, and even
-millions of simulations of the tournment to generate training and test
-sets for choosing my picks and evaluating how well they are likely to
-perform. Almost every year I have ideas for improvements that I
-frantically implement and test out at the last minute so that I can
-submit my picks before the tournament begins. I have certainly learned
-a lot in the process.&lt;/p&gt;
-&lt;p&gt;
-I know of at least one other pool participant who is doing similar
-things: he leads a large-scale optimization research team at Google.
-A group of us started comparing ideas a couple of years ago and we
-hope at some point to write a paper (or two) about it.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
