@@ -399,9 +399,9 @@ and winner of E vs F against winner of G vs H)&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;For each game in the quarterfinals, you can choose either of the two
 teams, giving you
-\begin{equation*}
-2 × 2 × 2 × 2 = 2^4 = 16
-\end{equation*}
+\[
+2 \times 2 \times 2 \times 2 = 2^4 = 16
+\]
 possible ways to pick the winners of the quarterfinal games (ACEG,
 ACEH, ACFG, ACFH, ADEG, ADEH, ADFG, ADFH, BCEG, BCEH, BCFG, BCFH,
 BDEG, BDEH, BDFG, and BDFH).&lt;/p&gt;
@@ -425,9 +425,9 @@ possible ways to finish your bracket, leaving you with a total of \(64 *
 Notice that there were 4 games in the first round, 2 games in the second
 round, and 1 game in the final round, for a total of 7 games, and the
 number of possible brackets turned out to be
-\begin{equation*}
-2^4 × 2^2 × 2^1 = 2&lt;sup&gt;(4 + 2 + 1)&lt;/sup&gt; = 2^7 = 128.
-\end{equation*}&lt;/p&gt;
+\[
+2^4 \times 2^2 \times 2^1 = 2^{(4 + 2 + 1)} = 2^7 = 128.
+\]&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
@@ -457,13 +457,13 @@ you fill in your teams for the first 2 rounds, you have chosen 1 of
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Continuing in this way, we find that there are
-\begin{equation*}
-  2&lt;sup&gt;32&lt;/sup&gt; * 2&lt;sup&gt;16&lt;/sup&gt; * 2^8 * 2^4 * 2^2 * 2^1 = 2&lt;sup&gt;63&lt;/sup&gt;
-\end{equation*}
+\[
+2^{32} * 2^{16} * 2^8 * 2^4 * 2^2 * 2^1 = 2^{63}
+\]
 possible ways to fill in your bracket.  That&amp;#39;s
-\begin{equation*}
-  2&lt;sup&gt;63&lt;/sup&gt; = \text{9,223,372,036,854,775,808}
-\end{equation*}
+\[
+2^{63} = \text{9,223,372,036,854,775,808}
+\]
 or roughly 9 billion billion.&lt;/p&gt;
 &lt;p&gt;
 So, &lt;strong&gt;&lt;strong&gt;if&lt;/strong&gt;&lt;/strong&gt; you flipped a coin to pick your team in each of the 63
@@ -521,9 +521,9 @@ What About the Play-in Games?
 &lt;p&gt;
 Note: If you have to pick the 4 play-in games as well, then you have
 to pick the winners of 68 games, so in this case there are
-\begin{equation*}
-2&lt;sup&gt;67&lt;/sup&gt; = \text{147,573,952,589,676,412,928}
-\end{equation*}
+\[
+2^{67} = \text{147,573,952,589,676,412,928}
+\]
 possible brackets, and the probability that a bracket chosen by
 flipping coins turns out perfect is about 1 in 148 billion billion.&lt;/p&gt;
 &lt;/div&gt;
