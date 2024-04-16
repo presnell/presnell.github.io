@@ -1460,26 +1460,46 @@ corrected in later printings.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
 &lt;h2 id=&#34;headline-2&#34;&gt;
-Some Errata Found in the Exercises
+Updates
 &lt;/h2&gt;
 &lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[2024-04-16 Tue] Allan Vega reported an error in the calculation of
+the p-value in Example 10.21 (pp. 536–7). This is not in the
+exercises or solutions, but I decided to add it anyway. (I hope this
+doesn&amp;#39;t get out of hand.)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[2024-04-16 Tue] I noticed while looking into the error reported by
+Allan Vega that the applets page for the text has moved &lt;a href=&#34;https://college.cengage.com/nextbook/statistics/wackerly_966371/student/html/&#34;&gt;here&lt;/a&gt;, in
+case that is helpful to anyone reading this.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-3&#34;&gt;
+Some Errata Found in the Exercises
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 This is just a list of a few errata that I happen to have noticed.  It
 is not intended to be a comprehensive list.&lt;/p&gt;
-&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-3&#34;&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-4&#34;&gt;
 Exercise 2.79
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 &amp;#34;\(P(B) &amp;lt; 1\)&amp;#34; should be &amp;#34;\(P(B) &amp;gt; 0\)&amp;#34;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-4&#34;&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-5&#34;&gt;
 Exercise 2.80
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 Change &amp;#34;\(P(B) &amp;gt; 0\)&amp;#34; to &amp;#34;\(P(B) &amp;lt; 1\)&amp;#34;.  &lt;/p&gt;
 &lt;p&gt;
@@ -1492,11 +1512,11 @@ uninteresting case that one or the other of the events has probability
 zero or one.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-5&#34;&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-6&#34;&gt;
 Exercise 2.106
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 I would change this to ask &amp;#34;what is the smallest possible value for
 \(P(A)\)&amp;#34; or something similar.  &amp;#34;What is \(P(A)\)?&amp;#34; gives the
@@ -1504,11 +1524,11 @@ impression that one should be able to divine the exact value of
 \(P(A)\) from the information given, which isn&amp;#39;t true.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-6&#34;&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-7&#34;&gt;
 Exercise 3.38
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This is the same as the triangular taste test example that I give
 in class, except that here it is not carefully worded.  The
@@ -1542,21 +1562,21 @@ trials with success probability \(p = 1/3\). This is what was actually
 intended and is the solution given in the solutions manual.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-7&#34;&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-8&#34;&gt;
 Exercise 5.85 
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This exercise should probably be starred, since it refers to
 exercise 5.65, which is starred.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-8&#34;&gt;
+&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-9&#34;&gt;
 Exercise 5.94
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The word &amp;#34;uncorrelated&amp;#34; should be deleted from this problem.  Nothing
 in the problem changes if \(Y_1\) and \(Y_2\) are correlated.&lt;/p&gt;
@@ -1564,16 +1584,16 @@ in the problem changes if \(Y_1\) and \(Y_2\) are correlated.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-2&#34;&gt;
-&lt;h2 id=&#34;headline-9&#34;&gt;
+&lt;div id=&#34;outline-container-headline-10&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-10&#34;&gt;
 Some Errata Found in the Solutions Manual
 &lt;/h2&gt;
-&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-2&#34;&gt;
-&lt;div id=&#34;outline-container-headline-10&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-10&#34;&gt;
+&lt;div id=&#34;outline-text-headline-10&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-11&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-11&#34;&gt;
 2.5 (b)
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-10&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-11&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This is completely wrong.  It should be something like&lt;/p&gt;
 &lt;p&gt;
@@ -1586,20 +1606,20 @@ This is completely wrong.  It should be something like&lt;/p&gt;
 \end{align}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-11&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-11&#34;&gt;
+&lt;div id=&#34;outline-container-headline-12&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-12&#34;&gt;
 2.42
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-11&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-12&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 Should be \(P^{10}_3 = 10!/7! = 10 \times 9 \times 8 = 720\).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-12&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-12&#34;&gt;
+&lt;div id=&#34;outline-container-headline-13&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-13&#34;&gt;
 2.44 (b)
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-12&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-13&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 Change \(3\) to \(3!\) and \(45\) to \(90\).&lt;/p&gt;
 &lt;p&gt;
@@ -1610,39 +1630,39 @@ way.  It would be better as
 \end{equation}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-13&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-13&#34;&gt;
+&lt;div id=&#34;outline-container-headline-14&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-14&#34;&gt;
 2.45
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-13&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-14&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 Change the 7 to a 5. Answer should be \(\binom{17}{2\ \ 5\ \ 10} = 408,408\).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-14&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-14&#34;&gt;
+&lt;div id=&#34;outline-container-headline-15&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-15&#34;&gt;
 2.59 (b)
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-14&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-15&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 There are actually 10 different kinds of straights (starting with any
 of A, 2, 3, …, 10).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-15&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-15&#34;&gt;
+&lt;div id=&#34;outline-container-headline-16&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-16&#34;&gt;
 2.65
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-15&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-16&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 Should be  \(5!(2/6)(1/6)^4 = 5/162\).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-16&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-16&#34;&gt;
+&lt;div id=&#34;outline-container-headline-17&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-17&#34;&gt;
 2.114
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-16&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-17&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The answers are listed as parts a,b,b,d (two b&amp;#39;s and no c), and there
 are a couple of misprints in the answer to b.  It should read&lt;/p&gt;
@@ -1653,11 +1673,11 @@ are a couple of misprints in the answer to b.  It should read&lt;/p&gt;
 \end{align}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-17&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-17&#34;&gt;
+&lt;div id=&#34;outline-container-headline-18&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-18&#34;&gt;
 3.48(a)
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-17&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-18&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 For \(P(Y \ge 1)\), the solution should be&lt;/p&gt;
 &lt;p&gt;
@@ -1670,11 +1690,11 @@ For \(P(Y \ge 1)\), the solution should be&lt;/p&gt;
 \end{align}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-18&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-18&#34;&gt;
+&lt;div id=&#34;outline-container-headline-19&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-19&#34;&gt;
 3.113
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-18&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-19&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 There is a 3 that should be changed to 1:&lt;/p&gt;
 &lt;p&gt;
@@ -1683,11 +1703,11 @@ There is a 3 that should be changed to 1:&lt;/p&gt;
 \end{equation}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-19&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-19&#34;&gt;
+&lt;div id=&#34;outline-container-headline-20&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-20&#34;&gt;
 4.57
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-19&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-20&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The density of \(D\) is wrong here.  It is not equal to \(1/4\) on the
 interval \((.01, .05)\), but to \(1/(.05 - .01) = 25\).  Also, the
@@ -1710,11 +1730,11 @@ is correct, but the answer for the variance of the volume is not
 \((3.525397 \times 10^{-11})\,\pi^2\).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-20&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-20&#34;&gt;
+&lt;div id=&#34;outline-container-headline-21&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-21&#34;&gt;
 4.74 (d)
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-20&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-21&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 This part has been left unfinished.  Having found that the lower
 quartile of test scores is \(73.98\), we are supposed to find what
@@ -1724,11 +1744,11 @@ this is slightly different from the answer you would get if if you did
 the whole exercise using a computer, \(.4369\)).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-21&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-21&#34;&gt;
+&lt;div id=&#34;outline-container-headline-22&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-22&#34;&gt;
 4.92
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-21&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-22&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 In the calculation of \(E(Y^3)\) and \(E(Y^4)\), the 100&amp;#39;s in the
 integrals should be 10&amp;#39;s, and the results should be
@@ -1741,23 +1761,41 @@ and
 \end{equation*}&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-22&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-22&#34;&gt;
+&lt;div id=&#34;outline-container-headline-23&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-23&#34;&gt;
 5.9 (b)
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-22&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-23&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 The integral is set up incorrectly, but the numerical answer \(31/64\)
 is correct.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;outline-container-headline-23&#34; class=&#34;outline-3&#34;&gt;
-&lt;h3 id=&#34;headline-23&#34;&gt;
+&lt;div id=&#34;outline-container-headline-24&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-24&#34;&gt;
 6.14
 &lt;/h3&gt;
-&lt;div id=&#34;outline-text-headline-23&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;div id=&#34;outline-text-headline-24&#34; class=&#34;outline-text-3&#34;&gt;
 &lt;p&gt;
 Change \(P(Y_1 &amp;gt; u/Y_2)\) to \(1 - P(Y_1 &amp;gt; u/Y_2)\).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-25&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-25&#34;&gt;
+Some Errata Found in the Text
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-25&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;div id=&#34;outline-container-headline-26&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-26&#34;&gt;
+Example 10.21 (pp. 536–7)
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-26&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+The p-value has been miscalculated somehow.  The last sentence of the
+example should have \(P(F &amp;gt; 2.079) = .1118\) and \(\text{p-value} =
+2(.1118) = .2236\). (Reported by Allan Vega)&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
