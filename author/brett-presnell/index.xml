@@ -579,9 +579,8 @@ email, then it might be easier to say what you don&amp;#39;t want (there are
 examples online of how to do this), or just use &lt;code class=&#34;verbatim&#34;&gt;*&lt;/code&gt; and download
 everything.&lt;/p&gt;
 &lt;p&gt;
-Also, for initial testing, the RECOMMENDATIONS section of
-the
-&lt;code class=&#34;verbatim&#34;&gt;[[https://manpages.ubuntu.com/manpages/jammy/man1/mbsync.1.html][mbsync man page]]&lt;/code&gt;
+Also, for initial testing, the RECOMMENDATIONS section of the
+&lt;a href=&#34;https://manpages.ubuntu.com/manpages/jammy/man1/mbsync.1.html&#34;&gt;mbsync man page&lt;/a&gt;
 recommends leaving &lt;code class=&#34;verbatim&#34;&gt;Expunge None&lt;/code&gt; (the default) to make
 sure you don&amp;#39;t lose mail if anything goes awry.&lt;/p&gt;
 &lt;p&gt;
