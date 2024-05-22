@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Teaching | Brett Presnell</title>
-    <link>https://presnell.github.io/teaching/</link>
-      <atom:link href="https://presnell.github.io/teaching/index.xml" rel="self" type="application/rss+xml" />
-    <description>Teaching</description>
+    <title>Overview | Brett Presnell</title>
+    <link>https://presnell.github.io/teaching/sta3100-202401/</link>
+      <atom:link href="https://presnell.github.io/teaching/sta3100-202401/index.xml" rel="self" type="application/rss+xml" />
+    <description>Overview</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 22 May 2024 17:00:00 +0000</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
-      <title>Teaching</title>
-      <link>https://presnell.github.io/teaching/</link>
+      <title>Overview</title>
+      <link>https://presnell.github.io/teaching/sta3100-202401/</link>
     </image>
     
   </channel>
