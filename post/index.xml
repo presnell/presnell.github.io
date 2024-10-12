@@ -5,12 +5,316 @@
     <link>https://presnell.github.io/post/</link>
       <atom:link href="https://presnell.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 21 Feb 2024 01:12:01 -0500</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 12 Oct 2024 05:55:36 -0400</lastBuildDate>
     <image>
       <url>https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>https://presnell.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>My Home Router Setup</title>
+      <link>https://presnell.github.io/post/homenetwork/</link>
+      <pubDate>Sat, 12 Oct 2024 05:55:36 -0400</pubDate>
+      <guid>https://presnell.github.io/post/homenetwork/</guid>
+      <description>
+&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-1&#34;&gt;
+Background
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+We recently switched to &lt;a href=&#34;https://www.iqfiber.com/&#34;&gt;IQ Fiber&lt;/a&gt; as our internet provider. They
+provide a &lt;a href=&#34;https://www.calix.com/products/platform/unlimited-subscriber/gigaspire/u10xe.html&#34;&gt;GigaSpire Blast u10xe&lt;/a&gt; router with the service for no
+additional charge, and, if needed, a &lt;a href=&#34;https://www.blastwifi.com/blast-u6me/&#34;&gt;GigaSpire Blast u6me&lt;/a&gt; mesh
+unit. These are much newer than the old Asus RT-AC68 routers that I
+was using, and they provide Wi-Fi 6E (802.11ax) versus Wi-Fi 5
+(802.11ac) on the old ones, so I am happy to use them, in spite of the
+need to reconfigure my home network.&lt;/p&gt;
+&lt;p&gt;
+These are my notes on setting up Dynamic DNS and remote SSH access to
+my home computer using this router, with porkbun as my domain
+registrar and duckdns as my DDNS provider.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-2&#34;&gt;
+Initial Router Setup
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Although the decal on the bottom of the router says that the internal
+IP address is the usual 198.162.1.1, in our case it is in fact
+198.162.22.1. I discovered this by opening our internet provider&amp;#39;s app
+on my phone and going to &amp;#39;My Network &amp;gt; Equipment &amp;gt; Brett&amp;#39;s Router &amp;gt;
+Additional Details&amp;#39; and noting the LAN IP adress.&lt;/p&gt;
+&lt;p&gt;
+By opening 192.168.22.1 in a web browser, one gains access to the
+interface of the router. Our internet provide gave me the initial
+password, but this should be changed when you first login to the
+router&amp;#39;s web interface.  Just don&amp;#39;t lose the password once you set it.&lt;/p&gt;
+&lt;p&gt;
+Note also that at any time you may create a backup of your router&amp;#39;s
+setup by going to Utilities &amp;gt; Backup &amp;amp; Restore. You may wish to do
+this from time to time to avoid having to redo your work if anything
+goes wrong.&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-3&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-3&#34;&gt;
+Wi-Fi
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-3&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+Our Wi-Fi SSID (wifi network name) and WPA password were set during
+the installation. Keeping these the same as they were with your
+previous router avoids needing to change this information on all your
+Wi-Fi clients (e.g., your mobile phones, laptops, tablets, TV sticks,
+etc).  The SSID and WPA password can be changed under the web
+interface if desired by choosing Wi-Fi &amp;gt; Primary Network.&lt;/p&gt;
+&lt;p&gt;
+I also turned on 802.11ax under the Wi-Fi &amp;gt; Radio &amp;gt; 5GHz Radio.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-4&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-4&#34;&gt;
+Advanced &amp;gt; IP Address &amp;gt; DHCP Settings
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-4&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+I have a domain name registered with &lt;a href=&#34;https://porkbun.com/&#34;&gt;Porkbun&lt;/a&gt; for our home
+network. Let&amp;#39;s call it mydomain.net. I like to set our internal domain
+name to match this name, so I entered mydomain.net in the Domain Name
+box. I left the Host Name as router.&lt;/p&gt;
+&lt;p&gt;
+While you&amp;#39;re here, you may wish to note the beginning and ending IP
+addresses. These will describe the range of internal IP addresses that
+may be assigned to devices on your LAN (local area network).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-5&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-5&#34;&gt;
+DHCP Reservation and DNS Host Mapping
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-5&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+By selecting Status &amp;gt; Devices you can see the various devices
+connected to your network. If you are not sure what some of these
+devices are, you can past their MAC Address into this &lt;a href=&#34;https://dnschecker.org/mac-lookup.php&#34;&gt;MAC address
+lookup tool&lt;/a&gt; to find the manufacturer, which often helps to narrow
+down your search.&lt;/p&gt;
+&lt;p&gt;
+Note that by default local IP addresses are assigned more-or-less
+randomly to your devices within the allowed range and the local IP
+address may change when the device is disconnected from the
+network. This is generally not an issue, but for some devices I like
+to have a fixed IP and a hostname that I make up.&lt;/p&gt;
+&lt;p&gt;
+To assign a fixed IP address to a device or devices, use Advanced &amp;gt; IP
+Address &amp;gt; DHCP Reservation.&lt;/p&gt;
+&lt;p&gt;
+Having done this, you can assign hostnames to those devices with
+Advanced &amp;gt; IP Address &amp;gt; DNS Host Mapping. I would suggest assigning
+hostnames only to devices to which you have assigned a fixed IP
+address — otherwise your hostname may end up pointing to an
+unexpected device, or to nothing at all.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-6&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-6&#34;&gt;
+Dynamic DNS
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-6&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+Your home network&amp;#39;s IP address in the broader internet (WAN, or wide
+area network) is assigned by your internet provider and it can change
+at any time. This is not an issue unless you wish to access your
+network from outside. You could for example host a web server if your
+internet provider allows it, but I mainly use this for remote access
+to my desktop computer via the SSH protocol. You might also want to
+use it to manage your home network when you are not at home.&lt;/p&gt;
+&lt;p&gt;
+In any case, what is required to do this is a domain name (I purchased
+our through &lt;a href=&#34;https://porkbun.com/&#34;&gt;Porkbun&lt;/a&gt;) and a way of automatically updating the IP
+address to which this domain name points. This is done with DDNS
+(Dynamic Domain Name System). There are many ways to set up DDNS using
+an always-on local computer, but it is more convenient to take
+advantage of the router&amp;#39;s pre-defined functionality for interacting
+with a large numer of DDNS providers.&lt;/p&gt;
+&lt;p&gt;
+I decided to use &lt;a href=&#34;https://www.duckdns.org/&#34;&gt;Duck DNS&lt;/a&gt; for DDNS. It is free and seems to work well
+enough for my purposes. Here is how it&amp;#39;s done.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Login to &lt;a href=&#34;https://www.duckdns.org/&#34;&gt;Duck DNS&lt;/a&gt; using one of the available methods (I logged in
+with my google account). Once you are logged in, you will see a
+&amp;#34;domains&amp;#34; box. Enter some domain name, probably something that
+matches your actual domain name fairly closely, e.g.,
+mydomain.duckdns.org.&lt;/p&gt;
+&lt;p&gt;
+Note at the top of the webpage your account name (this will reflect
+whatever you used to login, e.g., your google account) and the
+long, random token. You will need these in the next step. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the browser interface to the router, choose Advanced &amp;gt; IP
+Address &amp;gt; Dynamic DNS. Under the IPv4 tab, enable DDns State. Then
+set:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#34;Service Provider&amp;#34; to duckdns.org&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#34;Username&amp;#34; to your duckdns account name&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#34;Password or Token&amp;#34; to the token from your duckdns account&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DDns Hostname to the hostname you setup in duckdns, e.g.,
+mydomain.duckdns.org&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and click on the Apply button.&lt;/p&gt;
+&lt;p&gt;
+This will make mydomain.duckdns.org point to your home network (you
+can check this by clicking on the external link icon next to the
+domain name; this should open the interface to your router). Now
+all we have to do is go to porkbun and make mydomain.net point to
+mydomain.duckdns.org.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Login to your porkbun account. In the ACCOUNT menu at the top
+right, choose DOMAIN MANAGEMENT (you may already be on the domain
+management page). By hovering over mydomain.net (or by first
+clicking on the Details box), you will see DNS in small print just
+below the domain name. Click on DNS fill in the fields as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Set Type to &amp;#34;ALIAS - CNAME flattening record&amp;#34;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Leave Host blank.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set Answer to the domain name from duckdns, e.g.,
+mydomain.duckdns.org.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Click the Add box.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This should finish the process. Opening mydomain.net in a web browser
+should now take you to your router&amp;#39;s interface.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-7&#34; class=&#34;outline-2&#34;&gt;
+&lt;h2 id=&#34;headline-7&#34;&gt;
+Port Forwarding for SSH
+&lt;/h2&gt;
+&lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
+&lt;p&gt;
+In a previous step, I set a fixed internal IP address (say,
+192.168.22.10) for my desktop computer and gave it the hostname, say,
+mydesktop.&lt;/p&gt;
+&lt;p&gt;
+I have an SSH (secure shell) server installed and running on my
+desktop computer (this is easily done). This allows me to securely
+login to my desktop from another computer using the ssh command and to
+transfer files to and from my desktop computer from another computer
+using the scp command, just name just two examples.&lt;/p&gt;
+&lt;p&gt;
+I do not need to use SSH to access any other device on my home network
+(if I did, I would just go first through my desktop computer), so I
+want to set things up so that an ssh request to mydomain.net is routed
+to my desktop.&lt;/p&gt;
+&lt;p&gt;
+By default an SSH server listens on &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers&#34;&gt;port 22&lt;/a&gt; on a computer&amp;#39;s network
+interface. Because this is the standard, hackers are likely to try to
+access SSH via port 22 on your router. To thwart this sort of attempt,
+we simply use a different port number on the routers WAN interface for
+SSH, one that hackers are unlikely to guess. Port numbers 49152 to
+65535 are private ports that will not generally be used by any
+services, so we are free to use them as we will. By choosing a port
+number at random from this range, say, 59517, and using it for ssh
+access to our network, we can prevent hackers from pestering our
+computer with attempted ssh logins.&lt;/p&gt;
+&lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-8&#34;&gt;
+Router Setup
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-8&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+To set this up on the router, select Advanced &amp;gt; Security &amp;gt; Port
+Forwarding in the router&amp;#39;s browser interface and click the New
+button. Complete the fields as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Under Local Port and IP&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Set Device to the desktop computer running the ssh server that you
+wish to be able to login to.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Leave Protocol as TCP.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set Port Start and Port End to 22 (this refers to the port
+reserved for the SSH service on the desktop computer).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Under Remote IP select All IP Addresses (this could be set up
+differently, but this is good enough for my purposes).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Under WAN Ports set Port Start and Port End to a randomly chosen
+port number from the range 49512 to 65535, e.g., 59517.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Click Apply.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outline-container-headline-9&#34; class=&#34;outline-3&#34;&gt;
+&lt;h3 id=&#34;headline-9&#34;&gt;
+Client Setup
+&lt;/h3&gt;
+&lt;div id=&#34;outline-text-headline-9&#34; class=&#34;outline-text-3&#34;&gt;
+&lt;p&gt;
+Now, as long as the ssh server is installed and running on our desktop
+computer and listening on the default port 22, we can login to it with
+a command like&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  ssh -p &lt;span style=&#34;color:#ae81ff&#34;&gt;59517&lt;/span&gt; mydomain.net&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;where we have specified the port number on the router with the &amp;#34;-p&amp;#34;
+option. Because of our port forwarding setup, this request is
+redirected from port 59517 on the router to port 22 on our desktop
+computer.&lt;/p&gt;
+&lt;p&gt;
+To avoid having to remember this portnumber everytime, we may want to
+save the relevant information in our SSH config file on our client
+computer, e.g., on a laptop or other remote computer. The file might
+look something like this:&lt;/p&gt;
+&lt;pre class=&#34;example&#34;&gt;
+Host myhomecomputer
+  Hostname      mydomain.net
+  User          myusername
+  Port          59517
+&lt;/pre&gt;
+&lt;p&gt;
+Now we can login remote by typing&lt;/p&gt;
+&lt;div class=&#34;src src-sh&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  ssh myhomecomputer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>The Lore of the Perfect Bracket</title>
