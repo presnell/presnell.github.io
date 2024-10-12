@@ -294,7 +294,7 @@ option. Because of our port forwarding setup, this request is
 redirected from port 59517 on the router to port 22 on our desktop
 computer.&lt;/p&gt;
 &lt;p&gt;
-To avoid having to remember this portnumber everytime, we may want to
+To avoid having to remember this port number everytime, we may want to
 save the relevant information in our SSH config file on our client
 computer, e.g., on a laptop or other remote computer. The file might
 look something like this:&lt;/p&gt;
