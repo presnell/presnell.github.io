@@ -294,21 +294,30 @@ option. Because of our port forwarding setup, this request is
 redirected from port 59517 on the router to port 22 on our desktop
 computer.&lt;/p&gt;
 &lt;p&gt;
-To avoid having to remember this port number everytime, we may want to
-save the relevant information in our SSH config file on our client
-computer, e.g., on a laptop or other remote computer. The file might
-look something like this:&lt;/p&gt;
+To eliminate the need to remember this port number, we may want to save
+the relevant information in an SSH config file on our client computer,
+e.g., on a laptop or other remote computer. On a linux machine, this
+will be the file &lt;code class=&#34;verbatim&#34;&gt;config&lt;/code&gt; in your &lt;code class=&#34;verbatim&#34;&gt;.ssh&lt;/code&gt; directory. You could edit the
+file to look something like this (the ForwardX11 line is pretty
+UNIX/linux specific, so you might want to leave that out if you&amp;#39;re a
+windows user):&lt;/p&gt;
 &lt;pre class=&#34;example&#34;&gt;
 Host myhomecomputer
   Hostname      mydomain.net
   User          myusername
   Port          59517
+  ForwardX11	yes
 &lt;/pre&gt;
 &lt;p&gt;
 Now we can login remote by typing&lt;/p&gt;
 &lt;div class=&#34;src src-sh&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;  ssh myhomecomputer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
+&lt;p&gt;
+Windows users might want to use similar ideas to set up port
+forwarding for Windows Remote Desktop (RDP), which can then be
+securely accessed through an SSH tunnel. See &lt;a href=&#34;https://www.anyviewer.com/how-to/remote-desktop-ssh-tunnel-2578.html&#34;&gt;this article&lt;/a&gt; for some
+background.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

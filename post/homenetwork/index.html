@@ -276,7 +276,7 @@
     
       <meta property="article:published_time" content="2024-10-12T05:55:36-04:00">
     
-    <meta property="article:modified_time" content="2024-10-12T06:09:00-04:00">
+    <meta property="article:modified_time" content="2024-10-12T06:23:51-04:00">
   
 
   
@@ -305,7 +305,7 @@
   "headline": "My Home Router Setup",
   
   "datePublished": "2024-10-12T05:55:36-04:00",
-  "dateModified": "2024-10-12T06:09:00-04:00",
+  "dateModified": "2024-10-12T06:23:51-04:00",
   
   "author": {
     "@type": "Person",
@@ -989,21 +989,30 @@ option. Because of our port forwarding setup, this request is
 redirected from port 59517 on the router to port 22 on our desktop
 computer.</p>
 <p>
-To avoid having to remember this port number everytime, we may want to
-save the relevant information in our SSH config file on our client
-computer, e.g., on a laptop or other remote computer. The file might
-look something like this:</p>
+To eliminate the need to remember this port number, we may want to save
+the relevant information in an SSH config file on our client computer,
+e.g., on a laptop or other remote computer. On a linux machine, this
+will be the file <code class="verbatim">config</code> in your <code class="verbatim">.ssh</code> directory. You could edit the
+file to look something like this (the ForwardX11 line is pretty
+UNIX/linux specific, so you might want to leave that out if you&#39;re a
+windows user):</p>
 <pre class="example">
 Host myhomecomputer
   Hostname      mydomain.net
   User          myusername
   Port          59517
+  ForwardX11	yes
 </pre>
 <p>
 Now we can login remote by typing</p>
 <div class="src src-sh">
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  ssh myhomecomputer</code></pre></div>
 </div>
+<p>
+Windows users might want to use similar ideas to set up port
+forwarding for Windows Remote Desktop (RDP), which can then be
+securely accessed through an SSH tunnel. See <a href="https://www.anyviewer.com/how-to/remote-desktop-ssh-tunnel-2578.html">this article</a> for some
+background.</p>
 </div>
 </div>
 </div>
