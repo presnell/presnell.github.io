@@ -276,7 +276,7 @@
     
       <meta property="article:published_time" content="2024-10-12T05:55:36-04:00">
     
-    <meta property="article:modified_time" content="2024-10-12T06:23:51-04:00">
+    <meta property="article:modified_time" content="2024-10-12T06:40:23-04:00">
   
 
   
@@ -305,7 +305,7 @@
   "headline": "My Home Router Setup",
   
   "datePublished": "2024-10-12T05:55:36-04:00",
-  "dateModified": "2024-10-12T06:23:51-04:00",
+  "dateModified": "2024-10-12T06:40:23-04:00",
   
   "author": {
     "@type": "Person",
@@ -676,7 +676,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    8 min read
+    9 min read
   </span>
   
 
@@ -745,7 +745,7 @@ on my phone and going to &#39;My Network &gt; Equipment &gt; Brett&#39;s Router 
 Additional Details&#39; and noting the LAN IP adress.</p>
 <p>
 By opening 192.168.22.1 in a web browser, one gains access to the
-interface of the router. Our internet provide gave me the initial
+interface of the router. Our internet provider gave me the initial
 password, but this should be changed when you first login to the
 router&#39;s web interface.  Just don&#39;t lose the password once you set it.</p>
 <p>
@@ -793,14 +793,15 @@ DHCP Reservation and DNS Host Mapping
 <p>
 By selecting Status &gt; Devices you can see the various devices
 connected to your network. If you are not sure what some of these
-devices are, you can past their MAC Address into this <a href="https://dnschecker.org/mac-lookup.php">MAC address
+devices are, you can paste their MAC Address into this <a href="https://dnschecker.org/mac-lookup.php">MAC address
 lookup tool</a> to find the manufacturer, which often helps to narrow
 down your search.</p>
 <p>
 Note that by default local IP addresses are assigned more-or-less
 randomly to your devices within the allowed range and the local IP
-address may change when the device is disconnected from the
-network. This is generally not an issue, but for some devices I like
+address may change anytime that the device is disconnected and
+reconnected to the network (including when the router is
+rebooted). This is generally not an issue, but for some devices I like
 to have a fixed IP and a hostname that I make up.</p>
 <p>
 To assign a fixed IP address to a device or devices, use Advanced &gt; IP
@@ -829,16 +830,25 @@ internet provider allows it, but I mainly use this for remote access
 to my desktop computer via the SSH protocol. You might also want to
 use it to manage your home network when you are not at home.</p>
 <p>
-In any case, what is required to do this is a domain name (I purchased
-our through <a href="https://porkbun.com/">Porkbun</a>) and a way of automatically updating the IP
-address to which this domain name points. This is done with DDNS
-(Dynamic Domain Name System). There are many ways to set up DDNS using
-an always-on local computer, but it is more convenient to take
-advantage of the router&#39;s pre-defined functionality for interacting
-with a large numer of DDNS providers.</p>
+In any case, what is required to do this is a domain name and a way of
+automatically updating the IP address to which this domain name
+points. This is done with DDNS (Dynamic Domain Name System). There are
+many ways to set up DDNS using an always-on local computer, but it is
+more convenient to take advantage of the router&#39;s pre-defined
+functionality for interacting with a large numer of DDNS providers.</p>
 <p>
-I decided to use <a href="https://www.duckdns.org/">Duck DNS</a> for DDNS. It is free and seems to work well
-enough for my purposes. Here is how it&#39;s done.</p>
+Our current domain name registrar is <a href="https://porkbun.com/">Porkbun</a>, so these note are
+specific in places to Porkbun. You can purchase a new domain name for
+Porkbun, or transfer an existing domain name from another registrar to
+porkbun if you wish, but I&#39;m sure you can do what is needed here with
+any domain name registrar, and some may also provide DDNS services for
+your domain.</p>
+<p>
+Porkbun has an API, but they do not provide their own DDNS service, so
+I decided to use <a href="https://www.duckdns.org/">Duck DNS</a> for that. It is free and seems to work well
+enough for my purposes.</p>
+<p>
+Here is how it&#39;s done:</p>
 <ol>
 <li>
 <p>Login to <a href="https://www.duckdns.org/">Duck DNS</a> using one of the available methods (I logged in

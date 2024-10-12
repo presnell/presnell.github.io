@@ -50,7 +50,7 @@ on my phone and going to &amp;#39;My Network &amp;gt; Equipment &amp;gt; Brett&a
 Additional Details&amp;#39; and noting the LAN IP adress.&lt;/p&gt;
 &lt;p&gt;
 By opening 192.168.22.1 in a web browser, one gains access to the
-interface of the router. Our internet provide gave me the initial
+interface of the router. Our internet provider gave me the initial
 password, but this should be changed when you first login to the
 router&amp;#39;s web interface.  Just don&amp;#39;t lose the password once you set it.&lt;/p&gt;
 &lt;p&gt;
@@ -98,14 +98,15 @@ DHCP Reservation and DNS Host Mapping
 &lt;p&gt;
 By selecting Status &amp;gt; Devices you can see the various devices
 connected to your network. If you are not sure what some of these
-devices are, you can past their MAC Address into this &lt;a href=&#34;https://dnschecker.org/mac-lookup.php&#34;&gt;MAC address
+devices are, you can paste their MAC Address into this &lt;a href=&#34;https://dnschecker.org/mac-lookup.php&#34;&gt;MAC address
 lookup tool&lt;/a&gt; to find the manufacturer, which often helps to narrow
 down your search.&lt;/p&gt;
 &lt;p&gt;
 Note that by default local IP addresses are assigned more-or-less
 randomly to your devices within the allowed range and the local IP
-address may change when the device is disconnected from the
-network. This is generally not an issue, but for some devices I like
+address may change anytime that the device is disconnected and
+reconnected to the network (including when the router is
+rebooted). This is generally not an issue, but for some devices I like
 to have a fixed IP and a hostname that I make up.&lt;/p&gt;
 &lt;p&gt;
 To assign a fixed IP address to a device or devices, use Advanced &amp;gt; IP
@@ -134,16 +135,25 @@ internet provider allows it, but I mainly use this for remote access
 to my desktop computer via the SSH protocol. You might also want to
 use it to manage your home network when you are not at home.&lt;/p&gt;
 &lt;p&gt;
-In any case, what is required to do this is a domain name (I purchased
-our through &lt;a href=&#34;https://porkbun.com/&#34;&gt;Porkbun&lt;/a&gt;) and a way of automatically updating the IP
-address to which this domain name points. This is done with DDNS
-(Dynamic Domain Name System). There are many ways to set up DDNS using
-an always-on local computer, but it is more convenient to take
-advantage of the router&amp;#39;s pre-defined functionality for interacting
-with a large numer of DDNS providers.&lt;/p&gt;
+In any case, what is required to do this is a domain name and a way of
+automatically updating the IP address to which this domain name
+points. This is done with DDNS (Dynamic Domain Name System). There are
+many ways to set up DDNS using an always-on local computer, but it is
+more convenient to take advantage of the router&amp;#39;s pre-defined
+functionality for interacting with a large numer of DDNS providers.&lt;/p&gt;
 &lt;p&gt;
-I decided to use &lt;a href=&#34;https://www.duckdns.org/&#34;&gt;Duck DNS&lt;/a&gt; for DDNS. It is free and seems to work well
-enough for my purposes. Here is how it&amp;#39;s done.&lt;/p&gt;
+Our current domain name registrar is &lt;a href=&#34;https://porkbun.com/&#34;&gt;Porkbun&lt;/a&gt;, so these note are
+specific in places to Porkbun. You can purchase a new domain name for
+Porkbun, or transfer an existing domain name from another registrar to
+porkbun if you wish, but I&amp;#39;m sure you can do what is needed here with
+any domain name registrar, and some may also provide DDNS services for
+your domain.&lt;/p&gt;
+&lt;p&gt;
+Porkbun has an API, but they do not provide their own DDNS service, so
+I decided to use &lt;a href=&#34;https://www.duckdns.org/&#34;&gt;Duck DNS&lt;/a&gt; for that. It is free and seems to work well
+enough for my purposes.&lt;/p&gt;
+&lt;p&gt;
+Here is how it&amp;#39;s done:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Login to &lt;a href=&#34;https://www.duckdns.org/&#34;&gt;Duck DNS&lt;/a&gt; using one of the available methods (I logged in
