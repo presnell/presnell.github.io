@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="Background   We recently switched to IQ Fiber as our internet provider. They provide a GigaSpire Blast u10xe router with the service for no additional charge, and, if needed, a GigaSpire Blast u6me mesh unit.">
+  <meta name="description" content="These are my notes on setting up Dynamic DNS and remote SSH access to my home computer using a GigaSpire Blast u10xe, with porkbun as my domain registrar and duckdns as my DDNS provider.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://presnell.github.io/post/homenetwork/">
@@ -270,13 +270,13 @@
   <meta property="og:site_name" content="Brett Presnell">
   <meta property="og:url" content="https://presnell.github.io/post/homenetwork/">
   <meta property="og:title" content="My Home Router Setup | Brett Presnell">
-  <meta property="og:description" content="Background   We recently switched to IQ Fiber as our internet provider. They provide a GigaSpire Blast u10xe router with the service for no additional charge, and, if needed, a GigaSpire Blast u6me mesh unit."><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="These are my notes on setting up Dynamic DNS and remote SSH access to my home computer using a GigaSpire Blast u10xe, with porkbun as my domain registrar and duckdns as my DDNS provider."><meta property="og:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2024-10-12T05:55:36-04:00">
     
-    <meta property="article:modified_time" content="2024-10-12T06:40:23-04:00">
+    <meta property="article:modified_time" content="2024-10-12T06:58:32-04:00">
   
 
   
@@ -305,7 +305,7 @@
   "headline": "My Home Router Setup",
   
   "datePublished": "2024-10-12T05:55:36-04:00",
-  "dateModified": "2024-10-12T06:40:23-04:00",
+  "dateModified": "2024-10-12T06:58:32-04:00",
   
   "author": {
     "@type": "Person",
@@ -320,7 +320,7 @@
       "url": "https://presnell.github.io/images/icon_hu80eeec5b7631200ca7b388ae8cc10e3e_17874_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "Background   We recently switched to IQ Fiber as our internet provider. They provide a GigaSpire Blast u10xe router with the service for no additional charge, and, if needed, a GigaSpire Blast u6me mesh unit."
+  "description": "These are my notes on setting up Dynamic DNS and remote SSH access to my home computer using a GigaSpire Blast u10xe, with porkbun as my domain registrar and duckdns as my DDNS provider."
 }
 </script>
 
@@ -713,23 +713,25 @@
 
     <div class="article-style">
       
+<p>
+These are my notes on setting up Dynamic DNS and remote SSH access to
+my home computer using a <a href="https://www.calix.com/products/platform/unlimited-subscriber/gigaspire/u10xe.html">GigaSpire Blast u10xe</a>, with porkbun as my
+domain registrar and duckdns as my DDNS provider.</p>
 <div id="outline-container-headline-1" class="outline-2">
 <h2 id="headline-1">
 Background
 </h2>
 <div id="outline-text-headline-1" class="outline-text-2">
 <p>
-We recently switched to <a href="https://www.iqfiber.com/">IQ Fiber</a> as our internet provider. They
+We recently switched to <a href="https://www.iqfiber.com/">IQ Fiber</a> for our home internet service. They
 provide a <a href="https://www.calix.com/products/platform/unlimited-subscriber/gigaspire/u10xe.html">GigaSpire Blast u10xe</a> router with the service for no
 additional charge, and, if needed, a <a href="https://www.blastwifi.com/blast-u6me/">GigaSpire Blast u6me</a> mesh
-unit. These are much newer than the old Asus RT-AC68 routers that I
-was using, and they provide Wi-Fi 6E (802.11ax) versus Wi-Fi 5
-(802.11ac) on the old ones, so I am happy to use them, in spite of the
-need to reconfigure my home network.</p>
-<p>
-These are my notes on setting up Dynamic DNS and remote SSH access to
-my home computer using this router, with porkbun as my domain
-registrar and duckdns as my DDNS provider.</p>
+unit. These are much than the Asus RT-AC68 routers that I have been
+using for the past 10 years, so naturally they have more advanced
+Wi-Fi (802.11ax/Wi-Fi 6E vs 802.11ac/Wi-Fi 5) and I am happy to use
+them. However, this did require me to reconfigure my home network
+setup, especially since I was using Asus&#39;s free, built-in DDNS
+service.</p>
 </div>
 </div>
 <div id="outline-container-headline-2" class="outline-2">
@@ -818,7 +820,7 @@ unexpected device, or to nothing at all.</p>
 </div>
 <div id="outline-container-headline-6" class="outline-2">
 <h2 id="headline-6">
-Dynamic DNS
+Setting Up Dynamic DNS
 </h2>
 <div id="outline-text-headline-6" class="outline-text-2">
 <p>
