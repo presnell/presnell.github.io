@@ -32,9 +32,9 @@ We recently switched to &lt;a href=&#34;https://www.iqfiber.com/&#34;&gt;IQ Fibe
 provide a &lt;a href=&#34;https://www.calix.com/products/platform/unlimited-subscriber/gigaspire/u10xe.html&#34;&gt;GigaSpire Blast u10xe&lt;/a&gt; router with the service for no
 additional charge, and, if needed, a &lt;a href=&#34;https://www.blastwifi.com/blast-u6me/&#34;&gt;GigaSpire Blast u6me&lt;/a&gt; mesh
 unit. These are much newer than the two Asus RT-AC68 routers that I
-have been using for the past 10 years in a mesh setup, so naturally
-they have more advanced Wi-Fi (802.11ax/Wi-Fi 6E vs 802.11ac/Wi-Fi 5)
-and I am happy to use them. However, this did require me to
+have been using for the past 10 years in a mesh setup, so they have
+more advanced Wi-Fi (802.11ax/Wi-Fi 6E vs 802.11ac/Wi-Fi 5) and
+naturally I am happy to use them. However, this did require me to
 reconfigure our home network setup, especially since I had been using
 Asus&amp;#39;s free, built-in DDNS service.&lt;/p&gt;
 &lt;/div&gt;
@@ -236,17 +236,17 @@ Port Forwarding for SSH
 &lt;div id=&#34;outline-text-headline-7&#34; class=&#34;outline-text-2&#34;&gt;
 &lt;p&gt;
 In a previous step, I set a fixed internal IP address (say,
-192.168.22.10) for my desktop computer and gave it the hostname, say,
+192.168.22.10) for my desktop computer and gave it a hostname, say,
 mydesktop.&lt;/p&gt;
 &lt;p&gt;
 I have an SSH (secure shell) server installed and running on my
-desktop computer (this is easily done). This allows me to securely
-login to my desktop from another computer using the ssh command and to
-transfer files to and from my desktop computer from another computer
-using the scp command, just name just two examples.&lt;/p&gt;
+desktop computer (this is easily done). Among other things, this
+allows me to securely login to my desktop from another computer using
+the ssh command and to transfer files to and from my desktop computer
+from another computer using the scp command.&lt;/p&gt;
 &lt;p&gt;
 I do not need to use SSH to access any other device on my home network
-(if I did, I would just go first through my desktop computer), so I
+(if I did, I would just access them through my desktop computer), so I
 want to set things up so that an ssh request to mydomain.net is routed
 to my desktop.&lt;/p&gt;
 &lt;p&gt;
@@ -256,10 +256,10 @@ access SSH via port 22 on your router. To thwart this sort of attempt,
 we simply use a different port number on the routers WAN interface for
 SSH, one that hackers are unlikely to guess. Port numbers 49152 to
 65535 are private ports that will not generally be used by any
-services, so we are free to use them as we will. By choosing a port
+services, so we are free to use them as we wish. By choosing a port
 number at random from this range, say, 59517, and using it for ssh
 access to our network, we can prevent hackers from pestering our
-computer with attempted ssh logins.&lt;/p&gt;
+computer with attempted ssh logins on port 22.&lt;/p&gt;
 &lt;div id=&#34;outline-container-headline-8&#34; class=&#34;outline-3&#34;&gt;
 &lt;h3 id=&#34;headline-8&#34;&gt;
 Router Setup

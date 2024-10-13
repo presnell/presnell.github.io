@@ -276,7 +276,7 @@
     
       <meta property="article:published_time" content="2024-10-12T05:55:36-04:00">
     
-    <meta property="article:modified_time" content="2024-10-13T11:12:05-04:00">
+    <meta property="article:modified_time" content="2024-10-13T11:25:19-04:00">
   
 
   
@@ -305,7 +305,7 @@
   "headline": "My Home Router Setup",
   
   "datePublished": "2024-10-12T05:55:36-04:00",
-  "dateModified": "2024-10-13T11:12:05-04:00",
+  "dateModified": "2024-10-13T11:25:19-04:00",
   
   "author": {
     "@type": "Person",
@@ -727,9 +727,9 @@ We recently switched to <a href="https://www.iqfiber.com/">IQ Fiber</a> for our 
 provide a <a href="https://www.calix.com/products/platform/unlimited-subscriber/gigaspire/u10xe.html">GigaSpire Blast u10xe</a> router with the service for no
 additional charge, and, if needed, a <a href="https://www.blastwifi.com/blast-u6me/">GigaSpire Blast u6me</a> mesh
 unit. These are much newer than the two Asus RT-AC68 routers that I
-have been using for the past 10 years in a mesh setup, so naturally
-they have more advanced Wi-Fi (802.11ax/Wi-Fi 6E vs 802.11ac/Wi-Fi 5)
-and I am happy to use them. However, this did require me to
+have been using for the past 10 years in a mesh setup, so they have
+more advanced Wi-Fi (802.11ax/Wi-Fi 6E vs 802.11ac/Wi-Fi 5) and
+naturally I am happy to use them. However, this did require me to
 reconfigure our home network setup, especially since I had been using
 Asus&#39;s free, built-in DDNS service.</p>
 </div>
@@ -931,17 +931,17 @@ Port Forwarding for SSH
 <div id="outline-text-headline-7" class="outline-text-2">
 <p>
 In a previous step, I set a fixed internal IP address (say,
-192.168.22.10) for my desktop computer and gave it the hostname, say,
+192.168.22.10) for my desktop computer and gave it a hostname, say,
 mydesktop.</p>
 <p>
 I have an SSH (secure shell) server installed and running on my
-desktop computer (this is easily done). This allows me to securely
-login to my desktop from another computer using the ssh command and to
-transfer files to and from my desktop computer from another computer
-using the scp command, just name just two examples.</p>
+desktop computer (this is easily done). Among other things, this
+allows me to securely login to my desktop from another computer using
+the ssh command and to transfer files to and from my desktop computer
+from another computer using the scp command.</p>
 <p>
 I do not need to use SSH to access any other device on my home network
-(if I did, I would just go first through my desktop computer), so I
+(if I did, I would just access them through my desktop computer), so I
 want to set things up so that an ssh request to mydomain.net is routed
 to my desktop.</p>
 <p>
@@ -951,10 +951,10 @@ access SSH via port 22 on your router. To thwart this sort of attempt,
 we simply use a different port number on the routers WAN interface for
 SSH, one that hackers are unlikely to guess. Port numbers 49152 to
 65535 are private ports that will not generally be used by any
-services, so we are free to use them as we will. By choosing a port
+services, so we are free to use them as we wish. By choosing a port
 number at random from this range, say, 59517, and using it for ssh
 access to our network, we can prevent hackers from pestering our
-computer with attempted ssh logins.</p>
+computer with attempted ssh logins on port 22.</p>
 <div id="outline-container-headline-8" class="outline-3">
 <h3 id="headline-8">
 Router Setup
